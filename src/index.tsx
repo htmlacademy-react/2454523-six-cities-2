@@ -9,6 +9,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App rentalOffersCount = {Setting.rentalOffersCount} />
+    <App rentalOffersCount = {Setting.RentalOffersCount} />
   </React.StrictMode>
 );
