@@ -160,7 +160,7 @@ function OfferScreen () : JSX.Element {
                   <li className="reviews__item">
                     <div className="reviews__user user">
                       <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                        <img className="reviews__avatar user__avatar" src="img/avatar-max.jpg" width="54" height="54" alt="Reviews avatar" />
+                        <img className="reviews__avatar user__avatar" src="img/avatar-max.jpg" width={54} height={54} alt="Reviews avatar" />
                       </div>
                       <span className="reviews__user-name">
                         Max
@@ -243,7 +243,7 @@ function OfferScreen () : JSX.Element {
               <article className="near-places__card place-card">
                 <div className="near-places__image-wrapper place-card__image-wrapper">
                   <a href="#">
-                    <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place image" />
+                    <img className="place-card__image" src="img/room.jpg" width={260} height={200} alt="Place image" />
                   </a>
                 </div>
                 <div className="place-card__info">
@@ -253,7 +253,7 @@ function OfferScreen () : JSX.Element {
                       <span className="place-card__price-text">&#47;&nbsp;night</span>
                     </div>
                     <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
-                      <svg className="place-card__bookmark-icon" width="18" height="19">
+                      <svg className="place-card__bookmark-icon" width={18} height={19}>
                         <use xlinkHref="#icon-bookmark"></use>
                       </svg>
                       <span className="visually-hidden">In bookmarks</span>
@@ -280,7 +280,7 @@ function OfferScreen () : JSX.Element {
               <article className="near-places__card place-card">
                 <div className="near-places__image-wrapper place-card__image-wrapper">
                   <a href="#">
-                    <img className="place-card__image" src="img/apartment-02.jpg" width="260" height="200" alt="Place image" />
+                    <img className="place-card__image" src="img/apartment-02.jpg" width={260} height={200} alt="Place image" />
                   </a>
                 </div>
                 <div className="place-card__info">
@@ -290,7 +290,7 @@ function OfferScreen () : JSX.Element {
                       <span className="place-card__price-text">&#47;&nbsp;night</span>
                     </div>
                     <button className="place-card__bookmark-button button" type="button">
-                      <svg className="place-card__bookmark-icon" width="18" height="19">
+                      <svg className="place-card__bookmark-icon" width={18} height={19}>
                         <use xlinkHref="#icon-bookmark"></use>
                       </svg>
                       <span className="visually-hidden">To bookmarks</span>
@@ -320,7 +320,7 @@ function OfferScreen () : JSX.Element {
                 </div>
                 <div className="near-places__image-wrapper place-card__image-wrapper">
                   <a href="#">
-                    <img className="place-card__image" src="img/apartment-03.jpg" width="260" height="200" alt="Place image" />
+                    <img className="place-card__image" src="img/apartment-03.jpg" width={260} height={200} alt="Place image" />
                   </a>
                 </div>
                 <div className="place-card__info">
@@ -330,7 +330,7 @@ function OfferScreen () : JSX.Element {
                       <span className="place-card__price-text">&#47;&nbsp;night</span>
                     </div>
                     <button className="place-card__bookmark-button button" type="button">
-                      <svg className="place-card__bookmark-icon" width="18" height="19">
+                      <svg className="place-card__bookmark-icon" width={18} height={19}>
                         <use xlinkHref="#icon-bookmark"></use>
                       </svg>
                       <span className="visually-hidden">To bookmarks</span>

@@ -5,7 +5,7 @@ type MainScreenProps = {
 }
 
 function MainScreen ({rentalOffersCount}: MainScreenProps): JSX.Element {
-  const rentalCards = Array.from({ length: rentalOffersCount }, (_, index) => index + 1);
+
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -13,7 +13,7 @@ function MainScreen ({rentalOffersCount}: MainScreenProps): JSX.Element {
           <div className="header__wrapper">
             <div className="header__left">
               <a className="header__logo-link header__logo-link--active">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
+                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width={81} height={41} />
               </a>
             </div>
             <nav className="header__nav">
@@ -84,7 +84,7 @@ function MainScreen ({rentalOffersCount}: MainScreenProps): JSX.Element {
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
                   Popular
-                  <svg className="places__sorting-arrow" width="7" height="4">
+                  <svg className="places__sorting-arrow" width={7} height={4}>
                     <use xlinkHref="#icon-arrow-select"></use>
                   </svg>
                 </span>
@@ -96,7 +96,8 @@ function MainScreen ({rentalOffersCount}: MainScreenProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {rentalCards.map((card)=> (<RentalOfferCard key={card}/>))}
+                {Array.from({ length: rentalOffersCount }, (_, index) => (<RentalOfferCard key={index}/>
+                ))}
               </div>
             </section>
             <div className="cities__right-section">
