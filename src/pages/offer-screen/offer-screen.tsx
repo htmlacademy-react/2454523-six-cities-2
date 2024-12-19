@@ -1,4 +1,12 @@
+import { useParams } from 'react-router-dom';
+
 function OfferScreen () : JSX.Element {
+  const paramsOfOffer = useParams();
+  if (paramsOfOffer.id) {
+    // eslint-disable-next-line no-console
+    console.log(paramsOfOffer);
+  }
+
   return (
     <div className="page">
       <header className="header">
