@@ -18,15 +18,14 @@ function App ({rentalOffersCount}: AppProps): JSX.Element {
         <Route path={AppRoute.Main}>
           <Route index element = {<MainScreen rentalOffersCount = {rentalOffersCount} />}/>
           <Route path = {AppRoute.Favorites} element = {
-            <PrivateRoute autorizationStatus={AuthorizationStatus.NoAuth}>
+            <PrivateRoute autorizationStatus={AuthorizationStatus.Auth}>
               <FavoriteScreen/>
             </PrivateRoute>
           }
           />
           <Route path = {AppRoute.Login} element = {<LoginScreen/>}/>
-          <Route path = {AppRoute.Offer} element = {<OfferScreen/>}>
-            <Route path=':id' element = {<OfferScreen/>}/>
-          </Route>
+          <Route path={`${AppRoute.Offer}/:id`} element={<OfferScreen />} />
+
         </Route>
         <Route path='*' element ={<NotFoundScreen/>}/>
       </Routes>
