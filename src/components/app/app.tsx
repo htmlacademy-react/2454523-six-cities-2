@@ -1,5 +1,6 @@
 import MainScreen from '../../pages/main-screen/main-screen';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import {HelmetProvider} from 'react-helmet-async';
 import FavoriteScreen from '../../pages/favorite-screen/favorite-screen';
 import LoginScreen from '../../pages/login-screen/login-screen';
 import OfferScreen from '../../pages/offer-screen/offer-screen';
@@ -13,24 +14,27 @@ type AppProps = {
 
 function App ({rentalOffersCount}: AppProps): JSX.Element {
   return(
-    <BrowserRouter>
-      <Routes>
-        <Route path={AppRoute.Main}>
-          <Route index element = {<MainScreen rentalOffersCount = {rentalOffersCount} />}/>
-          <Route path = {AppRoute.Favorites} element = {
-            <PrivateRoute autorizationStatus={AuthorizationStatus.Auth}>
-              <FavoriteScreen/>
-            </PrivateRoute>
-          }
-          />
-          <Route path = {AppRoute.Login} element = {<LoginScreen/>}/>
-          <Route path={`${AppRoute.Offer}/:id`} element={<OfferScreen />} />
+    <HelmetProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path={AppRoute.Main}>
+            <Route index element = {<MainScreen rentalOffersCount = {rentalOffersCount} />}/>
+            <Route path = {AppRoute.Favorites} element = {
+              <PrivateRoute autorizationStatus={AuthorizationStatus.Auth}>
+                <FavoriteScreen/>
+              </PrivateRoute>
+            }
+            />
+            <Route path = {AppRoute.Login} element = {<LoginScreen/>}/>
+            <Route path={`${AppRoute.Offer}/:id`} element={<OfferScreen />} />
 
-        </Route>
-        <Route path='*' element ={<NotFoundScreen/>}/>
-      </Routes>
-    </BrowserRouter>
+          </Route>
+          <Route path='*' element ={<NotFoundScreen/>}/>
+        </Routes>
+      </BrowserRouter>
+    </HelmetProvider>
   );
+
 }
 
 export default App;

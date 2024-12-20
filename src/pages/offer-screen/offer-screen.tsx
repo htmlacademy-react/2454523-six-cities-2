@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 
 function OfferScreen () : JSX.Element {
@@ -11,6 +12,9 @@ function OfferScreen () : JSX.Element {
 
   return (
     <div className="page">
+      <Helmet>
+        <title>Six cities. Offers.</title>
+      </Helmet>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">

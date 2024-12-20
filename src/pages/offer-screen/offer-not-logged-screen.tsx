@@ -1,9 +1,13 @@
 import { Link } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
+import { Helmet } from 'react-helmet-async';
 
 function OffrerNotLoggedScreen (): JSX.Element{
   return (
     <div className="page">
+      <Helmet>
+        <title>Six cities. Offers - not logged screen.</title>
+      </Helmet>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">

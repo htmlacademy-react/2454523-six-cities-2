@@ -1,9 +1,13 @@
 import { Link } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
+import { Helmet } from 'react-helmet-async';
 
 function FavoriteEmptyScreen () : JSX.Element {
   return (
     <div className="page page--favorites-empty">
+      <Helmet>
+        <title>Six cities. Add your favorite places.</title>
+      </Helmet>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">

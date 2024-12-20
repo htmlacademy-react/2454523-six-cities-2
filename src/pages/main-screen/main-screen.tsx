@@ -1,5 +1,7 @@
 import RentalOfferCard from './rental-offer-card';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+
 
 type MainScreenProps = {
   rentalOffersCount: number;
@@ -9,6 +11,9 @@ function MainScreen ({rentalOffersCount}: MainScreenProps): JSX.Element {
 
   return (
     <div className="page page--gray page--main">
+      <Helmet>
+        <title>Six cities. Main.</title>
+      </Helmet>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
