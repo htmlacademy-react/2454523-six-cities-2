@@ -1,6 +1,6 @@
-import Logo from '../../components/logo/logo';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import Header from '../../components/header/header';
 
 
 function LoginScreen () :JSX.Element {
@@ -9,13 +9,7 @@ function LoginScreen () :JSX.Element {
       <Helmet>
         <title>Six cities. Authentication.</title>
       </Helmet>
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <Logo/>
-          </div>
-        </div>
-      </header>
+      <Header withNavigation = {false}/>
 
       <main className="page__main page__main--login">
         <div className="page__login-container container">

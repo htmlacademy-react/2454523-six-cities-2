@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import Logo from '../../components/logo/logo';
 import styles from '../not-found-screen/not-found-screen.module.css';
 import { Helmet } from 'react-helmet-async';
+import Header from '../../components/header/header';
 
 function NotFoundScreen (): JSX.Element {
   return (
@@ -9,13 +9,7 @@ function NotFoundScreen (): JSX.Element {
       <Helmet>
         <title>Six cities. Not found.</title>
       </Helmet>
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <Logo/>
-          </div>
-        </div>
-      </header>
+      <Header withNavigation = {false}/>
 
       <main className="page__main page__main--not-found">
         <div className="page__not-found-container container">
