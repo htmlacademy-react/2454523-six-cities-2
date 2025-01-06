@@ -25,7 +25,7 @@ export type Offer = BaseOffer & {
   previewImage: string;
   };
 
-export type OfferDetail = BaseOffer & {
+export type DetailedOffer = BaseOffer & {
   description: string;
   bedrooms: number;
   goods: [string];
@@ -34,13 +34,11 @@ export type OfferDetail = BaseOffer & {
   avatarUrl: string;
   isPro: boolean;
   };
-  images: [string];
+  images: string[];
   maxAdults: number;
   }
 
 
 export type Offers = Offer[];
 
-export type OfferDetails = {
-  [key: string]: OfferDetail;
-};
+export type DetailedOffers = DetailedOffer [];

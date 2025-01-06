@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import { Setting } from './const';
-import { offers, offerDetails } from './mocks/offers';
+import { offers, detailedOffers } from './mocks/offers';
 import { reviews } from './mocks/reviews';
 
 const root = ReactDOM.createRoot(
@@ -14,7 +14,7 @@ root.render(
     <App
       rentalOffersCount = {Setting.RentalOffersCount}
       offers = {offers}
-      offerDetails = {offerDetails}
+      detailedOffers = {detailedOffers}
       reviews = {reviews}
     />
   </React.StrictMode>

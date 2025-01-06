@@ -2,9 +2,18 @@ import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
+import { DetailedOffer } from '../../types/offer';
+
+type OfferScreenProps = {
+  detailedOffer: DetailedOffer;
+}
 
 
-function OfferScreen () : JSX.Element {
+function OfferScreen (props: OfferScreenProps) : JSX.Element {
+  const {detailedOffer} = props;
+  const {id, title, type, price, city, location, isFavorite, isPremium, rating, description, bedrooms, goods, host, images, maxAdults} = detailedOffer;
+
+
   const paramsOfOffer = useParams();
   if (paramsOfOffer.id) {
     // eslint-disable-next-line no-console
@@ -22,24 +31,15 @@ function OfferScreen () : JSX.Element {
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              <div className="offer__image-wrapper">
-                <img className="offer__image" src="img/room.jpg" alt="Photo studio" />
-              </div>
-              <div className="offer__image-wrapper">
-                <img className="offer__image" src="img/apartment-01.jpg" alt="Photo studio" />
-              </div>
-              <div className="offer__image-wrapper">
-                <img className="offer__image" src="img/apartment-02.jpg" alt="Photo studio" />
-              </div>
-              <div className="offer__image-wrapper">
-                <img className="offer__image" src="img/apartment-03.jpg" alt="Photo studio" />
-              </div>
-              <div className="offer__image-wrapper">
-                <img className="offer__image" src="img/studio-01.jpg" alt="Photo studio" />
-              </div>
-              <div className="offer__image-wrapper">
-                <img className="offer__image" src="img/apartment-01.jpg" alt="Photo studio" />
-              </div>
+              {images.map((image, index) => {
+                const keyValue = `${index}-${'image'}`;
+                return (
+                  <div key = {keyValue} className="offer__image-wrapper">
+                    <img className="offer__image" src={image} alt="Photo studio" />
+                  </div>
+                );
+              })}
+
             </div>
           </div>
           <div className="offer__container container">

@@ -1,4 +1,6 @@
-import { Offers, OfferDetails } from '../types/offer';
+import { Offers, DetailedOffers } from '../types/offer';
+
+const AVATAR_URL = 'https://i.pravatar.cc/128';
 
 export const offers: Offers =
   [
@@ -23,7 +25,7 @@ export const offers: Offers =
       isFavorite: false,
       isPremium: false,
       rating: 4,
-      previewImage: 'https://url-to-image/image.png'
+      previewImage: `${AVATAR_URL}?rnd=${Math.random()}`
     },
     {
       id: '2',
@@ -46,7 +48,7 @@ export const offers: Offers =
       isFavorite: true,
       isPremium: false,
       rating: 5,
-      previewImage: 'https://url-to-image/image.png'
+      previewImage: `${AVATAR_URL}?rnd=${Math.random()}`
     },
     {
       id: '3',
@@ -69,7 +71,7 @@ export const offers: Offers =
       isFavorite: true,
       isPremium: true,
       rating: 3,
-      previewImage: 'https://url-to-image/image.png'
+      previewImage: `${AVATAR_URL}?rnd=${Math.random()}`
     },
     {
       id: '4',
@@ -92,12 +94,12 @@ export const offers: Offers =
       isFavorite: false,
       isPremium: true,
       rating: 4,
-      previewImage: 'https://url-to-image/image.png'
+      previewImage: `${AVATAR_URL}?rnd=${Math.random()}`
     }
   ];
 
-export const offerDetails: OfferDetails = {
-  '1': {
+export const detailedOffers: DetailedOffers = [
+  {
     id: '1',
     title: 'Beautiful & luxurious studio at great location',
     type: 'apartment',
@@ -125,15 +127,20 @@ export const offerDetails: OfferDetails = {
     ],
     host: {
       name: 'Oliver Conner',
-      avatarUrl: 'https://url-to-image/image.png',
+      avatarUrl: `${AVATAR_URL}?rnd=${Math.random()}`,
       isPro: false
     },
     images: [
-      'https://url-to-image/image.png'
+      `${AVATAR_URL}?rnd=${Math.random()}`,
+      `${AVATAR_URL}?rnd=${Math.random()}`,
+      `${AVATAR_URL}?rnd=${Math.random()}`,
+      `${AVATAR_URL}?rnd=${Math.random()}`,
+      `${AVATAR_URL}?rnd=${Math.random()}`,
+      `${AVATAR_URL}?rnd=${Math.random()}`
     ],
     maxAdults: 4
   },
-  '2': {
+  {
     id: '2',
     title: 'Beautiful & luxurious studio at great location2',
     type: 'apartment',
@@ -161,15 +168,15 @@ export const offerDetails: OfferDetails = {
     ],
     host: {
       name: 'Jhone',
-      avatarUrl: 'https://url-to-image/image.png',
+      avatarUrl: `${AVATAR_URL}?rnd=${Math.random()}`,
       isPro: true
     },
     images: [
-      'https://url-to-image/image.png'
+      `${AVATAR_URL}?rnd=${Math.random()}`
     ],
     maxAdults: 3
   },
-  '3': {
+  {
     id: '3',
     title: 'Beautiful & luxurious studio at great location3',
     type: 'house',
@@ -197,15 +204,15 @@ export const offerDetails: OfferDetails = {
     ],
     host: {
       name: 'Sara Conner',
-      avatarUrl: 'https://url-to-image/image.png',
+      avatarUrl: `${AVATAR_URL}?rnd=${Math.random()}`,
       isPro: false
     },
     images: [
-      'https://url-to-image/image.png'
+      `${AVATAR_URL}?rnd=${Math.random()}`
     ],
     maxAdults: 2
   },
-  '4': {
+  {
     id: '4',
     title: 'Beautiful & luxurious studio at great location4',
     type: 'apartment',
@@ -233,13 +240,13 @@ export const offerDetails: OfferDetails = {
     ],
     host: {
       name: 'Maria Conner',
-      avatarUrl: 'https://url-to-image/image.png',
+      avatarUrl: `${AVATAR_URL}?rnd=${Math.random()}`,
       isPro: true
     },
     images: [
-      'https://url-to-image/image.png'
+      `${AVATAR_URL}?rnd=${Math.random()}`
     ],
     maxAdults: 1
   },
 
-};
+];
