@@ -37,6 +37,7 @@ function App ({rentalOffersCount, offers, detailedOffers, reviews}: AppProps): J
             <Route path={`${AppRoute.Offer}/:id`} element={
               <OfferScreen
                 detailedOffer = {firstDetailedOffer}
+                reviews={reviews}
               />
             }
             />

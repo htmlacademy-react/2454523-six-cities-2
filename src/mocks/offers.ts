@@ -1,6 +1,6 @@
 import { Offers, DetailedOffers } from '../types/offer';
+import { AVATAR_URL } from '../const';
 
-const AVATAR_URL = 'https://i.pravatar.cc/128';
 
 export const offers: Offers =
   [
@@ -118,12 +118,13 @@ export const detailedOffers: DetailedOffers = [
       zoom: 8
     },
     isFavorite: false,
-    isPremium: false,
+    isPremium: true,
     rating: 4,
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
-    bedrooms: 3,
+    bedrooms: 2,
     goods: [
-      'Heating'
+      'Heating', 'Kitchen', 'Wi-Fi', 'Coffee machine',
+      'Towels', 'Baby seat', 'Cabel TV', 'Dishwasher'
     ],
     host: {
       name: 'Oliver Conner',
@@ -138,7 +139,7 @@ export const detailedOffers: DetailedOffers = [
       `${AVATAR_URL}?rnd=${Math.random()}`,
       `${AVATAR_URL}?rnd=${Math.random()}`
     ],
-    maxAdults: 4
+    maxAdults: 5
   },
   {
     id: '2',
@@ -164,7 +165,7 @@ export const detailedOffers: DetailedOffers = [
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     bedrooms: 4,
     goods: [
-      'Heating'
+      'Heating', 'Washing machine', 'Towels'
     ],
     host: {
       name: 'Jhone',

@@ -1,4 +1,5 @@
 import { Reviews } from '../types/review';
+import { AVATAR_URL } from '../const';
 
 export const reviews : Reviews = [
   {
@@ -6,18 +7,18 @@ export const reviews : Reviews = [
     date: '2019-05-08T14:13:56.569Z',
     user: {
       name: 'Oliver Conner',
-      avatarUrl: 'https://url-to-image/image.png',
+      avatarUrl: `${AVATAR_URL}?rnd=${Math.random()}`,
       isPro: false
     },
     comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
-    rating: 4
+    rating: 5
   },
   {
     id: '2',
     date: '2019-06-08T14:13:56.569Z',
     user: {
       name: 'Jhone Conner',
-      avatarUrl: 'https://url-to-image/image.png',
+      avatarUrl: `${AVATAR_URL}?rnd=${Math.random()}`,
       isPro: false
     },
     comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
@@ -28,7 +29,7 @@ export const reviews : Reviews = [
     date: '2019-07-08T14:13:56.569Z',
     user: {
       name: 'Sara Conner',
-      avatarUrl: 'https://url-to-image/image.png',
+      avatarUrl: `${AVATAR_URL}?rnd=${Math.random()}`,
       isPro: false
     },
     comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',

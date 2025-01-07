@@ -25,15 +25,17 @@ export type Offer = BaseOffer & {
   previewImage: string;
   };
 
+export type Host= {
+    name: string;
+    avatarUrl: string;
+    isPro: boolean;
+    };
+
 export type DetailedOffer = BaseOffer & {
   description: string;
   bedrooms: number;
-  goods: [string];
-  host: {
-  name: string;
-  avatarUrl: string;
-  isPro: boolean;
-  };
+  goods: string[];
+  host: Host;
   images: string[];
   maxAdults: number;
   }
