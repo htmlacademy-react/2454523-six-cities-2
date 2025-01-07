@@ -26,7 +26,7 @@ function App ({rentalOffersCount, offers, detailedOffers, reviews}: AppProps): J
       <BrowserRouter>
         <Routes>
           <Route path={AppRoute.Main}>
-            <Route index element = {<MainScreen rentalOffersCount = {rentalOffersCount} />}/>
+            <Route index element = {<MainScreen rentalOffersCount = {rentalOffersCount} offers = {offers} />}/>
             <Route path = {AppRoute.Favorites} element = {
               <PrivateRoute autorizationStatus={AuthorizationStatus.Auth}>
                 <FavoriteScreen/>

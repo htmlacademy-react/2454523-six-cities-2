@@ -1,6 +1,15 @@
 import { Link } from 'react-router-dom';
+import { Offer } from '../../types/offer';
 
-function RentalOfferCard () {
+type OfferCard ={
+  offer: Offer;
+}
+
+function RentalOfferCard (props: OfferCard) {
+  const {offer} = props;
+  const {id, title, type, price} = offer;
+
+
   return (
     <article className="cities__card place-card">
       <div className="place-card__mark">
