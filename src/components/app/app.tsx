@@ -11,13 +11,12 @@ import { DetailedOffers, Offers } from '../../types/offer';
 import { Reviews } from '../../types/review';
 
 type AppProps = {
-  rentalOffersCount: number;
   offers:Offers;
   detailedOffers: DetailedOffers;
   reviews: Reviews;
 }
 
-function App ({rentalOffersCount, offers, detailedOffers, reviews}: AppProps): JSX.Element {
+function App ({offers, detailedOffers, reviews}: AppProps): JSX.Element {
 
   const [firstDetailedOffer] = detailedOffers;
 
@@ -26,7 +25,7 @@ function App ({rentalOffersCount, offers, detailedOffers, reviews}: AppProps): J
       <BrowserRouter>
         <Routes>
           <Route path={AppRoute.Main}>
-            <Route index element = {<MainScreen rentalOffersCount = {rentalOffersCount} offers = {offers} />}/>
+            <Route index element = {<MainScreen offers = {offers} />}/>
             <Route path = {AppRoute.Favorites} element = {
               <PrivateRoute autorizationStatus={AuthorizationStatus.Auth}>
                 <FavoriteScreen/>

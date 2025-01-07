@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom';
 import { Offer } from '../../types/offer';
 
-type OfferCard ={
+type OfferCardProps ={
   offer: Offer;
+  onMouseEnter: () => void;
 }
 
-function RentalOfferCard (props: OfferCard) {
-  const {offer} = props;
+function RentalOfferCard (props: OfferCardProps) {
+  const {offer, onMouseEnter} = props;
   const {title, type, price, isPremium, previewImage, rating} = offer;
 
 

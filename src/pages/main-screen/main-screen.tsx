@@ -1,18 +1,15 @@
-import RentalOfferCard from './rental-offer-card';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
 import { Offers } from '../../types/offer';
+import OffersList from './offers-list';
 
 
 type MainScreenProps = {
-  rentalOffersCount: number;
   offers: Offers;
 }
 
-function MainScreen ({rentalOffersCount, offers}: MainScreenProps): JSX.Element {
-
-  const [firstOffer] = offers;
+function MainScreen ({offers}: MainScreenProps): JSX.Element {
 
   return (
     <div className="page page--gray page--main">
@@ -79,10 +76,10 @@ function MainScreen ({rentalOffersCount, offers}: MainScreenProps): JSX.Element 
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                {Array.from({ length: rentalOffersCount }, (_, index) => (<RentalOfferCard key={index} offer = {firstOffer}/>
-                ))}
-              </div>
+
+
+              <OffersList offers = {offers}/>
+
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
