@@ -64,7 +64,7 @@ function OfferScreen (props: OfferScreenProps) : JSX.Element {
                 <div className="offer__stars rating__stars">
                   <span
                     style= {{
-                      width: '80%'
+                      width: `${rating * 20}%`
                     }}
                   >
                   </span>
@@ -147,11 +147,11 @@ function OfferScreen (props: OfferScreenProps) : JSX.Element {
                             <div className="reviews__stars rating__stars">
                               <span
                                 style= {{
-                                  width: '80%'
+                                  width: `${review.rating * 20}%`
                                 }}
                               >
                               </span>
-                              <span className="visually-hidden">{review.rating}</span>
+                              <span className="visually-hidden">Rating</span>
                             </div>
                           </div>
                           <p className="reviews__text">

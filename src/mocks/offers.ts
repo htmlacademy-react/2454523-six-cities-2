@@ -24,7 +24,7 @@ export const offers: Offers =
       },
       isFavorite: false,
       isPremium: false,
-      rating: 4,
+      rating: 2,
       previewImage: `${AVATAR_URL}?rnd=${Math.random()}`
     },
     {
