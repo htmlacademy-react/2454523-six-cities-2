@@ -28,7 +28,7 @@ function App ({offers, detailedOffers, reviews}: AppProps): JSX.Element {
             <Route index element = {<MainScreen offers = {offers} />}/>
             <Route path = {AppRoute.Favorites} element = {
               <PrivateRoute autorizationStatus={AuthorizationStatus.Auth}>
-                <FavoriteScreen/>
+                <FavoriteScreen offers = {offers}/>
               </PrivateRoute>
             }
             />

@@ -17,3 +17,5 @@ export enum AuthorizationStatus {
 }
 
 export const AVATAR_URL = 'https://i.pravatar.cc/128';
+
+export const STARS_RAITING = ['perfect', 'good', 'not bad', 'badly', 'terribly'];
