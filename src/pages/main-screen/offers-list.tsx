@@ -11,6 +11,8 @@ function OffersList (props : OffersListProps) : JSX.Element{
 
   const [activeOfferId, setActiveOfferId] = useState('');
   const handleMouseEnter = (id: string) => {
+    // eslint-disable-next-line no-console
+    console.log(activeOfferId);
     setActiveOfferId(id);
   };
 

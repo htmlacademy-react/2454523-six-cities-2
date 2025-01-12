@@ -7,9 +7,11 @@ type OfferCardProps ={
 }
 
 function RentalOfferCard (props: OfferCardProps) {
+
   const {offer, onMouseEnter} = props;
   const {title, type, price, isPremium, previewImage, rating} = offer;
-
+  // eslint-disable-next-line no-console
+  console.log(onMouseEnter);
 
   return (
     <article className="cities__card place-card">
