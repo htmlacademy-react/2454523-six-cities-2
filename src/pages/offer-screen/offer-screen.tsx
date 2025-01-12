@@ -1,26 +1,30 @@
+import { Navigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
-import { DetailedOffer } from '../../types/offer';
+import { DetailedOffers } from '../../types/offer';
 import { Reviews } from '../../types/review';
 import ReviewsList from './reviews-list';
 
 type OfferScreenProps = {
-  detailedOffer: DetailedOffer;
+  detailedOffers: DetailedOffers;
   reviews: Reviews;
 }
 
 
 function OfferScreen (props: OfferScreenProps) : JSX.Element {
-  const {detailedOffer, reviews} = props;
-  const {id, title, type, price, isPremium, rating, description, bedrooms, goods, host, images, maxAdults} = detailedOffer;
+  const {detailedOffers, reviews} = props;
 
   const paramsOfOffer = useParams();
-  if (paramsOfOffer.id) {
-    // eslint-disable-next-line no-console
-    console.log(paramsOfOffer);
+  const {offerId} = paramsOfOffer;
+  const detailedOffer = detailedOffers.find((item) => item.id === offerId);
+
+  if(!detailedOffer) {
+    return <Navigate to = '*'/>;
   }
+
+  const {id, title, type, price, isPremium, rating, description, bedrooms, goods, host, images, maxAdults} = detailedOffer;
 
   return (
     <div className="page">

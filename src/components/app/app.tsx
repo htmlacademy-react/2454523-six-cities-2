@@ -18,8 +18,6 @@ type AppProps = {
 
 function App ({offers, detailedOffers, reviews}: AppProps): JSX.Element {
 
-  const [firstDetailedOffer] = detailedOffers;
-
   return(
     <HelmetProvider>
       <BrowserRouter>
@@ -33,9 +31,9 @@ function App ({offers, detailedOffers, reviews}: AppProps): JSX.Element {
             }
             />
             <Route path = {AppRoute.Login} element = {<LoginScreen/>}/>
-            <Route path={`${AppRoute.Offer}/:id`} element={
+            <Route path={`${AppRoute.Offer}/:offerId`} element={
               <OfferScreen
-                detailedOffer = {firstDetailedOffer}
+                detailedOffers = {detailedOffers}
                 reviews={reviews}
               />
             }
