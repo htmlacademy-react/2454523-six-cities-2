@@ -3,7 +3,8 @@ import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
 import { Offers } from '../../types/offer';
 import OffersList from './offers-list';
-
+import Map from '../../components/map/map';
+import { AMSTERDAM_CENTER_COORDS } from '../../mocks/offers';
 
 type MainScreenProps = {
   offers: Offers;
@@ -82,7 +83,7 @@ function MainScreen ({offers}: MainScreenProps): JSX.Element {
 
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <Map city = {AMSTERDAM_CENTER_COORDS} offers = {offers} />
             </div>
           </div>
         </div>
