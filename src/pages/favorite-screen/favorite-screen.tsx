@@ -41,7 +41,7 @@ function FavoriteScreen ({offers} : FavoriteScreenPropos) : JSX.Element {
                       )}
 
                       <div className="favorites__image-wrapper place-card__image-wrapper">
-                        <Link to="/offer/:id">
+                        <Link to={`/offer/${offer.id}`}>
                           <img className="place-card__image" src={offer.previewImage} width={150} height={110} alt={`${offer.city.name}-image`} />
                         </Link>
                       </div>

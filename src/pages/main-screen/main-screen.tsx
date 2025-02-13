@@ -1,16 +1,25 @@
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
-import { Offers } from '../../types/offer';
+import { Offers, Offer } from '../../types/offer';
 import OffersList from './offers-list';
 import Map from '../../components/map/map';
 import { AMSTERDAM_CENTER_COORDS } from '../../mocks/offers';
+import { useState } from 'react';
 
 type MainScreenProps = {
   offers: Offers;
 }
 
 function MainScreen ({offers}: MainScreenProps): JSX.Element {
+
+  const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(
+    undefined
+  );
+  const handleOffersListHover = (offerId: string) => {
+    const currentOffer = offers.find((offer) => offer.id === offerId);
+    setSelectedOffer(currentOffer);
+  };
 
   return (
     <div className="page page--gray page--main">
@@ -79,11 +88,16 @@ function MainScreen ({offers}: MainScreenProps): JSX.Element {
               </form>
 
 
-              <OffersList offers = {offers}/>
+              <OffersList offers = {offers}
+                onOffersListHover = {handleOffersListHover}
+              />
 
             </section>
             <div className="cities__right-section">
-              <Map city = {AMSTERDAM_CENTER_COORDS} offers = {offers} />
+              <Map city = {AMSTERDAM_CENTER_COORDS}
+                offers = {offers}
+                selectedOffer = {selectedOffer}
+              />
             </div>
           </div>
         </div>

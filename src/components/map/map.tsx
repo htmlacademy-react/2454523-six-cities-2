@@ -1,13 +1,14 @@
 import { useRef, useEffect } from 'react';
 import { Icon, Marker, layerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { Offers } from '../../types/offer';
+import { Offer, Offers } from '../../types/offer';
 import { AmsterdamCenterCoords } from '../../types/offer';
 import useMap from '../../hooks/use-map';
 
 type MapProps ={
   city: AmsterdamCenterCoords;
   offers: Offers;
+  selectedOffer: Offer | undefined;
 }
 
 const blueIcon = new Icon({
@@ -27,7 +28,7 @@ const orangeIcon = new Icon({
 
 function Map (props: MapProps): JSX.Element {
 
-  const {city, offers} = props;
+  const {city, offers, selectedOffer} = props;
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -42,7 +43,9 @@ function Map (props: MapProps): JSX.Element {
 
         marker
           .setIcon(
-            orangeIcon
+            selectedOffer !== undefined && offer.id === selectedOffer.id
+              ? orangeIcon
+              : blueIcon
           )
           .addTo(markerLayer);
       });
@@ -51,7 +54,7 @@ function Map (props: MapProps): JSX.Element {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offers]);
+  }, [map, offers, selectedOffer]);
 
   return (
     <section className="cities__map map"

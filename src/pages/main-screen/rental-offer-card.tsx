@@ -10,11 +10,11 @@ function RentalOfferCard (props: OfferCardProps) {
 
   const {offer, onMouseEnter} = props;
   const {title, type, price, isPremium, previewImage, rating} = offer;
-  // eslint-disable-next-line no-console
-  console.log(onMouseEnter);
 
   return (
-    <article className="cities__card place-card">
+    <article className="cities__card place-card"
+      onMouseEnter = {onMouseEnter}
+    >
 
       {isPremium && (
         <div className="place-card__mark">
@@ -23,7 +23,7 @@ function RentalOfferCard (props: OfferCardProps) {
       )}
 
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to="/offer/:id">
+        <Link to={`/offer/${offer.id}`}>
           <img className="place-card__image" src={previewImage} width={260} height={200} alt="Place image" />
         </Link>
       </div>
@@ -52,7 +52,7 @@ function RentalOfferCard (props: OfferCardProps) {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to="/offer/:id">{title}</Link>
+          <Link to={`/offer/${offer.id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

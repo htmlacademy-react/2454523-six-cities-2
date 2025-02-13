@@ -4,16 +4,16 @@ import RentalOfferCard from './rental-offer-card';
 
 type OffersListProps = {
   offers: Offers;
+  onOffersListHover: (offerId:string) => void;
 }
 
 function OffersList (props : OffersListProps) : JSX.Element{
-  const {offers} = props;
+  const {offers, onOffersListHover } = props;
 
   const [activeOfferId, setActiveOfferId] = useState('');
-  const handleMouseEnter = (id: string) => {
-    // eslint-disable-next-line no-console
-    console.log(activeOfferId);
-    setActiveOfferId(id);
+  const handleMouseEnter = (offerId: string) => {
+    setActiveOfferId(offerId);
+    onOffersListHover(offerId);
   };
 
   return (
