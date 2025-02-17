@@ -1,10 +1,11 @@
 import {useEffect, useState, MutableRefObject, useRef} from 'react';
 import {Map, TileLayer} from 'leaflet';
 import { AmsterdamCenterCoords } from '../types/offer';
+import { TILE_LAYER, COPYRIGHT } from '../const';
 
-function useMap (
+export default function useMap (
   mapRef: MutableRefObject<HTMLElement | null>,
-  city: AmsterdamCenterCoords
+  location: AmsterdamCenterCoords
 ): Map | null {
   const [map, setMap] = useState<Map | null>(null);
   const isRenderedRef = useRef<boolean>(false);
@@ -13,16 +14,16 @@ function useMap (
     if(mapRef.current !== null && !isRenderedRef.current){
       const instance = new Map(mapRef.current, {
         center: {
-          lat: city.lat,
-          lng: city.lng
+          lat: location.lat,
+          lng: location.lng
         },
-        zoom: 8
+        zoom: location.zoom
       });
       const layer = new TileLayer(
-        'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+        TILE_LAYER,
         {
           attribution:
-            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+          COPYRIGHT
         }
       );
       instance.addLayer(layer);
@@ -30,9 +31,8 @@ function useMap (
       setMap(instance);
       isRenderedRef.current = true;
     }
-  }, [mapRef, city]);
+  }, [mapRef, location]);
 
   return map;
 }
 
-export default useMap;

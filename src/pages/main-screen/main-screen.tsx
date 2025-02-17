@@ -94,7 +94,9 @@ function MainScreen ({offers}: MainScreenProps): JSX.Element {
 
             </section>
             <div className="cities__right-section">
-              <Map city = {AMSTERDAM_CENTER_COORDS}
+              <Map
+                block = "cities"
+                location = {AMSTERDAM_CENTER_COORDS}
                 offers = {offers}
                 selectedOffer = {selectedOffer}
               />

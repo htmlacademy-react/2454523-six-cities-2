@@ -6,7 +6,8 @@ import { AmsterdamCenterCoords } from '../../types/offer';
 import useMap from '../../hooks/use-map';
 
 type MapProps ={
-  city: AmsterdamCenterCoords;
+  block: string;
+  location: AmsterdamCenterCoords;
   offers: Offers;
   selectedOffer: Offer | undefined;
 }
@@ -28,9 +29,9 @@ const orangeIcon = new Icon({
 
 function Map (props: MapProps): JSX.Element {
 
-  const {city, offers, selectedOffer} = props;
+  const {block, location, offers, selectedOffer} = props;
   const mapRef = useRef(null);
-  const map = useMap(mapRef, city);
+  const map = useMap(mapRef, location);
 
   useEffect(() => {
     if (map) {
@@ -57,11 +58,16 @@ function Map (props: MapProps): JSX.Element {
   }, [map, offers, selectedOffer]);
 
   return (
-    <section className="cities__map map"
-      style ={{height: '1000px'}}
+    <section
+      className={`${block}__map map`}
       ref= {mapRef}
-    >
-    </section>
+      style ={{height: '100%',
+        minHeight: '500px',
+        width: '100%',
+        maxWidth:'1144px',
+        margin: '0 auto'
+      }}
+    />
   );
 }
 

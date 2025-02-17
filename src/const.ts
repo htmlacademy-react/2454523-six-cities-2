@@ -23,3 +23,9 @@ export const STARS_RAITING = ['perfect', 'good', 'not bad', 'badly', 'terribly']
 export const MIN_COMMENT_LENGTH = 50;
 
 export const MAX_COMMENT_LENGTH = 300;
+
+export const TILE_LAYER =
+'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
+
+export const COPYRIGHT =
+'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
