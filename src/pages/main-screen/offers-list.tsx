@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useState } from 'react';
 import { Offers } from '../../types/offer';
 import RentalOfferCard from './rental-offer-card';
@@ -14,6 +15,7 @@ function OffersList (props : OffersListProps) : JSX.Element{
   const handleMouseEnter = (offerId: string) => {
     setActiveOfferId(offerId);
     onOffersListHover(offerId);
+    console.log(activeOfferId);
   };
 
   return (
