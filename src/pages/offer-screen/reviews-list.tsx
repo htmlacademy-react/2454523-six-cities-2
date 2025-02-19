@@ -1,5 +1,6 @@
 import { Reviews, Review } from '../../types/review';
 import ReviewForm from './review-form';
+import { prepareReviewData } from '../../utils/utils';
 
 type ReviewsListProps = {
   reviews: Reviews;
@@ -7,19 +8,6 @@ type ReviewsListProps = {
 
 type ReviewItemProps = {
   review: Review;
-};
-
-const prepareReviewData = (review: Review) => {
-  const reviewDate = new Date(review.date);
-
-  return {
-    keyValue: `${review.id}`,
-    formattedDate: reviewDate.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-    }),
-    dateTimeValue: reviewDate.toISOString().split('T')[0],
-  };
 };
 
 function ReviewItem({ review }: ReviewItemProps): JSX.Element {

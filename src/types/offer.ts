@@ -45,9 +45,4 @@ export type Offers = Offer[];
 
 export type DetailedOffers = DetailedOffer [];
 
-export type AmsterdamCenterCoords = {
-  title: string;
-  lat: number;
-  lng: number;
-  zoom: number;
-}
+
