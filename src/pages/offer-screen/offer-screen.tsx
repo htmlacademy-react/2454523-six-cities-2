@@ -3,18 +3,22 @@ import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
-import { DetailedOffers } from '../../types/offer';
+import { DetailedOffers, Offers } from '../../types/offer';
 import { Reviews } from '../../types/review';
 import ReviewsList from './reviews-list';
+import Map from '../../components/map/map';
+import { AMSTERDAM_CENTER_COORDS } from '../../mocks/offers';
+
 
 type OfferScreenProps = {
   detailedOffers: DetailedOffers;
   reviews: Reviews;
+  neighboringOffers: Offers;
 }
 
 
 function OfferScreen (props: OfferScreenProps) : JSX.Element {
-  const {detailedOffers, reviews} = props;
+  const {detailedOffers, reviews, neighboringOffers} = props;
 
   const paramsOfOffer = useParams();
   const {offerId} = paramsOfOffer;
@@ -128,7 +132,12 @@ function OfferScreen (props: OfferScreenProps) : JSX.Element {
               <ReviewsList reviews = {reviews}/>
             </div>
           </div>
-          <section className="offer__map map"></section>
+          <Map
+            block = "cities"
+            location = {AMSTERDAM_CENTER_COORDS}
+            offers = {neighboringOffers}
+            currentOffer={detailedOffer}
+          />
         </section>
         <div className="container">
           <section className="near-places places">

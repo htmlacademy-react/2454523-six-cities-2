@@ -1,4 +1,4 @@
-import { Offer, Offers } from './offer';
+import { DetailedOffer, Offer, Offers } from './offer';
 
 export type AmsterdamCenterCoords = {
   title: string;
@@ -11,5 +11,6 @@ export type MapProps ={
   block: string;
   location: AmsterdamCenterCoords;
   offers: Offers;
-  selectedOffer: Offer | undefined;
+  selectedOffer?: Offer | undefined;
+  currentOffer?: DetailedOffer;
 }
