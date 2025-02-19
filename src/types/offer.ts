@@ -44,3 +44,5 @@ export type DetailedOffer = BaseOffer & {
 export type Offers = Offer[];
 
 export type DetailedOffers = DetailedOffer [];
+
+

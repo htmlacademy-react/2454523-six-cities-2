@@ -12,14 +12,14 @@ export const offers: Offers =
       city: {
         name: 'Amsterdam',
         location: {
-          latitude: 52.35514938496378,
-          longitude: 4.673877537499948,
+          latitude: 52.3909553943508,
+          longitude: 4.85309666406198,
           zoom: 8
         }
       },
       location: {
-        latitude: 52.35514938496378,
-        longitude: 4.673877537499948,
+        latitude: 52.3909553943508,
+        longitude: 4.85309666406198,
         zoom: 8
       },
       isFavorite: false,
@@ -33,16 +33,16 @@ export const offers: Offers =
       type: 'apartment',
       price: 150,
       city: {
-        name: 'Netanya',
+        name: 'Amsterdam',
         location: {
-          latitude: 53.35514938496378,
-          longitude: 5.673877537499948,
+          latitude: 52.3609553943508,
+          longitude: 4.85309666406198,
           zoom: 7
         }
       },
       location: {
-        latitude: 53.35514938496378,
-        longitude: 5.673877537499948,
+        latitude: 52.3609553943508,
+        longitude: 4.85309666406198,
         zoom: 7
       },
       isFavorite: true,
@@ -56,16 +56,16 @@ export const offers: Offers =
       type: 'house',
       price: 180,
       city: {
-        name: 'Tel-Aviv',
+        name: 'Amsterdam',
         location: {
-          latitude: 55.35514938496378,
-          longitude: 5.673877537499948,
+          latitude: 52.3909553943508,
+          longitude: 4.929309666406198,
           zoom: 8
         }
       },
       location: {
-        latitude: 55.35514938496378,
-        longitude: 5.673877537499948,
+        latitude: 52.3909553943508,
+        longitude: 4.929309666406198,
         zoom: 8
       },
       isFavorite: true,
@@ -79,16 +79,16 @@ export const offers: Offers =
       type: 'apartment',
       price: 200,
       city: {
-        name: 'Moscow',
+        name: 'Amsterdam',
         location: {
-          latitude: 58.35514938496378,
-          longitude: 8.673877537499948,
+          latitude: 52.3809553943508,
+          longitude: 4.939309666406198,
           zoom: 9
         }
       },
       location: {
-        latitude: 58.35514938496378,
-        longitude: 8.673877537499948,
+        latitude: 52.3809553943508,
+        longitude: 4.939309666406198,
         zoom: 9
       },
       isFavorite: false,
@@ -251,3 +251,10 @@ export const detailedOffers: DetailedOffers = [
   },
 
 ];
+
+export const AMSTERDAM_CENTER_COORDS = {
+  title: 'Amsterdam',
+  lat: 52.3676,
+  lng: 4.9041,
+  zoom: 8
+};

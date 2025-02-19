@@ -7,9 +7,8 @@ type FavoriteScreenPropos = {
   offers: Offers;
 }
 
-function FavoriteScreen (props : FavoriteScreenPropos) : JSX.Element {
+function FavoriteScreen ({offers} : FavoriteScreenPropos) : JSX.Element {
 
-  const {offers} = props;
 
   return (
     <div className="page">
@@ -42,8 +41,8 @@ function FavoriteScreen (props : FavoriteScreenPropos) : JSX.Element {
                       )}
 
                       <div className="favorites__image-wrapper place-card__image-wrapper">
-                        <Link to="/offer/:id">
-                          <img className="place-card__image" src={offer.previewImage} width={150} height={110} alt="Place image" />
+                        <Link to={`/offer/${offer.id}`}>
+                          <img className="place-card__image" src={offer.previewImage} width={150} height={110} alt={`${offer.city.name}-image`} />
                         </Link>
                       </div>
                       <div className="favorites__card-info place-card__info">
