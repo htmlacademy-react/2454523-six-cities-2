@@ -2,17 +2,18 @@ import { Link } from 'react-router-dom';
 import { Offer } from '../../types/offer';
 
 type OfferCardProps ={
+  block: string;
   offer: Offer;
-  onMouseEnter: () => void;
+  onMouseEnter?: () => void;
 }
 
 function RentalOfferCard (props: OfferCardProps) {
 
-  const {offer, onMouseEnter} = props;
+  const {block, offer, onMouseEnter} = props;
   const {title, type, price, isPremium, previewImage, rating} = offer;
 
   return (
-    <article className="cities__card place-card"
+    <article className={`${block}__card place-card`}
       onMouseEnter = {onMouseEnter}
     >
 
@@ -22,7 +23,7 @@ function RentalOfferCard (props: OfferCardProps) {
         </div>
       )}
 
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${block}__image-wrapper place-card__image-wrapper`}>
         <Link to={`/offer/${offer.id}`}>
           <img className="place-card__image" src={previewImage} width={260} height={200} alt="Place image" />
         </Link>

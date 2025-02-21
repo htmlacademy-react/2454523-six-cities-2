@@ -14,9 +14,10 @@ type AppProps = {
   offers:Offers;
   detailedOffers: DetailedOffers;
   reviews: Reviews;
+  neighboringOffers: Offers;
 }
 
-function App ({offers, detailedOffers, reviews}: AppProps): JSX.Element {
+function App ({offers, detailedOffers, reviews, neighboringOffers}: AppProps): JSX.Element {
 
   return(
     <HelmetProvider>
@@ -35,6 +36,7 @@ function App ({offers, detailedOffers, reviews}: AppProps): JSX.Element {
               <OfferScreen
                 detailedOffers = {detailedOffers}
                 reviews={reviews}
+                neighboringOffers = {neighboringOffers}
               />
             }
             />
