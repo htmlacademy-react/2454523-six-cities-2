@@ -5,7 +5,7 @@ type NearbyOffersListProps = {
   neighboringOffers: Offers;
 }
 
-function NearbyOffersList ({neighboringOffers}: NearbyOffersListProps){
+function NearbyOffersList ({neighboringOffers}: NearbyOffersListProps) : JSX.Element {
   return (
     <div className="container">
       <section className="near-places places">
