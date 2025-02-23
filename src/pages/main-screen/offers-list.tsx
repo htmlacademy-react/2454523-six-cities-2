@@ -21,7 +21,9 @@ function OffersList (props : OffersListProps) : JSX.Element{
   return (
     <div className="cities__places-list places__list tabs__content">
       {offers.map ((offer) => (
-        <RentalOfferCard offer = {offer}
+        <RentalOfferCard
+          block='cities'
+          offer = {offer}
           key = {offer.id}
           onMouseEnter={() => handleMouseEnter(offer.id)}
         />

@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { Icon, Marker, layerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { Offer, Offers } from '../../types/offer';
+import { DetailedOffer, Offer, Offers } from '../../types/offer';
 import { MapProps } from '../../types/map';
 import useMap from '../../hooks/use-map';
 
@@ -28,7 +28,10 @@ const mapSectionStyle = {
   margin: '0 auto'
 };
 
-function createMarker (offer: Offer, selectedOffer: Offer|undefined): Marker {
+function createMarker (offer: Offer,
+  selectedOffer?: Offer,
+)
+: Marker {
   const marker = new Marker({
     lat: offer.location.latitude,
     lng: offer.location.longitude
@@ -44,13 +47,35 @@ function createMarker (offer: Offer, selectedOffer: Offer|undefined): Marker {
   return marker;
 }
 
-function addMarkersToMap (map: L.Map, offers: Offers, selectedOffer: Offer | undefined) : L.LayerGroup{
+function createMarkerForCurrentOffer (currentOffer: DetailedOffer,
+)
+: Marker {
+  const markerForCurrentOffer = new Marker({
+    lat: currentOffer.location.latitude,
+    lng: currentOffer.location.longitude
+  });
+
+  markerForCurrentOffer
+    .setIcon(
+      orangeIcon
+    );
+
+  return markerForCurrentOffer;
+}
+
+function addMarkersToMap (map: L.Map, offers: Offers, selectedOffer?: Offer, currentOffer?: DetailedOffer) : L.LayerGroup{
   const markerLayer = layerGroup().addTo(map);
 
   offers.forEach((offer) => {
     const marker = createMarker(offer,selectedOffer);
     marker.addTo(markerLayer);
   });
+
+  if(currentOffer){
+    const markerForCurrentOffer = createMarkerForCurrentOffer(currentOffer);
+    markerForCurrentOffer.addTo(markerLayer);
+  }
+
 
   return markerLayer;
 }
@@ -61,7 +86,7 @@ function removeMarkerLayer (map: L.Map, markerLayer: L.LayerGroup) : void {
 
 function Map (props: MapProps): JSX.Element {
 
-  const {block, location, offers, selectedOffer} = props;
+  const {block, location, offers, selectedOffer, currentOffer} = props;
   const mapRef = useRef(null);
   const map = useMap(mapRef, location);
 
@@ -70,13 +95,13 @@ function Map (props: MapProps): JSX.Element {
       return;
     }
 
-    const markerLayer = addMarkersToMap(map, offers, selectedOffer);
+    const markerLayer = addMarkersToMap(map, offers, selectedOffer, currentOffer);
 
     return () => {
       removeMarkerLayer(map,markerLayer);
     };
 
-  }, [map, offers, selectedOffer]);
+  }, [map, offers, selectedOffer,currentOffer]);
 
   return (
     <section
