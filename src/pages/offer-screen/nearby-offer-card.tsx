@@ -5,8 +5,7 @@ type NearbyOfferCardProps = {
   neighboringOffer: Offer;
 }
 
-function NearbyOfferCard (props: NearbyOfferCardProps) : JSX.Element {
-  const {neighboringOffer} = props;
+function NearbyOfferCard ({neighboringOffer}: NearbyOfferCardProps) : JSX.Element {
   return <RentalOfferCard block = 'near-places' offer = {neighboringOffer}/> ;
 }
 

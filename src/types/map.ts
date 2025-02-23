@@ -11,6 +11,6 @@ export type MapProps ={
   block: string;
   location: AmsterdamCenterCoords;
   offers: Offers;
-  selectedOffer?: Offer | undefined;
+  selectedOffer?: Offer;
   currentOffer?: DetailedOffer;
 }

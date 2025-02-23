@@ -29,7 +29,7 @@ const mapSectionStyle = {
 };
 
 function createMarker (offer: Offer,
-  selectedOffer?: Offer|undefined,
+  selectedOffer?: Offer,
 )
 : Marker {
   const marker = new Marker({
@@ -63,7 +63,7 @@ function createMarkerForCurrentOffer (currentOffer: DetailedOffer,
   return markerForCurrentOffer;
 }
 
-function addMarkersToMap (map: L.Map, offers: Offers, selectedOffer?: Offer | undefined, currentOffer?: DetailedOffer) : L.LayerGroup{
+function addMarkersToMap (map: L.Map, offers: Offers, selectedOffer?: Offer, currentOffer?: DetailedOffer) : L.LayerGroup{
   const markerLayer = layerGroup().addTo(map);
 
   offers.forEach((offer) => {
