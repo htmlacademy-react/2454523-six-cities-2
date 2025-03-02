@@ -16,6 +16,8 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+
 export const AVATAR_URL = 'https://i.pravatar.cc/128';
 
 export const STARS_RAITING = ['perfect', 'good', 'not bad', 'badly', 'terribly'];
