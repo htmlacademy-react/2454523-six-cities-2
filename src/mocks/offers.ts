@@ -14,13 +14,13 @@ export const offers: Offers =
         location: {
           latitude: 52.3909553943508,
           longitude: 4.85309666406198,
-          zoom: 8
+          zoom: 10
         }
       },
       location: {
         latitude: 52.3909553943508,
         longitude: 4.85309666406198,
-        zoom: 8
+        zoom: 10
       },
       isFavorite: false,
       isPremium: false,
@@ -37,13 +37,13 @@ export const offers: Offers =
         location: {
           latitude: 52.3609553943508,
           longitude: 4.85309666406198,
-          zoom: 7
+          zoom: 12
         }
       },
       location: {
         latitude: 52.3609553943508,
         longitude: 4.85309666406198,
-        zoom: 7
+        zoom: 12
       },
       isFavorite: true,
       isPremium: false,
@@ -60,13 +60,13 @@ export const offers: Offers =
         location: {
           latitude: 52.3909553943508,
           longitude: 4.929309666406198,
-          zoom: 8
+          zoom: 10
         }
       },
       location: {
         latitude: 52.3909553943508,
         longitude: 4.929309666406198,
-        zoom: 8
+        zoom: 10
       },
       isFavorite: true,
       isPremium: true,
@@ -83,19 +83,42 @@ export const offers: Offers =
         location: {
           latitude: 52.3809553943508,
           longitude: 4.939309666406198,
-          zoom: 9
+          zoom: 12
         }
       },
       location: {
         latitude: 52.3809553943508,
         longitude: 4.939309666406198,
-        zoom: 9
+        zoom: 12
       },
       isFavorite: false,
       isPremium: true,
       rating: 4,
       previewImage: `${AVATAR_URL}?rnd=${Math.random()}`
-    }
+    },
+    {
+      id: '5',
+      title: 'Beautiful & luxurious studio at great location5',
+      type: 'apartment',
+      price: 1200,
+      city: {
+        name: 'Paris',
+        location: {
+          latitude: 48.8566,
+          longitude: 2.3522,
+          zoom: 10
+        }
+      },
+      location: {
+        latitude: 48.8566,
+        longitude: 2.3522,
+        zoom: 10
+      },
+      isFavorite: false,
+      isPremium: false,
+      rating: 2,
+      previewImage: `${AVATAR_URL}?rnd=${Math.random()}`
+    },
   ];
 
 export const detailedOffers: DetailedOffers = [
@@ -249,7 +272,42 @@ export const detailedOffers: DetailedOffers = [
     ],
     maxAdults: 1
   },
-
+  {
+    id: '5',
+    title: 'Beautiful & luxurious studio at great location5',
+    type: 'apartment',
+    price: 1200,
+    city: {
+      name: 'Paris',
+      location: {
+        latitude: 48.8566,
+        longitude: 2.3522,
+        zoom: 9
+      }
+    },
+    location: {
+      latitude: 48.8566,
+      longitude: 2.3522,
+      zoom: 9
+    },
+    isFavorite: false,
+    isPremium: true,
+    rating: 4,
+    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Paris.',
+    bedrooms: 1,
+    goods: [
+      'Heating'
+    ],
+    host: {
+      name: 'Maria Conner',
+      avatarUrl: `${AVATAR_URL}?rnd=${Math.random()}`,
+      isPro: true
+    },
+    images: [
+      `${AVATAR_URL}?rnd=${Math.random()}`
+    ],
+    maxAdults: 1
+  },
 ];
 
 export const AMSTERDAM_CENTER_COORDS = {

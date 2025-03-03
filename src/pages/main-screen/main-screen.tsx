@@ -1,23 +1,25 @@
 //import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
-import { Offers, Offer } from '../../types/offer';
+import { Offer } from '../../types/offer';
 import OffersList from './offers-list';
 import Map from '../../components/map/map';
 import { AMSTERDAM_CENTER_COORDS } from '../../mocks/offers';
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import CitiesTabs from './cities-tabs';
-import { CITIES } from '../../const';
+import { CITIES, СITIES_COORDS } from '../../const';
 import { changeCity } from '../../store/action';
+import { getOffersByCity, getCentralCityCoords } from '../../utils/utils';
 
-type MainScreenProps = {
-  offers: Offers;
-}
+// type MainScreenProps = {
+//   offers: Offers;
+// }
 
-function MainScreen ({offers}: MainScreenProps): JSX.Element {
+function MainScreen (): JSX.Element {
 
   const currentCity = useAppSelector((state) => state.city);
+  const offers = useAppSelector((state) => state.offers);
   const dispatch = useAppDispatch();
 
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(
@@ -32,6 +34,8 @@ function MainScreen ({offers}: MainScreenProps): JSX.Element {
     dispatch(changeCity(city));
   };
 
+  const offersByCity = getOffersByCity(offers, currentCity);
+  const centralCityCoords = getCentralCityCoords(СITIES_COORDS, currentCity);
 
   return (
     <div className="page page--gray page--main">
@@ -49,7 +53,7 @@ function MainScreen ({offers}: MainScreenProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">312 places to stay in {currentCity}</b>
+              <b className="places__found">{offersByCity.length} places to stay in {currentCity}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -67,7 +71,7 @@ function MainScreen ({offers}: MainScreenProps): JSX.Element {
               </form>
 
 
-              <OffersList offers = {offers}
+              <OffersList offers = {offersByCity}
                 onOffersListHover = {handleOffersListHover}
               />
 
@@ -75,8 +79,8 @@ function MainScreen ({offers}: MainScreenProps): JSX.Element {
             <div className="cities__right-section">
               <Map
                 block = "cities"
-                location = {AMSTERDAM_CENTER_COORDS}
-                offers = {offers}
+                location = {centralCityCoords}
+                offers = {offersByCity}
                 selectedOffer = {selectedOffer}
               />
             </div>
