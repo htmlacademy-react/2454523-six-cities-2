@@ -91,6 +91,13 @@ function Map (props: MapProps): JSX.Element {
   const map = useMap(mapRef, location);
 
   useEffect(() => {
+    if (map) {
+      map.setView([location.lat, location.lng], location.zoom);
+    }
+  }, [map, location]);
+
+
+  useEffect(() => {
     if (!map) {
       return;
     }

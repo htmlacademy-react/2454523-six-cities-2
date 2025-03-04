@@ -18,6 +18,13 @@ const prepareReviewData = (review: Review) => {
 const getOffersByCity = (offers: Offers, cityName: string) =>
   offers.filter((offer) => offer.city.name === cityName);
 
-const getCentralCityCoords = (cities: CityCoords[], cityName: string) => cities.find((city) => city.title === cityName);
 
-export {prepareReviewData, getOffersByCity, getCentralCityCoords};
+const getCityCoords = (cities: CityCoords[], cityName: string): CityCoords => {
+  const foundCity = cities.find((city) => city.title === cityName);
+  if (!foundCity) {
+    return { title: 'Paris', lat: 48.8566, lng: 2.3522, zoom: 10 };
+  }
+  return foundCity;
+};
+
+export {prepareReviewData, getOffersByCity, getCityCoords};

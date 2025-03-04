@@ -1,20 +1,15 @@
-//import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
 import { Offer } from '../../types/offer';
 import OffersList from './offers-list';
 import Map from '../../components/map/map';
-import { AMSTERDAM_CENTER_COORDS } from '../../mocks/offers';
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import CitiesTabs from './cities-tabs';
 import { CITIES, СITIES_COORDS } from '../../const';
 import { changeCity } from '../../store/action';
-import { getOffersByCity, getCentralCityCoords } from '../../utils/utils';
+import { getOffersByCity, getCityCoords } from '../../utils/utils';
 
-// type MainScreenProps = {
-//   offers: Offers;
-// }
 
 function MainScreen (): JSX.Element {
 
@@ -35,7 +30,7 @@ function MainScreen (): JSX.Element {
   };
 
   const offersByCity = getOffersByCity(offers, currentCity);
-  const centralCityCoords = getCentralCityCoords(СITIES_COORDS, currentCity);
+  const cityCoords = getCityCoords(СITIES_COORDS, currentCity);
 
   return (
     <div className="page page--gray page--main">
@@ -79,7 +74,7 @@ function MainScreen (): JSX.Element {
             <div className="cities__right-section">
               <Map
                 block = "cities"
-                location = {centralCityCoords}
+                location = {cityCoords}
                 offers = {offersByCity}
                 selectedOffer = {selectedOffer}
               />

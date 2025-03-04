@@ -6,8 +6,10 @@ import { DetailedOffers, Offers } from '../../types/offer';
 import { Reviews } from '../../types/review';
 import ReviewsList from './reviews-list';
 import Map from '../../components/map/map';
-import { AMSTERDAM_CENTER_COORDS } from '../../mocks/offers';
 import NearbyOffersList from './nearby-offers-list';
+import { getCityCoords } from '../../utils/utils';
+import { useAppSelector } from '../../hooks';
+import { СITIES_COORDS } from '../../const';
 
 
 type OfferScreenProps = {
@@ -19,6 +21,7 @@ type OfferScreenProps = {
 
 function OfferScreen (props: OfferScreenProps) : JSX.Element {
   const {detailedOffers, reviews, neighboringOffers} = props;
+  const currentCity = useAppSelector((state) => state.city);
 
   const paramsOfOffer = useParams();
   const {offerId} = paramsOfOffer;
@@ -29,6 +32,8 @@ function OfferScreen (props: OfferScreenProps) : JSX.Element {
   }
 
   const {id, title, type, price, isPremium, rating, description, bedrooms, goods, host, images, maxAdults} = detailedOffer;
+
+  const cityCoords = getCityCoords(СITIES_COORDS, currentCity);
 
   return (
     <div className="page">
@@ -134,7 +139,7 @@ function OfferScreen (props: OfferScreenProps) : JSX.Element {
           </div>
           <Map
             block = "cities"
-            location = {AMSTERDAM_CENTER_COORDS}
+            location = {cityCoords}
             offers = {neighboringOffers}
             currentOffer={detailedOffer}
           />

@@ -71,3 +71,4 @@ export const СITIES_COORDS = [
     zoom: 10
   }
 ];
+

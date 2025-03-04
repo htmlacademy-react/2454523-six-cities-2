@@ -309,10 +309,3 @@ export const detailedOffers: DetailedOffers = [
     maxAdults: 1
   },
 ];
-
-export const AMSTERDAM_CENTER_COORDS = {
-  title: 'Amsterdam',
-  lat: 52.3676,
-  lng: 4.9041,
-  zoom: 8
-};
