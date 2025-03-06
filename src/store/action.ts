@@ -1,5 +1,10 @@
 import { createAction } from '@reduxjs/toolkit';
-import { Offers } from '../types/offer';
+import { City, Offer } from '../types/offer';
 
-export const changeCity = createAction('mainScreen/changeCity', (city: string) => ({payload: city}));
-export const loadRentalOffers = createAction('mainScreen/loadRentalOffers', (offers: Offers)=> ({payload: offers}));
+export const changeCity = createAction<City['name']>('mainScreen/changeCity');
+export const fetchOffers = createAction('OFFERS/fetchOffers');
+export const fetchOffer = createAction<Offer['id']>('OFFER/fetchOffer');
+export const fetchNeighboringOffers = createAction<Offer['id']>('NEAR_PLACES/fetchNeighboringOffers');
+export const fetchReviews = createAction<Offer['id']>('REVIEWS/fetchReviews');
+export const dropOffer = createAction('OFFER/dropOffer');
+export const fetchFavorites = createAction('FAVORITES/fetchFavorites');

@@ -26,6 +26,8 @@ export const MIN_COMMENT_LENGTH = 50;
 
 export const MAX_COMMENT_LENGTH = 300;
 
+export const MAX_COUNT_NEAR_OFFERS = 3;
+
 export const TILE_LAYER =
 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
 

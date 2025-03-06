@@ -114,7 +114,7 @@ export const offers: Offers =
         longitude: 2.3522,
         zoom: 10
       },
-      isFavorite: false,
+      isFavorite: true,
       isPremium: false,
       rating: 2,
       previewImage: `${AVATAR_URL}?rnd=${Math.random()}`

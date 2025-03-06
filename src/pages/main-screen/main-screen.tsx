@@ -3,19 +3,19 @@ import Header from '../../components/header/header';
 import { Offer } from '../../types/offer';
 import OffersList from './offers-list';
 import Map from '../../components/map/map';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import CitiesTabs from './cities-tabs';
 import { CITIES, СITIES_COORDS } from '../../const';
-import { changeCity } from '../../store/action';
+import { changeCity, fetchOffers } from '../../store/action';
 import { getOffersByCity, getCityCoords } from '../../utils/utils';
 
 
 function MainScreen (): JSX.Element {
-
+  const dispatch = useAppDispatch();
   const currentCity = useAppSelector((state) => state.city);
   const offers = useAppSelector((state) => state.offers);
-  const dispatch = useAppDispatch();
+
 
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(
     undefined
@@ -31,6 +31,10 @@ function MainScreen (): JSX.Element {
 
   const offersByCity = getOffersByCity(offers, currentCity);
   const cityCoords = getCityCoords(СITIES_COORDS, currentCity);
+
+  useEffect(()=> {
+    dispatch(fetchOffers());
+  }, [dispatch]);
 
   return (
     <div className="page page--gray page--main">
