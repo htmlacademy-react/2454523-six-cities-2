@@ -1,14 +1,20 @@
 import Header from '../../components/header/header';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { Offers } from '../../types/offer';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useEffect } from 'react';
+import { fetchFavorites } from '../../store/action';
 
-type FavoriteScreenPropos = {
-  offers: Offers;
-}
 
-function FavoriteScreen ({offers} : FavoriteScreenPropos) : JSX.Element {
+function FavoriteScreen () : JSX.Element {
 
+  const dispatch = useAppDispatch();
+  useEffect(()=> {
+    dispatch(fetchFavorites());
+  }, [dispatch]
+  );
+
+  const favorites = useAppSelector((state) => state.favorites);
 
   return (
     <div className="page">
@@ -23,7 +29,7 @@ function FavoriteScreen ({offers} : FavoriteScreenPropos) : JSX.Element {
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
 
-              {offers.map((offer)=> (
+              {favorites.map((offer)=> (
                 <li key = {offer.id} className="favorites__locations-items">
                   <div className="favorites__locations locations locations--current">
                     <div className="locations__item">

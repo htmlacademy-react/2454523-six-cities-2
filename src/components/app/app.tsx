@@ -7,37 +7,24 @@ import OfferScreen from '../../pages/offer-screen/offer-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { DetailedOffers, Offers } from '../../types/offer';
-import { Reviews } from '../../types/review';
 
-type AppProps = {
-  offers:Offers;
-  detailedOffers: DetailedOffers;
-  reviews: Reviews;
-  neighboringOffers: Offers;
-}
-
-function App ({offers, detailedOffers, reviews, neighboringOffers}: AppProps): JSX.Element {
+function App (): JSX.Element {
 
   return(
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route path={AppRoute.Main}>
-            <Route index element = {<MainScreen offers = {offers} />}/>
+            <Route index element = {<MainScreen />}/>
             <Route path = {AppRoute.Favorites} element = {
               <PrivateRoute autorizationStatus={AuthorizationStatus.Auth}>
-                <FavoriteScreen offers = {offers}/>
+                <FavoriteScreen/>
               </PrivateRoute>
             }
             />
             <Route path = {AppRoute.Login} element = {<LoginScreen/>}/>
             <Route path={`${AppRoute.Offer}/:offerId`} element={
-              <OfferScreen
-                detailedOffers = {detailedOffers}
-                reviews={reviews}
-                neighboringOffers = {neighboringOffers}
-              />
+              <OfferScreen/>
             }
             />
 

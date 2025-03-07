@@ -2,33 +2,48 @@ import { Navigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
-import { DetailedOffers, Offers } from '../../types/offer';
-import { Reviews } from '../../types/review';
 import ReviewsList from './reviews-list';
 import Map from '../../components/map/map';
-import { AMSTERDAM_CENTER_COORDS } from '../../mocks/offers';
 import NearbyOffersList from './nearby-offers-list';
+import { getCityCoords } from '../../utils/utils';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { CITIES, СITIES_COORDS } from '../../const';
+import { useEffect } from 'react';
+import { dropOffer, fetchNeighboringOffers, fetchDetailedOffer, setOfferLoading } from '../../store/action';
 
 
-type OfferScreenProps = {
-  detailedOffers: DetailedOffers;
-  reviews: Reviews;
-  neighboringOffers: Offers;
-}
+function OfferScreen () : JSX.Element {
+  const {offerId} = useParams();
+
+  const dispatch = useAppDispatch();
+  const detailedOffer = useAppSelector((state)=> state.detailedOffer);
+  const neighboringOffers = useAppSelector((state)=> state.neighboringOffers);
+  const isDetailedOfferLoading = useAppSelector((state) => state.isDetailedOfferLoading);
 
 
-function OfferScreen (props: OfferScreenProps) : JSX.Element {
-  const {detailedOffers, reviews, neighboringOffers} = props;
+  useEffect(()=>{
+    if(offerId){
+      dispatch(setOfferLoading());
+      dispatch(fetchDetailedOffer(offerId));
+      dispatch(fetchNeighboringOffers(offerId));
+    }
 
-  const paramsOfOffer = useParams();
-  const {offerId} = paramsOfOffer;
-  const detailedOffer = detailedOffers.find((item) => item.id === offerId);
+    return ()=>{
+      dispatch(dropOffer());
+    };
+  }, [offerId,dispatch]);
+
+  if (isDetailedOfferLoading) {
+    return <div>Loading...</div>;
+  }
 
   if(!detailedOffer) {
     return <Navigate to = '*'/>;
   }
 
   const {id, title, type, price, isPremium, rating, description, bedrooms, goods, host, images, maxAdults} = detailedOffer;
+
+  const cityCoords = getCityCoords(СITIES_COORDS, detailedOffer?.city.name ?? CITIES[0]);
 
   return (
     <div className="page">
@@ -129,12 +144,12 @@ function OfferScreen (props: OfferScreenProps) : JSX.Element {
                   </p>
                 </div>
               </div>
-              <ReviewsList reviews = {reviews}/>
+              <ReviewsList offerId = {detailedOffer.id}/>
             </div>
           </div>
           <Map
             block = "cities"
-            location = {AMSTERDAM_CENTER_COORDS}
+            location = {cityCoords}
             offers = {neighboringOffers}
             currentOffer={detailedOffer}
           />

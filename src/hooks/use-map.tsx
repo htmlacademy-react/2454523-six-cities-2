@@ -1,12 +1,14 @@
 import {useEffect, useState, MutableRefObject, useRef} from 'react';
 import {Map, TileLayer} from 'leaflet';
-import { AmsterdamCenterCoords } from '../types/map';
+import { CityCoords } from '../types/map';
 import { TILE_LAYER, COPYRIGHT } from '../const';
 
 export default function useMap (
   mapRef: MutableRefObject<HTMLElement | null>,
-  location: AmsterdamCenterCoords
+  location: CityCoords
 ): Map | null {
+
+
   const [map, setMap] = useState<Map | null>(null);
   const isRenderedRef = useRef<boolean>(false);
 
