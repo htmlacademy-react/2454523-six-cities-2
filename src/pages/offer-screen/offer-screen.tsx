@@ -2,42 +2,40 @@ import { Navigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
-import { DetailedOffers } from '../../types/offer';
 import ReviewsList from './reviews-list';
 import Map from '../../components/map/map';
 import NearbyOffersList from './nearby-offers-list';
 import { getCityCoords } from '../../utils/utils';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { СITIES_COORDS } from '../../const';
+import { CITIES, СITIES_COORDS } from '../../const';
 import { useEffect } from 'react';
-import { dropOffer, fetchNeighboringOffers, fetchOffer } from '../../store/action';
+import { dropOffer, fetchNeighboringOffers, fetchDetailedOffer, setOfferLoading } from '../../store/action';
 
 
-type OfferScreenProps = {
-  detailedOffers: DetailedOffers;
-}
-
-
-function OfferScreen (props: OfferScreenProps) : JSX.Element {
+function OfferScreen () : JSX.Element {
   const {offerId} = useParams();
 
   const dispatch = useAppDispatch();
+  const detailedOffer = useAppSelector((state)=> state.detailedOffer);
   const neighboringOffers = useAppSelector((state)=> state.neighboringOffers);
-  const offer = useAppSelector((state)=> state.offer);
+  const isDetailedOfferLoading = useAppSelector((state) => state.isDetailedOfferLoading);
+
 
   useEffect(()=>{
     if(offerId){
-      dispatch(fetchOffer(offerId));
+      dispatch(setOfferLoading());
+      dispatch(fetchDetailedOffer(offerId));
       dispatch(fetchNeighboringOffers(offerId));
     }
+
     return ()=>{
       dispatch(dropOffer());
     };
   }, [offerId,dispatch]);
 
-  const {detailedOffers} = props;
-
-  const detailedOffer = detailedOffers.find((item) => item.id === offerId);
+  if (isDetailedOfferLoading) {
+    return <div>Loading...</div>;
+  }
 
   if(!detailedOffer) {
     return <Navigate to = '*'/>;
@@ -45,7 +43,7 @@ function OfferScreen (props: OfferScreenProps) : JSX.Element {
 
   const {id, title, type, price, isPremium, rating, description, bedrooms, goods, host, images, maxAdults} = detailedOffer;
 
-  const cityCoords = getCityCoords(СITIES_COORDS, offer?.city.name ?? 'Paris');
+  const cityCoords = getCityCoords(СITIES_COORDS, detailedOffer?.city.name ?? CITIES[0]);
 
   return (
     <div className="page">

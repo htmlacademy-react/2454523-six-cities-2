@@ -1,7 +1,8 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { offers } from '../mocks/offers';
+import { offers, detailedOffers } from '../mocks/offers';
 import { reviews } from '../mocks/reviews';
 import { InitialState } from '../types/state';
+import { CITIES } from '../const';
 
 
 import {
@@ -9,17 +10,20 @@ import {
   fetchOffers,
   fetchFavorites,
   fetchNeighboringOffers,
-  fetchOffer,
+  fetchDetailedOffer,
   fetchReviews,
-  dropOffer } from './action';
+  dropOffer,
+  setOfferLoading} from './action';
+
 import { MAX_COUNT_NEAR_OFFERS } from '../const';
 
 const initialState: InitialState = {
-  city: 'Paris',
+  city: CITIES[0],
   offers,
   neighboringOffers:[],
   reviews: [],
-  offer: null,
+  isDetailedOfferLoading: true,
+  detailedOffer: null,
   favorites: []
 };
 
@@ -31,8 +35,8 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(fetchOffers, (state)=> {
       state.offers = offers;
     })
-    .addCase(fetchOffer, (state,action) => {
-      state.offer = offers.find((offer) => offer.id === action.payload) ?? null;
+    .addCase(fetchDetailedOffer, (state,action) => {
+      state.detailedOffer = detailedOffers.find((detailedOffer) => detailedOffer.id === action.payload) ?? null;
     })
     .addCase(fetchNeighboringOffers, (state, action) => {
       state.neighboringOffers = offers.filter((offer)=> offer.id !== action.payload).slice(0, MAX_COUNT_NEAR_OFFERS);
@@ -41,11 +45,14 @@ const reducer = createReducer(initialState, (builder) => {
       state.reviews = reviews.filter((review) => review.id === action.payload);
     })
     .addCase(dropOffer, (state)=> {
-      state.offer = null;
+      state.detailedOffer = null;
       state.neighboringOffers = [];
     })
     .addCase(fetchFavorites, (state)=> {
       state.favorites = state.offers.filter((offer) => offer.isFavorite);
+    })
+    .addCase(setOfferLoading, (state)=> {
+      state.isDetailedOfferLoading = false;
     });
 });
 

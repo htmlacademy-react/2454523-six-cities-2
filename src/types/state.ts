@@ -1,5 +1,5 @@
 import { store } from '../store/index.js';
-import { City, Offers, Offer } from './offer.js';
+import { City, Offers, DetailedOffer } from './offer.js';
 import { Reviews } from './review.js';
 
 export type State = ReturnType<typeof store.getState>;
@@ -11,6 +11,7 @@ export type InitialState ={
   offers: Offers;
   neighboringOffers: Offers;
   reviews: Reviews;
-  offer:Offer | null;
+  isDetailedOfferLoading: boolean;
+  detailedOffer:DetailedOffer | null;
   favorites: Offers;
 };

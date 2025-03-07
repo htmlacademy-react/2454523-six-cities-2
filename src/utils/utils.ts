@@ -1,6 +1,7 @@
 import { CityCoords } from '../types/map';
 import { Offers } from '../types/offer';
 import {Review} from '../types/review';
+import {СITIES_COORDS} from '../const';
 
 const prepareReviewData = (review: Review) => {
   const reviewDate = new Date(review.date);
@@ -22,7 +23,7 @@ const getOffersByCity = (offers: Offers, cityName: string) =>
 const getCityCoords = (cities: CityCoords[], cityName: string): CityCoords => {
   const foundCity = cities.find((city) => city.title === cityName);
   if (!foundCity) {
-    return { title: 'Paris', lat: 48.8566, lng: 2.3522, zoom: 10 };
+    return СITIES_COORDS[0];
   }
   return foundCity;
 };
