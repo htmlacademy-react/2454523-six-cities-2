@@ -14,7 +14,7 @@ const blueIcon = new Icon({
 });
 
 const orangeIcon = new Icon({
-  iconUrl: 'https://cdn.jsdelivr.net/gh/pointhi/leaflet-color-markers@master/img/marker-icon-orange.png',
+  iconUrl: 'img/pin-active.svg',
   shadowUrl: 'https://cdn.jsdelivr.net/gh/pointhi/leaflet-color-markers@master/img/marker-shadow.png',
   iconSize: [25, 41],
   iconAnchor: [12, 41]
