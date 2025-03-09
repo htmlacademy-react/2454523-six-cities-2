@@ -16,6 +16,13 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+export enum SortType {
+  Popular = 'Popular',
+  PriceLowToHigh = 'Price:low to high',
+  PriceHighToLow = 'Price:high to low',
+  TopRatedFirst = 'Top rated first'
+}
+
 export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
 export const AVATAR_URL = 'https://i.pravatar.cc/128';
