@@ -1,10 +1,17 @@
 import { SortType } from '../../const';
 import { useState } from 'react';
+import { useAppSelector } from '../../hooks';
+
+type SortingOptionsProps = {
+  onClickSortType: (city: string) => void;
+}
 
 
 const sortOptions = Object.values(SortType);
 
-function SortingOptions () : JSX.Element{
+function SortingOptions ({onClickSortType}: SortingOptionsProps) : JSX.Element{
+
+  const currentSortType = useAppSelector((state)=> state.sortType);
 
   const [isOpenSortOptions, setIsOpenSortOptions] = useState(false);
 
@@ -19,7 +26,7 @@ function SortingOptions () : JSX.Element{
       <span className="places__sorting-type" tabIndex={0}
         onClick = {handleSortClick}
       >
-                  Popular
+        {currentSortType}
         <svg className="places__sorting-arrow" width={7} height={4}>
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
@@ -35,7 +42,10 @@ function SortingOptions () : JSX.Element{
           return (
             <li key = {keyValue}
               className="places__option" tabIndex={0}
-              onClick={handleSortClick}
+              onClick={()=> {
+                onClickSortType(type);
+                handleSortClick();
+              }}
             >
               {type}
             </li>

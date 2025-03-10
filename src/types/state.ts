@@ -14,4 +14,5 @@ export type InitialState ={
   isDetailedOfferLoading: boolean;
   detailedOffer:DetailedOffer | null;
   favorites: Offers;
+  sortType: string;
 };

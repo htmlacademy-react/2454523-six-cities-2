@@ -7,15 +7,17 @@ import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import CitiesTabs from './cities-tabs';
 import { CITIES, СITIES_COORDS } from '../../const';
-import { changeCity, fetchOffers } from '../../store/action';
+import { changeCity, changeSortOptions, fetchOffers } from '../../store/action';
 import { getOffersByCity, getCityCoords } from '../../utils/utils';
 import SortingOptions from '../../components/sorting/sortingOptions';
+import { sortOffers } from '../../utils/sortOffers';
 
 
 function MainScreen (): JSX.Element {
   const dispatch = useAppDispatch();
   const currentCity = useAppSelector((state) => state.city);
   const offers = useAppSelector((state) => state.offers);
+  const currentSortType = useAppSelector((state) => state.sortType);
 
 
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(
@@ -30,7 +32,13 @@ function MainScreen (): JSX.Element {
     dispatch(changeCity(city));
   };
 
+  const handleClickSortType = (sortType: string)=> {
+    dispatch(changeSortOptions(sortType));
+  };
+
   const offersByCity = getOffersByCity(offers, currentCity);
+  const sortingOffers = sortOffers(offersByCity, currentSortType);
+
   const cityCoords = getCityCoords(СITIES_COORDS, currentCity);
 
   useEffect(()=> {
@@ -47,7 +55,7 @@ function MainScreen (): JSX.Element {
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
 
-        <CitiesTabs cities = {CITIES} onClick={handleClickCities}/>
+        <CitiesTabs cities = {CITIES} onClickCities={handleClickCities}/>
 
         <div className="cities">
           <div className="cities__places-container container">
@@ -55,10 +63,10 @@ function MainScreen (): JSX.Element {
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offersByCity.length} places to stay in {currentCity}</b>
 
-              <SortingOptions/>
+              <SortingOptions onClickSortType = {handleClickSortType}/>
 
 
-              <OffersList offers = {offersByCity}
+              <OffersList offers = {sortingOffers}
                 onOffersListHover = {handleOffersListHover}
 
               />

@@ -9,3 +9,4 @@ export const fetchReviews = createAction<Offer['id']>('REVIEWS/fetchReviews');
 export const dropOffer = createAction('OFFER/dropOffer');
 export const fetchFavorites = createAction('FAVORITES/fetchFavorites');
 export const setOfferLoading = createAction('OFFER/setOfferLoading');
+export const changeSortOptions = createAction<string>('OFFERS/changeSortOptions');
