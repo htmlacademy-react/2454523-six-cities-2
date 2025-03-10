@@ -11,6 +11,7 @@ import { changeCity, changeSortOptions, fetchOffers } from '../../store/action';
 import { getOffersByCity, getCityCoords } from '../../utils/utils';
 import SortingOptions from '../../components/sorting/sortingOptions';
 import { sortOffers } from '../../utils/sortOffers';
+import MainEmptyScreen from './main-empty-screen';
 
 
 function MainScreen (): JSX.Element {
@@ -19,6 +20,9 @@ function MainScreen (): JSX.Element {
   const offers = useAppSelector((state) => state.offers);
   const currentSortType = useAppSelector((state) => state.sortType);
 
+  useEffect(()=> {
+    dispatch(fetchOffers());
+  }, [dispatch]);
 
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(
     undefined
@@ -37,13 +41,14 @@ function MainScreen (): JSX.Element {
   };
 
   const offersByCity = getOffersByCity(offers, currentCity);
+
+  if(offersByCity.length === 0){
+    return <MainEmptyScreen/>;
+  }
   const sortingOffers = sortOffers(offersByCity, currentSortType);
 
   const cityCoords = getCityCoords(СITIES_COORDS, currentCity);
 
-  useEffect(()=> {
-    dispatch(fetchOffers());
-  }, [dispatch]);
 
   return (
     <div className="page page--gray page--main">
