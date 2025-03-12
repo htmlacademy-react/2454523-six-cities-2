@@ -2,7 +2,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import { offers, detailedOffers } from '../mocks/offers';
 import { reviews } from '../mocks/reviews';
 import { InitialState } from '../types/state';
-import { CITIES } from '../const';
+import { CITIES, SortType } from '../const';
 
 
 import {
@@ -13,7 +13,8 @@ import {
   fetchDetailedOffer,
   fetchReviews,
   dropOffer,
-  setOfferLoading} from './action';
+  setOfferLoading,
+  changeSortOptions} from './action';
 
 import { MAX_COUNT_NEAR_OFFERS } from '../const';
 
@@ -24,7 +25,8 @@ const initialState: InitialState = {
   reviews: [],
   isDetailedOfferLoading: true,
   detailedOffer: null,
-  favorites: []
+  favorites: [],
+  sortType: SortType.Popular
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -53,6 +55,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setOfferLoading, (state)=> {
       state.isDetailedOfferLoading = false;
+    })
+    .addCase(changeSortOptions,(state, action)=> {
+      state.sortType = action.payload;
     });
 });
 

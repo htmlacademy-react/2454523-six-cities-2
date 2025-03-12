@@ -5,16 +5,18 @@ type OfferCardProps ={
   block: string;
   offer: Offer;
   onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
 }
 
 function RentalOfferCard (props: OfferCardProps) {
 
-  const {block, offer, onMouseEnter} = props;
+  const {block, offer, onMouseEnter, onMouseLeave} = props;
   const {title, type, price, isPremium, previewImage, rating} = offer;
 
   return (
     <article className={`${block}__card place-card`}
       onMouseEnter = {onMouseEnter}
+      onMouseLeave = {onMouseLeave}
     >
 
       {isPremium && (

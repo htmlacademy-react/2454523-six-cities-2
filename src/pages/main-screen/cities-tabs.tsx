@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 
 type CitiesTabsProps = {
 cities: string[];
-onClick: (city: string) => void;
+onClickCities: (city: string) => void;
 }
 
-function CitiesTabs ({cities, onClick}: CitiesTabsProps) : JSX.Element {
+function CitiesTabs ({cities, onClickCities}: CitiesTabsProps) : JSX.Element {
 
   return (
     <div className="tabs">
@@ -17,7 +17,7 @@ function CitiesTabs ({cities, onClick}: CitiesTabsProps) : JSX.Element {
             return (
               <li key ={keyValue}
                 className="locations__item"
-                onClick = {() => onClick(city)}
+                onClick = {() => onClickCities(city)}
               >
                 <Link className="locations__item-link tabs__item" to="/">
                   <span>{city}</span>

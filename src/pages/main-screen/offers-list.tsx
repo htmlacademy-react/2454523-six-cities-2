@@ -12,10 +12,16 @@ function OffersList (props : OffersListProps) : JSX.Element{
   const {offers, onOffersListHover } = props;
 
   const [activeOfferId, setActiveOfferId] = useState('');
+
   const handleMouseEnter = (offerId: string) => {
     setActiveOfferId(offerId);
     onOffersListHover(offerId);
     console.log(activeOfferId);
+  };
+
+  const handleMouseLeave = () => {
+    setActiveOfferId('');
+    onOffersListHover('');
   };
 
   return (
@@ -26,6 +32,7 @@ function OffersList (props : OffersListProps) : JSX.Element{
           offer = {offer}
           key = {offer.id}
           onMouseEnter={() => handleMouseEnter(offer.id)}
+          onMouseLeave = {handleMouseLeave}
         />
       ))}
     </div>
