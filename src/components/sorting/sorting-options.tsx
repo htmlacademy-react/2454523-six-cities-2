@@ -37,10 +37,9 @@ function SortingOptions ({onClickSortType}: SortingOptionsProps) : JSX.Element{
       }`}
       >
 
-        {sortOptions.map((type)=> {
-          const keyValue = type;
-          return (
-            <li key = {keyValue}
+        {sortOptions.map((type)=>
+          (
+            <li key = {type}
               className="places__option" tabIndex={0}
               onClick={()=> {
                 onClickSortType(type);
@@ -49,8 +48,8 @@ function SortingOptions ({onClickSortType}: SortingOptionsProps) : JSX.Element{
             >
               {type}
             </li>
-          );
-        })}
+          )
+        )}
 
       </ul>
     </form>

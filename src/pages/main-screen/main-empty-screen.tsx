@@ -10,7 +10,7 @@ function MainEmptyScreen() : JSX.Element {
   const dispatch = useAppDispatch();
   const currentCity = useAppSelector((state) => state.city);
 
-  const handleClickCities = (city: string) => {
+  const handleSelectCity = (city: string) => {
     dispatch(changeCity(city));
   };
 
@@ -23,7 +23,7 @@ function MainEmptyScreen() : JSX.Element {
 
       <main className="page__main page__main--index page__main--index-empty">
         <h1 className="visually-hidden">Cities</h1>
-        <CitiesTabs cities = {CITIES} onClickCities={handleClickCities}/>
+        <CitiesTabs cities = {CITIES} onCitySelect={handleSelectCity}/>
 
         <div className="cities">
           <div className="cities__places-container cities__places-container--empty container">
