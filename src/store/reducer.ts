@@ -14,9 +14,12 @@ import {
   fetchReviews,
   dropOffer,
   setOfferLoading,
-  changeSortOptions} from './action';
+  changeSortOptions,
+  setOffersDataLoadingStatus,
+} from './action';
 
 import { MAX_COUNT_NEAR_OFFERS } from '../const';
+
 
 const initialState: InitialState = {
   city: CITIES[0],
@@ -26,7 +29,8 @@ const initialState: InitialState = {
   isDetailedOfferLoading: true,
   detailedOffer: null,
   favorites: [],
-  sortType: SortType.Popular
+  sortType: SortType.Popular,
+  isOffersDataLoading: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -58,6 +62,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(changeSortOptions,(state, action)=> {
       state.sortType = action.payload;
+    })
+    .addCase(setOffersDataLoadingStatus, (state,action)=> {
+      state.isOffersDataLoading = action.payload;
     });
 });
 
