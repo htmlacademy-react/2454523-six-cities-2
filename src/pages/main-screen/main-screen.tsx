@@ -3,13 +3,13 @@ import Header from '../../components/header/header';
 import { Offer } from '../../types/offer';
 import OffersList from './offers-list';
 import Map from '../../components/map/map';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import CitiesTabs from './cities-tabs';
 import { CITIES, СITIES_COORDS } from '../../const';
-import { changeCity, changeSortOptions, fetchOffers } from '../../store/action';
+import { changeCity, changeSortOptions } from '../../store/action';
 import { getOffersByCity, getCityCoords } from '../../utils/utils';
-import SortingOptions from '../../components/sorting/sortingOptions';
+import SortingOptions from '../../components/sorting/sorting-options';
 import { sortOffers } from '../../utils/sortOffers';
 import MainEmptyScreen from './main-empty-screen';
 
@@ -20,9 +20,6 @@ function MainScreen (): JSX.Element {
   const offers = useAppSelector((state) => state.offers);
   const currentSortType = useAppSelector((state) => state.sortType);
 
-  useEffect(()=> {
-    dispatch(fetchOffers());
-  }, [dispatch]);
 
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(
     undefined
@@ -32,7 +29,7 @@ function MainScreen (): JSX.Element {
     setSelectedOffer(currentOffer);
   };
 
-  const handleClickCities = (city: string) => {
+  const handleSelectCity = (city: string) => {
     dispatch(changeCity(city));
   };
 
@@ -60,7 +57,7 @@ function MainScreen (): JSX.Element {
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
 
-        <CitiesTabs cities = {CITIES} onClickCities={handleClickCities}/>
+        <CitiesTabs cities = {CITIES} onCitySelect={handleSelectCity}/>
 
         <div className="cities">
           <div className="cities__places-container container">
