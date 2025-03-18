@@ -6,7 +6,7 @@ import LoginScreen from '../../pages/login-screen/login-screen';
 import OfferScreen from '../../pages/offer-screen/offer-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute } from '../../const';
 import {useAppSelector} from '../../hooks';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import { useEffect } from 'react';
@@ -37,7 +37,7 @@ function App (): JSX.Element {
           <Route path={AppRoute.Main}>
             <Route index element = {<MainScreen />}/>
             <Route path = {AppRoute.Favorites} element = {
-              <PrivateRoute autorizationStatus={AuthorizationStatus.Auth}>
+              <PrivateRoute>
                 <FavoriteScreen/>
               </PrivateRoute>
             }
