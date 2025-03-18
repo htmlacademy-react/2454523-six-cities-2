@@ -18,4 +18,5 @@ export type InitialState ={
   sortType: string;
   isOffersDataLoading: boolean;
   authorizationStatus: AuthorizationStatus;
+  error: string|null;
 };

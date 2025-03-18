@@ -2,8 +2,9 @@ import { AxiosInstance } from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state.js';
 import { Offers } from '../types/offer.js';
-import { fetchOffers, setOffersDataLoadingStatus, requireAuthorization } from './action.js';
-import { ApiRoute, AuthorizationStatus } from '../const';
+import { fetchOffers, setOffersDataLoadingStatus, requireAuthorization, setError } from './action.js';
+import { ApiRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../const';
+import {store} from './';
 
 
 export const fetchOffersAction = createAsyncThunk<void, undefined, {
@@ -34,4 +35,14 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
       dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     }
   },
+);
+
+export const clearErrorAction = createAsyncThunk(
+  'ERROR/clearError',
+  () => {
+    setTimeout(
+      ()=>store.dispatch(setError(null)),
+      TIMEOUT_SHOW_ERROR
+    );
+  }
 );

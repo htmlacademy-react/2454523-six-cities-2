@@ -10,7 +10,7 @@ import { AppRoute, AuthorizationStatus } from '../../const';
 import {useAppSelector} from '../../hooks';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import { useEffect } from 'react';
-import { fetchOffersAction } from '../../store/api-actions';
+import { fetchOffersAction, checkAuthAction } from '../../store/api-actions';
 import { useAppDispatch } from '../../hooks';
 
 
@@ -19,6 +19,7 @@ function App (): JSX.Element {
   const isOffersDataLoading = useAppSelector((state)=> state.isOffersDataLoading);
 
   useEffect(()=> {
+    dispatch(checkAuthAction());
     dispatch(fetchOffersAction());
   }, [dispatch]);
 

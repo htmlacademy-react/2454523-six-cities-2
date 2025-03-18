@@ -13,3 +13,4 @@ export const setOfferLoading = createAction('OFFER/setOfferLoading');
 export const changeSortOptions = createAction<string>('OFFERS/changeSortOptions');
 export const setOffersDataLoadingStatus = createAction<boolean>('DATA/setOffersDataLoadingStatus');
 export const requireAuthorization = createAction<AuthorizationStatus>('USER/requireAuthorization');
+export const setError = createAction<string|null>('ERROR/setError');

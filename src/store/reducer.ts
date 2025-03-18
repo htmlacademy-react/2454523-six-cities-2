@@ -17,6 +17,7 @@ import {
   changeSortOptions,
   setOffersDataLoadingStatus,
   requireAuthorization,
+  setError,
 } from './action';
 
 import { MAX_COUNT_NEAR_OFFERS } from '../const';
@@ -33,6 +34,7 @@ const initialState: InitialState = {
   sortType: SortType.Popular,
   isOffersDataLoading: false,
   authorizationStatus: AuthorizationStatus.Unknown,
+  error: null,
 
 };
 
@@ -71,6 +73,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(requireAuthorization, (state, action)=> {
       state.authorizationStatus = action.payload;
+    })
+    .addCase(setError, (state, action)=> {
+      state.error = action.payload;
     });
 });
 
