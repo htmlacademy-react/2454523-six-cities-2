@@ -81,7 +81,7 @@ export const СITIES_COORDS = [
   }
 ];
 
-export enum APIRoute {
+export enum ApiRoute {
   Offers = '/offers',
   Favorite ='/favorite',
   Login = '/login',

@@ -9,10 +9,19 @@ import PrivateRoute from '../private-route/private-route';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import {useAppSelector} from '../../hooks';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
+import { useEffect } from 'react';
+import { fetchOffersAction } from '../../store/api-actions';
+import { useAppDispatch } from '../../hooks';
+
 
 function App (): JSX.Element {
-
+  const dispatch = useAppDispatch();
   const isOffersDataLoading = useAppSelector((state)=> state.isOffersDataLoading);
+
+  useEffect(()=> {
+    dispatch(fetchOffersAction());
+  }, [dispatch]);
+
 
   if (isOffersDataLoading) {
     return (
