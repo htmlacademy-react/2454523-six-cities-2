@@ -2,7 +2,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import { detailedOffers } from '../mocks/offers';
 import { reviews } from '../mocks/reviews';
 import { InitialState } from '../types/state';
-import { CITIES, SortType } from '../const';
+import { CITIES, SortType, AuthorizationStatus } from '../const';
 
 
 import {
@@ -16,6 +16,7 @@ import {
   setOfferLoading,
   changeSortOptions,
   setOffersDataLoadingStatus,
+  requireAuthorization,
 } from './action';
 
 import { MAX_COUNT_NEAR_OFFERS } from '../const';
@@ -31,6 +32,8 @@ const initialState: InitialState = {
   favorites: [],
   sortType: SortType.Popular,
   isOffersDataLoading: false,
+  authorizationStatus: AuthorizationStatus.Unknown,
+
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -65,6 +68,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setOffersDataLoadingStatus, (state,action)=> {
       state.isOffersDataLoading = action.payload;
+    })
+    .addCase(requireAuthorization, (state, action)=> {
+      state.authorizationStatus = action.payload;
     });
 });
 
