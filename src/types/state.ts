@@ -19,4 +19,5 @@ export type InitialState ={
   isOffersDataLoading: boolean;
   authorizationStatus: AuthorizationStatus;
   error: string|null;
+  userEmail: string|null;
 };

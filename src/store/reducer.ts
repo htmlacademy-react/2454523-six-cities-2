@@ -18,6 +18,7 @@ import {
   setOffersDataLoadingStatus,
   requireAuthorization,
   setError,
+  setUserEmail,
 } from './action';
 
 import { MAX_COUNT_NEAR_OFFERS } from '../const';
@@ -35,6 +36,7 @@ const initialState: InitialState = {
   isOffersDataLoading: false,
   authorizationStatus: AuthorizationStatus.Unknown,
   error: null,
+  userEmail: null,
 
 };
 
@@ -76,6 +78,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setError, (state, action)=> {
       state.error = action.payload;
+    })
+    .addCase(setUserEmail, (state, action)=> {
+      state.userEmail = action.payload;
     });
 });
 

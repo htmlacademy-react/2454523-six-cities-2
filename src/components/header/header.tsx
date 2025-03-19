@@ -1,12 +1,14 @@
 import Logo from '../logo/logo';
 import { Link } from 'react-router-dom';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { AuthorizationStatus} from '../../const';
+import { logoutAction } from '../../store/api-actions';
 
 
 function Header () :JSX.Element {
 
   const autorizationStatus = useAppSelector((state)=>state.authorizationStatus);
+  const dispatch = useAppDispatch();
 
   return (
     <header className="header">
@@ -25,7 +27,16 @@ function Header () :JSX.Element {
                   </Link>
                 </li>
                 <li className="header__nav-item">
-                  <Link className="header__nav-link" to="/">
+                  <Link
+                    className="header__nav-link"
+                    onClick = {(evt)=> {
+                      evt.preventDefault();
+                      dispatch(logoutAction());
+
+                    }}
+
+                    to="/"
+                  >
                     <span className="header__signout">Sign out</span>
                   </Link>
                 </li>
