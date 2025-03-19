@@ -1,21 +1,28 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
 import { useRef } from 'react';
 import { FormEvent } from 'react';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
-//import { AppRoute } from '../../const';
 import { setError } from '../../store/action';
 import { clearErrorAction } from '../../store/api-actions';
+import { AppRoute, AuthorizationStatus } from '../../const';
 
 
 function LoginScreen () :JSX.Element {
+
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
   const dispatch = useAppDispatch();
-  //const navigate = useNavigate();
+
+  const authorizationStatus = useAppSelector((state)=> state.authorizationStatus);
+
+  if (authorizationStatus === AuthorizationStatus.Auth){
+    return <Navigate to={AppRoute.Main} />;
+  }
+
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>)=> {
     evt.preventDefault();
@@ -81,7 +88,6 @@ function LoginScreen () :JSX.Element {
                 />
               </div>
               <button
-                // onClick = {()=> navigate(AppRoute.Main)}
                 className="login__submit form__submit button"
                 type="submit"
               >Sign in
