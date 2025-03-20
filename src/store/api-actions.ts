@@ -9,6 +9,7 @@ import { AuthData } from '../types/auth-data.js';
 import { UserData } from '../types/user-data.js';
 import { saveToken } from '../services/token.js';
 import { dropToken } from '../services/token.js';
+import { dropEmail, getEmail, saveEmail } from '../services/email.js';
 
 
 export const fetchOffersAction = createAsyncThunk<void, undefined, {
@@ -35,6 +36,7 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
     try {
       await api.get(ApiRoute.Login);
       dispatch(requireAuthorization(AuthorizationStatus.Auth));
+      dispatch(setUserEmail(getEmail()));
     } catch {
       dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     }
@@ -61,6 +63,7 @@ export const loginAction = createAsyncThunk<void, AuthData, {
   async ({email, password}, {dispatch, extra: api}) => {
     const { data } = await api.post<UserData>(ApiRoute.Login, { email, password });
     saveToken(data.token);
+    saveEmail(data.email);
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
     dispatch(redirectToRoute(AppRoute.Main));
     dispatch(setUserEmail(data.email));
@@ -76,6 +79,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   async (_arg, {dispatch, extra:api}) => {
     await api.delete(ApiRoute.Logout);
     dropToken();
+    dropEmail();
     dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
   }
 );
