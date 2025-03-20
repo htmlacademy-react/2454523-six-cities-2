@@ -1,13 +1,12 @@
 import { Link, Navigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
-import { useRef } from 'react';
-import { FormEvent } from 'react';
+import { useRef, FormEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { loginAction } from '../../store/api-actions';
+import { loginAction, clearErrorAction } from '../../store/api-actions';
 import { setError } from '../../store/action';
-import { clearErrorAction } from '../../store/api-actions';
 import { AppRoute, AuthorizationStatus } from '../../const';
+import { isValidPassword } from '../../utils/validatePassword';
 
 
 function LoginScreen () :JSX.Element {
@@ -31,10 +30,10 @@ function LoginScreen () :JSX.Element {
       const email = emailRef.current.value;
       const password = passwordRef.current.value;
 
+      const passwordIsValid = isValidPassword(password);
 
-      const hasLetter = /[a-zA-Zа-яА-Я]/.test(password);
-      const hasDigit = /\d/.test(password);
-      if (!hasLetter || !hasDigit) {
+
+      if (!passwordIsValid) {
         dispatch(setError('Пароль должен содержать хотя бы одну букву и цифру'));
         dispatch(clearErrorAction());
         return;
