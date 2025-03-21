@@ -1,19 +1,9 @@
-import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../hooks';
 import ReviewForm from './review-form';
 import ReviewItem from './review-item';
-import { fetchReviews } from '../../store/action';
-import { DetailedOffer } from '../../types/offer';
 
-type ReviewsListProps = {
-  offerId: DetailedOffer['id'];
-};
 
-function ReviewsList({offerId}: ReviewsListProps): JSX.Element {
-  const dispatch = useAppDispatch();
-  useEffect(()=> {
-    dispatch(fetchReviews(offerId));
-  }, [offerId, dispatch]);
+function ReviewsList(): JSX.Element {
 
   const reviews = useAppSelector((state)=> state.reviews);
   return (

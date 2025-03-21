@@ -1,6 +1,4 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { detailedOffers } from '../mocks/offers';
-import { reviews } from '../mocks/reviews';
 import { InitialState } from '../types/state';
 import { CITIES, SortType, AuthorizationStatus } from '../const';
 
@@ -13,7 +11,7 @@ import {
   fetchDetailedOffer,
   fetchReviews,
   dropOffer,
-  setOfferLoading,
+  setDetailedOfferLoading,
   changeSortOptions,
   setOffersDataLoadingStatus,
   requireAuthorization,
@@ -49,13 +47,13 @@ const reducer = createReducer(initialState, (builder) => {
       state.offers = action.payload;
     })
     .addCase(fetchDetailedOffer, (state,action) => {
-      state.detailedOffer = detailedOffers.find((detailedOffer) => detailedOffer.id === action.payload) ?? null;
+      state.detailedOffer = action.payload;
     })
     .addCase(fetchNeighboringOffers, (state, action) => {
-      state.neighboringOffers = state.offers.filter((offer)=> offer.id !== action.payload).slice(0, MAX_COUNT_NEAR_OFFERS);
+      state.neighboringOffers = action.payload.slice(0, MAX_COUNT_NEAR_OFFERS);
     })
     .addCase(fetchReviews, (state, action)=> {
-      state.reviews = reviews.filter((review) => review.id === action.payload);
+      state.reviews = action.payload;
     })
     .addCase(dropOffer, (state)=> {
       state.detailedOffer = null;
@@ -64,8 +62,8 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(fetchFavorites, (state)=> {
       state.favorites = state.offers.filter((offer) => offer.isFavorite);
     })
-    .addCase(setOfferLoading, (state)=> {
-      state.isDetailedOfferLoading = false;
+    .addCase(setDetailedOfferLoading, (state, action)=> {
+      state.isDetailedOfferLoading = action.payload;
     })
     .addCase(changeSortOptions,(state, action)=> {
       state.sortType = action.payload;

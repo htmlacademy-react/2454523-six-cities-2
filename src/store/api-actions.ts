@@ -1,8 +1,16 @@
 import { AxiosInstance } from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state.js';
-import { Offers } from '../types/offer.js';
-import { fetchOffers, setOffersDataLoadingStatus, requireAuthorization, setError, setUserEmail, redirectToRoute } from './action.js';
+import { DetailedOffer, Offers } from '../types/offer.js';
+import { fetchOffers,
+  setOffersDataLoadingStatus,
+  requireAuthorization,
+  setError, setUserEmail,
+  redirectToRoute,
+  fetchDetailedOffer,
+  setDetailedOfferLoading,
+  fetchNeighboringOffers,
+  fetchReviews} from './action.js';
 import { ApiRoute, AppRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../const';
 import {store} from './';
 import { AuthData } from '../types/auth-data.js';
@@ -10,6 +18,7 @@ import { UserData } from '../types/user-data.js';
 import { saveToken } from '../services/token.js';
 import { dropToken } from '../services/token.js';
 import { dropEmail, getEmail, saveEmail } from '../services/email.js';
+import { Reviews } from '../types/review.js';
 
 
 export const fetchOffersAction = createAsyncThunk<void, undefined, {
@@ -83,3 +92,22 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
   }
 );
+
+export const fetchDetailedOfferAction = createAsyncThunk<void, string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'DATA/fetchDetailedOffer',
+  async (id, {dispatch, extra: api})=> {
+    dispatch(setDetailedOfferLoading(true));
+    const {data: detailedOfferData} = await api.get<DetailedOffer>(`${ApiRoute.Offers}/${id}`);
+    const {data: neighboringOffers} = await api.get<Offers>(`${ApiRoute.Offers}/${id}/nearby`);
+    const {data: rewievs} = await api.get<Reviews>(`${ApiRoute.Comments}/${id}`);
+    dispatch(fetchDetailedOffer(detailedOfferData));
+    dispatch(fetchNeighboringOffers(neighboringOffers));
+    dispatch(fetchReviews(rewievs));
+    dispatch(setDetailedOfferLoading(false));
+  }
+);
+
