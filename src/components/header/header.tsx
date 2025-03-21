@@ -1,35 +1,21 @@
 import Logo from '../logo/logo';
-import { Link } from 'react-router-dom';
+import { useAppSelector } from '../../hooks';
+import { AuthorizationStatus} from '../../const';
+import HeaderNavAuth from './header-nav-auth';
+import HeaderNavNoAuth from './header-nav-noAuth';
 
-type HeaderProps = {
-  withNavigation?: boolean;
-};
 
-function Header ({withNavigation = true} : HeaderProps) :JSX.Element {
+function Header () :JSX.Element {
+
+  const autorizationStatus = useAppSelector((state)=>state.authorizationStatus);
+  const userEmail = useAppSelector((state)=> state.userEmail);
+
   return (
     <header className="header">
       <div className="container">
         <div className="header__wrapper">
           <Logo/>
-          {withNavigation && (
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <Link className="header__nav-link header__nav-link--profile" to="/">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    <span className="header__favorite-count">3</span>
-                  </Link>
-                </li>
-                <li className="header__nav-item">
-                  <Link className="header__nav-link" to="/">
-                    <span className="header__signout">Sign out</span>
-                  </Link>
-                </li>
-              </ul>
-            </nav>
-          )}
+          {autorizationStatus === AuthorizationStatus.Auth ? <HeaderNavAuth userEmail={userEmail}/> : <HeaderNavNoAuth/> }
         </div>
       </div>
     </header>

@@ -1,6 +1,7 @@
 import { store } from '../store/index.js';
 import { City, Offers, DetailedOffer } from './offer.js';
 import { Reviews } from './review.js';
+import { AuthorizationStatus } from '../const';
 
 export type State = ReturnType<typeof store.getState>;
 
@@ -16,4 +17,7 @@ export type InitialState ={
   favorites: Offers;
   sortType: string;
   isOffersDataLoading: boolean;
+  authorizationStatus: AuthorizationStatus;
+  error: string|null;
+  userEmail: string|null;
 };
