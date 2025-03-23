@@ -10,7 +10,8 @@ import { fetchOffers,
   fetchDetailedOffer,
   setDetailedOfferLoading,
   fetchNeighboringOffers,
-  fetchReviews} from './action.js';
+  fetchReviews,
+  addReview} from './action.js';
 import { ApiRoute, AppRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../const';
 import {store} from './';
 import { AuthData } from '../types/auth-data.js';
@@ -18,7 +19,7 @@ import { UserData } from '../types/user-data.js';
 import { saveToken } from '../services/token.js';
 import { dropToken } from '../services/token.js';
 import { dropEmail, getEmail, saveEmail } from '../services/email.js';
-import { Reviews } from '../types/review.js';
+import { Reviews, Review, PostReview } from '../types/review.js';
 
 
 export const fetchOffersAction = createAsyncThunk<void, undefined, {
@@ -111,3 +112,24 @@ export const fetchDetailedOfferAction = createAsyncThunk<void, string, {
   }
 );
 
+export const postReviewAction = createAsyncThunk<
+  Review,
+  { offerId: string ; reviewData: PostReview },
+  { dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  'DATA/postReview',
+  async ({ offerId, reviewData }, { dispatch, extra: api }) => {
+    const { data } = await api.post<Review>(
+      `${ApiRoute.Comments}/${offerId}`,
+      {
+        comment: reviewData.comment,
+        rating: reviewData.rating
+      }
+    );
+    dispatch(addReview(data));
+    return data;
+  }
+);

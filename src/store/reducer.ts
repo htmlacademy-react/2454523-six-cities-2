@@ -17,6 +17,7 @@ import {
   requireAuthorization,
   setError,
   setUserEmail,
+  addReview,
 } from './action';
 
 import { MAX_COUNT_NEAR_OFFERS } from '../const';
@@ -79,6 +80,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setUserEmail, (state, action)=> {
       state.userEmail = action.payload;
+    })
+    .addCase(addReview, (state,action) => {
+      state.reviews.push(action.payload);
     });
 });
 

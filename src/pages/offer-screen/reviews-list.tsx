@@ -1,11 +1,14 @@
 import { useAppSelector } from '../../hooks';
 import ReviewForm from './review-form';
 import ReviewItem from './review-item';
+import { AuthorizationStatus} from '../../const';
 
 
 function ReviewsList(): JSX.Element {
 
   const reviews = useAppSelector((state)=> state.reviews);
+  const autorizationStatus = useAppSelector((state)=> state.authorizationStatus);
+
   return (
     <section className="offer__reviews reviews">
       <h2 className="reviews__title">
@@ -18,7 +21,7 @@ function ReviewsList(): JSX.Element {
         ))}
       </ul>
 
-      <ReviewForm />
+      {autorizationStatus === AuthorizationStatus.Auth && <ReviewForm /> }
     </section>
   );
 }

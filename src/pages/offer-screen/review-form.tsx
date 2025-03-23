@@ -1,9 +1,15 @@
 import React from 'react';
 import { useState, ChangeEvent } from 'react';
 import { STARS_RAITING, MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH } from '../../const';
+import { postReviewAction } from '../../store/api-actions';
+import { useParams } from 'react-router-dom';
+import { useAppDispatch } from '../../hooks';
 
 
 function ReviewForm () {
+
+  const {offerId} = useParams();
+  const dispatch = useAppDispatch();
 
   const [starsRating, setStarsRating] = useState('');
 
@@ -23,8 +29,30 @@ function ReviewForm () {
   reviewsText.length <= MAX_COMMENT_LENGTH &&
   starsRating !== '';
 
+  const handleSubmit = (evt: React.FormEvent<HTMLFormElement>)=> {
+    evt.preventDefault();
+
+    if (!offerId) {
+      return null;
+    }
+
+    dispatch(postReviewAction({
+      offerId,
+      reviewData: {
+        comment: reviewsText,
+        rating: Number(starsRating),
+      }
+    }));
+    setReviewsText('');
+    setStarsRating('');
+  };
+
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form
+      className="reviews__form form"
+      action="#" method="post"
+      onSubmit={handleSubmit}
+    >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
 
