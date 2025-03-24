@@ -18,7 +18,7 @@ function OfferScreen () : JSX.Element {
   const dispatch = useAppDispatch();
   const detailedOffer = useAppSelector((state)=> state.detailedOffer);
   const neighboringOffers = useAppSelector((state)=> state.neighboringOffers);
-  const isDetailedOfferLoading = useAppSelector((state) => state.isDetailedOfferLoading);
+  const isDetailedOfferLoading = useAppSelector((state) => state.isStatusLoading);
 
 
   useEffect(()=>{

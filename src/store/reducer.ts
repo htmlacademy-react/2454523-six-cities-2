@@ -11,7 +11,7 @@ import {
   fetchDetailedOffer,
   fetchReviews,
   dropOffer,
-  setDetailedOfferLoading,
+  setLoadingStatus,
   changeSortOptions,
   setOffersDataLoadingStatus,
   requireAuthorization,
@@ -28,7 +28,7 @@ const initialState: InitialState = {
   offers:[],
   neighboringOffers:[],
   reviews: [],
-  isDetailedOfferLoading: true,
+  isStatusLoading: true,
   detailedOffer: null,
   favorites: [],
   sortType: SortType.Popular,
@@ -60,11 +60,11 @@ const reducer = createReducer(initialState, (builder) => {
       state.detailedOffer = null;
       state.neighboringOffers = [];
     })
-    .addCase(fetchFavorites, (state)=> {
-      state.favorites = state.offers.filter((offer) => offer.isFavorite);
+    .addCase(fetchFavorites, (state, action)=> {
+      state.favorites = action.payload;
     })
-    .addCase(setDetailedOfferLoading, (state, action)=> {
-      state.isDetailedOfferLoading = action.payload;
+    .addCase(setLoadingStatus, (state, action)=> {
+      state.isStatusLoading = action.payload;
     })
     .addCase(changeSortOptions,(state, action)=> {
       state.sortType = action.payload;

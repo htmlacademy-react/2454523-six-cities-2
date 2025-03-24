@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
-import { fetchFavorites } from '../../store/action';
+import { fetchFavoritesOffersAction } from '../../store/api-actions';
 
 
 function FavoriteScreen () : JSX.Element {
 
   const dispatch = useAppDispatch();
   useEffect(()=> {
-    dispatch(fetchFavorites());
+    dispatch(fetchFavoritesOffersAction());
   }, [dispatch]
   );
 

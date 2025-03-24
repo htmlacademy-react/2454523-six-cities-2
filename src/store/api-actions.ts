@@ -8,10 +8,11 @@ import { fetchOffers,
   setError, setUserEmail,
   redirectToRoute,
   fetchDetailedOffer,
-  setDetailedOfferLoading,
+  setLoadingStatus,
   fetchNeighboringOffers,
   fetchReviews,
-  addReview} from './action.js';
+  addReview,
+  fetchFavorites} from './action.js';
 import { ApiRoute, AppRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../const';
 import {store} from './';
 import { AuthData } from '../types/auth-data.js';
@@ -101,14 +102,14 @@ export const fetchDetailedOfferAction = createAsyncThunk<void, string, {
 }>(
   'DATA/fetchDetailedOffer',
   async (id, {dispatch, extra: api})=> {
-    dispatch(setDetailedOfferLoading(true));
+    dispatch(setLoadingStatus(true));
     const {data: detailedOfferData} = await api.get<DetailedOffer>(`${ApiRoute.Offers}/${id}`);
     const {data: neighboringOffers} = await api.get<Offers>(`${ApiRoute.Offers}/${id}/nearby`);
     const {data: rewievs} = await api.get<Reviews>(`${ApiRoute.Comments}/${id}`);
     dispatch(fetchDetailedOffer(detailedOfferData));
     dispatch(fetchNeighboringOffers(neighboringOffers));
     dispatch(fetchReviews(rewievs));
-    dispatch(setDetailedOfferLoading(false));
+    dispatch(setLoadingStatus(false));
   }
 );
 
@@ -131,5 +132,19 @@ export const postReviewAction = createAsyncThunk<
     );
     dispatch(addReview(data));
     return data;
+  }
+);
+
+export const fetchFavoritesOffersAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'DATA/fetchFaviritesOffers',
+  async (_arg, {dispatch, extra: api})=> {
+    dispatch(setLoadingStatus(true));
+    const {data} = await api.get<Offers>(ApiRoute.Favorite);
+    dispatch(setOffersDataLoadingStatus(false));
+    dispatch(fetchFavorites(data));
   }
 );

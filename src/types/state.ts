@@ -12,7 +12,7 @@ export type InitialState ={
   offers: Offers;
   neighboringOffers: Offers;
   reviews: Reviews;
-  isDetailedOfferLoading: boolean;
+  isStatusLoading: boolean;
   detailedOffer:DetailedOffer | null;
   favorites: Offers;
   sortType: string;
