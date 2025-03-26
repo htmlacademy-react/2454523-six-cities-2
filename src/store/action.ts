@@ -1,4 +1,4 @@
-import { createAction } from '@reduxjs/toolkit';
+import { createAction, } from '@reduxjs/toolkit';
 import { City, DetailedOffer, Offers } from '../types/offer';
 import { AppRoute, AuthorizationStatus } from '../const';
 import { Review, Reviews } from '../types/review';
@@ -18,3 +18,6 @@ export const setError = createAction<string|null>('ERROR/setError');
 export const setUserEmail = createAction<string>('USER/setUserEmail');
 export const redirectToRoute = createAction<AppRoute>('LOGIN/redirectToRoute');
 export const addReview = createAction<Review>('DATA/addReview');
+export const setFetchingError = createAction<boolean>('DATA/setFetchingError');
+export const setIsSubmitting = createAction<boolean>('DATA/setIsSubmitting');
+export const setIsSubmittingFailed = createAction<boolean>('DATA/setSubmittingFailed');

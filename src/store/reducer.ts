@@ -18,6 +18,9 @@ import {
   setError,
   setUserEmail,
   addReview,
+  setFetchingError,
+  setIsSubmitting,
+  setIsSubmittingFailed
 } from './action';
 
 import { MAX_COUNT_NEAR_OFFERS } from '../const';
@@ -36,6 +39,10 @@ const initialState: InitialState = {
   authorizationStatus: AuthorizationStatus.Unknown,
   error: null,
   userEmail: null,
+  isFetchingError: false,
+  isSubmitting:false,
+  isSubmittingFailed: false,
+
 
 };
 
@@ -83,6 +90,15 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(addReview, (state,action) => {
       state.reviews.push(action.payload);
+    })
+    .addCase(setFetchingError, (state, action)=>{
+      state.isFetchingError = action.payload;
+    })
+    .addCase(setIsSubmitting, (state, action)=> {
+      state.isSubmitting = action.payload;
+    })
+    .addCase(setIsSubmittingFailed, (state,action)=>{
+      state.isSubmittingFailed = action.payload;
     });
 });
 

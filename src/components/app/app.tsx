@@ -14,6 +14,7 @@ import { fetchOffersAction, checkAuthAction } from '../../store/api-actions';
 import { useAppDispatch } from '../../hooks';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
+import FetchingError from '../error-message/fetching-error';
 
 
 function App (): JSX.Element {
@@ -26,6 +27,13 @@ function App (): JSX.Element {
 
   }, [dispatch]);
 
+  const isOffersFetchingError = useAppSelector((state)=> state.isFetchingError);
+
+  if (isOffersFetchingError) {
+    return (
+      <FetchingError/>
+    );
+  }
 
   if (isOffersDataLoading) {
     return (

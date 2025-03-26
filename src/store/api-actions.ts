@@ -12,7 +12,10 @@ import { fetchOffers,
   fetchNeighboringOffers,
   fetchReviews,
   addReview,
-  fetchFavorites} from './action.js';
+  fetchFavorites,
+  setFetchingError,
+  setIsSubmitting,
+  setIsSubmittingFailed} from './action.js';
 import { ApiRoute, AppRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../const';
 import {store} from './';
 import { AuthData } from '../types/auth-data.js';
@@ -30,10 +33,16 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
 }>(
   'DATA/fetchOffers',
   async (_arg, {dispatch, extra: api})=> {
-    dispatch(setOffersDataLoadingStatus(true));
-    const {data} = await api.get<Offers>(ApiRoute.Offers);
-    dispatch(setOffersDataLoadingStatus(false));
-    dispatch(fetchOffers(data));
+    try{
+      dispatch(setOffersDataLoadingStatus(true));
+      const {data} = await api.get<Offers>(ApiRoute.Offers);
+      dispatch(setOffersDataLoadingStatus(false));
+      dispatch(fetchOffers(data));
+    } catch {
+      dispatch(setOffersDataLoadingStatus(false));
+      dispatch(setFetchingError(true));
+    }
+
   }
 );
 
@@ -113,8 +122,9 @@ export const fetchDetailedOfferAction = createAsyncThunk<void, string, {
   }
 );
 
+
 export const postReviewAction = createAsyncThunk<
-  Review,
+  void,
   { offerId: string ; reviewData: PostReview },
   { dispatch: AppDispatch;
     state: State;
@@ -123,24 +133,32 @@ export const postReviewAction = createAsyncThunk<
 >(
   'DATA/postReview',
   async ({ offerId, reviewData }, { dispatch, extra: api }) => {
-    const { data } = await api.post<Review>(
-      `${ApiRoute.Comments}/${offerId}`,
-      {
-        comment: reviewData.comment,
-        rating: reviewData.rating
-      }
-    );
-    dispatch(addReview(data));
-    return data;
+    try{
+      dispatch(setIsSubmitting(true));
+      const { data } = await api.post<Review>(
+        `${ApiRoute.Comments}/${offerId}`,
+        {
+          comment: reviewData.comment,
+          rating: reviewData.rating
+        }
+      );
+      dispatch(addReview(data));
+      dispatch(setIsSubmitting(false));
+    } catch{
+      dispatch(setIsSubmitting(false));
+      dispatch(setIsSubmittingFailed(true));
+    }
+
   }
 );
+
 
 export const fetchFavoritesOffersAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
-  'DATA/fetchFaviritesOffers',
+  'DATA/fetchFavоritesOffers',
   async (_arg, {dispatch, extra: api})=> {
     dispatch(setLoadingStatus(true));
     const {data} = await api.get<Offers>(ApiRoute.Favorite);

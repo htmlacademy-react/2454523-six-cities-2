@@ -20,4 +20,7 @@ export type InitialState ={
   authorizationStatus: AuthorizationStatus;
   error: string|null;
   userEmail: string|null;
+  isFetchingError: boolean;
+  isSubmitting: boolean;
+  isSubmittingFailed: boolean;
 };
