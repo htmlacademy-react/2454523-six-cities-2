@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import { fetchFavoritesOffersAction } from '../../store/api-actions';
+import FavoriteEmptyScreen from './favorite-empty-screen';
 
 
 function FavoriteScreen () : JSX.Element {
@@ -15,6 +16,12 @@ function FavoriteScreen () : JSX.Element {
   );
 
   const favorites = useAppSelector((state) => state.favorites);
+
+  if(favorites.length === 0){
+    return (
+      <FavoriteEmptyScreen/>
+    );
+  }
 
   return (
     <div className="page">

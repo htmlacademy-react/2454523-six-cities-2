@@ -111,14 +111,19 @@ export const fetchDetailedOfferAction = createAsyncThunk<void, string, {
 }>(
   'DATA/fetchDetailedOffer',
   async (id, {dispatch, extra: api})=> {
-    dispatch(setLoadingStatus(true));
-    const {data: detailedOfferData} = await api.get<DetailedOffer>(`${ApiRoute.Offers}/${id}`);
-    const {data: neighboringOffers} = await api.get<Offers>(`${ApiRoute.Offers}/${id}/nearby`);
-    const {data: rewievs} = await api.get<Reviews>(`${ApiRoute.Comments}/${id}`);
-    dispatch(fetchDetailedOffer(detailedOfferData));
-    dispatch(fetchNeighboringOffers(neighboringOffers));
-    dispatch(fetchReviews(rewievs));
-    dispatch(setLoadingStatus(false));
+    try{
+      dispatch(setLoadingStatus(true));
+      const {data: detailedOfferData} = await api.get<DetailedOffer>(`${ApiRoute.Offers}/${id}`);
+      const {data: neighboringOffers} = await api.get<Offers>(`${ApiRoute.Offers}/${id}/nearby`);
+      const {data: rewievs} = await api.get<Reviews>(`${ApiRoute.Comments}/${id}`);
+      dispatch(fetchDetailedOffer(detailedOfferData));
+      dispatch(fetchNeighboringOffers(neighboringOffers));
+      dispatch(fetchReviews(rewievs));
+      dispatch(setLoadingStatus(false));
+    } catch{
+      dispatch(setLoadingStatus(false));
+      dispatch(setFetchingError(true));
+    }
   }
 );
 
@@ -160,9 +165,15 @@ export const fetchFavoritesOffersAction = createAsyncThunk<void, undefined, {
 }>(
   'DATA/fetchFavоritesOffers',
   async (_arg, {dispatch, extra: api})=> {
-    dispatch(setLoadingStatus(true));
-    const {data} = await api.get<Offers>(ApiRoute.Favorite);
-    dispatch(setOffersDataLoadingStatus(false));
-    dispatch(fetchFavorites(data));
+    try{
+      dispatch(setLoadingStatus(true));
+      const {data} = await api.get<Offers>(ApiRoute.Favorite);
+      dispatch(setOffersDataLoadingStatus(false));
+      dispatch(fetchFavorites(data));
+    } catch {
+      dispatch(setLoadingStatus(false));
+      dispatch(setFetchingError(true));
+    }
+
   }
 );
