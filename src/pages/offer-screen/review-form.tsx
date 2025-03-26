@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, ChangeEvent } from 'react';
-import { STARS_RAITING, MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH } from '../../const';
+import { STARS_RATING, MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH } from '../../const';
 import { postReviewAction } from '../../store/api-actions';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -13,11 +13,11 @@ function ReviewForm () {
   const isSubmitting = useAppSelector((state)=> state.isSubmitting);
   const isSubmittingFailed = useAppSelector((state)=> state.isSubmittingFailed);
 
-  const [starsRating, setStarsRating] = useState('');
+  const [starsRating, setStarsRating] = useState(0);
 
   const handleRatingStarsChange = ({target}: ChangeEvent<HTMLInputElement>) => {
     const value = target.value;
-    setStarsRating(value);
+    setStarsRating(Number(value));
   };
 
   const [reviewsText, setReviewsText] = useState('');
@@ -29,7 +29,7 @@ function ReviewForm () {
 
   const isValid = reviewsText.length >= MIN_COMMENT_LENGTH &&
   reviewsText.length <= MAX_COMMENT_LENGTH &&
-  starsRating !== '';
+  starsRating !== 0;
 
   const handleSubmit = (evt: React.FormEvent<HTMLFormElement>)=> {
     evt.preventDefault();
@@ -46,11 +46,11 @@ function ReviewForm () {
       offerId,
       reviewData: {
         comment: reviewsText,
-        rating: Number(starsRating),
+        rating: starsRating,
       }
     }));
     setReviewsText('');
-    setStarsRating('');
+    setStarsRating(0);
   };
 
   return (
@@ -63,8 +63,8 @@ function ReviewForm () {
         <label className="reviews__label form__label" htmlFor="review">Your review</label>
         <div className="reviews__rating-form form__rating">
 
-          {STARS_RAITING.map((starRaiting, index, array) => {
-            const value = (array.length - index).toString();
+          {STARS_RATING.map((starRating, index, array) => {
+            const value = array.length - index;
             return (
               <React.Fragment key={value}>
                 <input
@@ -79,7 +79,7 @@ function ReviewForm () {
                 <label
                   htmlFor={`${value}-stars`}
                   className="reviews__rating-label form__rating-label"
-                  title={starRaiting}
+                  title={starRating}
                 >
                   <svg className="form__star-image" width="37" height="33">
                     <use xlinkHref="#icon-star"></use>
@@ -95,7 +95,7 @@ function ReviewForm () {
           <p className="reviews__help">
                       To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
           </p>
-          {isSubmittingFailed && <p style={{color: 'red'}}>Отправка не удалась. Повторите еще раз!</p>}
+          {isSubmittingFailed && <p className='error-submit'>Отправка не удалась. Повторите еще раз!</p>}
           <button className="reviews__submit form__submit button"
             type="submit"
             disabled={!isValid}

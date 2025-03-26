@@ -36,11 +36,11 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
     try{
       dispatch(setOffersDataLoadingStatus(true));
       const {data} = await api.get<Offers>(ApiRoute.Offers);
-      dispatch(setOffersDataLoadingStatus(false));
       dispatch(fetchOffers(data));
     } catch {
-      dispatch(setOffersDataLoadingStatus(false));
       dispatch(setFetchingError(true));
+    } finally {
+      dispatch(setOffersDataLoadingStatus(false));
     }
 
   }
@@ -119,10 +119,10 @@ export const fetchDetailedOfferAction = createAsyncThunk<void, string, {
       dispatch(fetchDetailedOffer(detailedOfferData));
       dispatch(fetchNeighboringOffers(neighboringOffers));
       dispatch(fetchReviews(rewievs));
-      dispatch(setLoadingStatus(false));
     } catch{
-      dispatch(setLoadingStatus(false));
       dispatch(setFetchingError(true));
+    } finally {
+      dispatch(setLoadingStatus(false));
     }
   }
 );
@@ -148,10 +148,10 @@ export const postReviewAction = createAsyncThunk<
         }
       );
       dispatch(addReview(data));
-      dispatch(setIsSubmitting(false));
     } catch{
-      dispatch(setIsSubmitting(false));
       dispatch(setIsSubmittingFailed(true));
+    } finally {
+      dispatch(setIsSubmitting(false));
     }
 
   }
@@ -168,11 +168,11 @@ export const fetchFavoritesOffersAction = createAsyncThunk<void, undefined, {
     try{
       dispatch(setLoadingStatus(true));
       const {data} = await api.get<Offers>(ApiRoute.Favorite);
-      dispatch(setOffersDataLoadingStatus(false));
       dispatch(fetchFavorites(data));
     } catch {
-      dispatch(setLoadingStatus(false));
       dispatch(setFetchingError(true));
+    } finally {
+      dispatch(setLoadingStatus(false));
     }
 
   }
