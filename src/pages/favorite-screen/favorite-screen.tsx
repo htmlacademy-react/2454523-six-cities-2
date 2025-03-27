@@ -3,18 +3,25 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
-import { fetchFavorites } from '../../store/action';
+import { fetchFavoritesOffersAction } from '../../store/api-actions';
+import FavoriteEmptyScreen from './favorite-empty-screen';
 
 
 function FavoriteScreen () : JSX.Element {
 
   const dispatch = useAppDispatch();
   useEffect(()=> {
-    dispatch(fetchFavorites());
+    dispatch(fetchFavoritesOffersAction());
   }, [dispatch]
   );
 
   const favorites = useAppSelector((state) => state.favorites);
+
+  if(favorites.length === 0){
+    return (
+      <FavoriteEmptyScreen/>
+    );
+  }
 
   return (
     <div className="page">

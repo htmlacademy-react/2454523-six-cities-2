@@ -1,8 +1,21 @@
 import { AxiosInstance } from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state.js';
-import { Offers } from '../types/offer.js';
-import { fetchOffers, setOffersDataLoadingStatus, requireAuthorization, setError, setUserEmail, redirectToRoute } from './action.js';
+import { DetailedOffer, Offers } from '../types/offer.js';
+import { fetchOffers,
+  setOffersDataLoadingStatus,
+  requireAuthorization,
+  setError, setUserEmail,
+  redirectToRoute,
+  fetchDetailedOffer,
+  setLoadingStatus,
+  fetchNeighboringOffers,
+  fetchReviews,
+  addReview,
+  fetchFavorites,
+  setFetchingError,
+  setIsSubmitting,
+  setIsSubmittingFailed} from './action.js';
 import { ApiRoute, AppRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../const';
 import {store} from './';
 import { AuthData } from '../types/auth-data.js';
@@ -10,6 +23,7 @@ import { UserData } from '../types/user-data.js';
 import { saveToken } from '../services/token.js';
 import { dropToken } from '../services/token.js';
 import { dropEmail, getEmail, saveEmail } from '../services/email.js';
+import { Reviews, Review, PostReview } from '../types/review.js';
 
 
 export const fetchOffersAction = createAsyncThunk<void, undefined, {
@@ -19,10 +33,16 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
 }>(
   'DATA/fetchOffers',
   async (_arg, {dispatch, extra: api})=> {
-    dispatch(setOffersDataLoadingStatus(true));
-    const {data} = await api.get<Offers>(ApiRoute.Offers);
-    dispatch(setOffersDataLoadingStatus(false));
-    dispatch(fetchOffers(data));
+    try{
+      dispatch(setOffersDataLoadingStatus(true));
+      const {data} = await api.get<Offers>(ApiRoute.Offers);
+      dispatch(fetchOffers(data));
+    } catch {
+      dispatch(setFetchingError(true));
+    } finally {
+      dispatch(setOffersDataLoadingStatus(false));
+    }
+
   }
 );
 
@@ -81,5 +101,79 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     dropToken();
     dropEmail();
     dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+  }
+);
+
+export const fetchDetailedOfferAction = createAsyncThunk<void, string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'DATA/fetchDetailedOffer',
+  async (id, {dispatch, extra: api})=> {
+    try{
+      dispatch(setLoadingStatus(true));
+      const {data: detailedOfferData} = await api.get<DetailedOffer>(`${ApiRoute.Offers}/${id}`);
+      const {data: neighboringOffers} = await api.get<Offers>(`${ApiRoute.Offers}/${id}/nearby`);
+      const {data: rewievs} = await api.get<Reviews>(`${ApiRoute.Comments}/${id}`);
+      dispatch(fetchDetailedOffer(detailedOfferData));
+      dispatch(fetchNeighboringOffers(neighboringOffers));
+      dispatch(fetchReviews(rewievs));
+    } catch{
+      dispatch(setFetchingError(true));
+    } finally {
+      dispatch(setLoadingStatus(false));
+    }
+  }
+);
+
+
+export const postReviewAction = createAsyncThunk<
+  void,
+  { offerId: string ; reviewData: PostReview },
+  { dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  'DATA/postReview',
+  async ({ offerId, reviewData }, { dispatch, extra: api }) => {
+    try{
+      dispatch(setIsSubmitting(true));
+      const { data } = await api.post<Review>(
+        `${ApiRoute.Comments}/${offerId}`,
+        {
+          comment: reviewData.comment,
+          rating: reviewData.rating
+        }
+      );
+      dispatch(addReview(data));
+    } catch{
+      dispatch(setIsSubmittingFailed(true));
+    } finally {
+      dispatch(setIsSubmitting(false));
+    }
+
+  }
+);
+
+
+export const fetchFavoritesOffersAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'DATA/fetchFavоritesOffers',
+  async (_arg, {dispatch, extra: api})=> {
+    try{
+      dispatch(setLoadingStatus(true));
+      const {data} = await api.get<Offers>(ApiRoute.Favorite);
+      dispatch(fetchFavorites(data));
+    } catch {
+      dispatch(setFetchingError(true));
+    } finally {
+      dispatch(setLoadingStatus(false));
+    }
+
   }
 );

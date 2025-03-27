@@ -9,8 +9,8 @@ import { getCityCoords } from '../../utils/utils';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { CITIES, СITIES_COORDS } from '../../const';
 import { useEffect } from 'react';
-import { dropOffer, fetchNeighboringOffers, fetchDetailedOffer, setOfferLoading } from '../../store/action';
-
+import { dropOffer } from '../../store/action';
+import { fetchDetailedOfferAction } from '../../store/api-actions';
 
 function OfferScreen () : JSX.Element {
   const {offerId} = useParams();
@@ -18,14 +18,12 @@ function OfferScreen () : JSX.Element {
   const dispatch = useAppDispatch();
   const detailedOffer = useAppSelector((state)=> state.detailedOffer);
   const neighboringOffers = useAppSelector((state)=> state.neighboringOffers);
-  const isDetailedOfferLoading = useAppSelector((state) => state.isDetailedOfferLoading);
+  const isDetailedOfferLoading = useAppSelector((state) => state.isStatusLoading);
 
 
   useEffect(()=>{
     if(offerId){
-      dispatch(setOfferLoading());
-      dispatch(fetchDetailedOffer(offerId));
-      dispatch(fetchNeighboringOffers(offerId));
+      dispatch(fetchDetailedOfferAction(offerId));
     }
 
     return ()=>{
@@ -144,7 +142,7 @@ function OfferScreen () : JSX.Element {
                   </p>
                 </div>
               </div>
-              <ReviewsList offerId = {detailedOffer.id}/>
+              <ReviewsList/>
             </div>
           </div>
           <Map

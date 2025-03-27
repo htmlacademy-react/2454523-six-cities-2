@@ -12,7 +12,7 @@ export type InitialState ={
   offers: Offers;
   neighboringOffers: Offers;
   reviews: Reviews;
-  isDetailedOfferLoading: boolean;
+  isStatusLoading: boolean;
   detailedOffer:DetailedOffer | null;
   favorites: Offers;
   sortType: string;
@@ -20,4 +20,7 @@ export type InitialState ={
   authorizationStatus: AuthorizationStatus;
   error: string|null;
   userEmail: string|null;
+  isFetchingError: boolean;
+  isSubmitting: boolean;
+  isSubmittingFailed: boolean;
 };

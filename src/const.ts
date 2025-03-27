@@ -6,7 +6,8 @@ export enum AppRoute {
   Main = '/',
   Login= 'login',
   Favorites = 'favorites',
-  Offer = 'offer'
+  Offer = 'offer',
+  NotFound = '*'
 
 }
 
@@ -27,7 +28,7 @@ export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', '
 
 export const AVATAR_URL = 'https://i.pravatar.cc/128';
 
-export const STARS_RAITING = ['perfect', 'good', 'not bad', 'badly', 'terribly'];
+export const STARS_RATING = ['perfect', 'good', 'not bad', 'badly', 'terribly'];
 
 export const MIN_COMMENT_LENGTH = 50;
 
@@ -84,6 +85,7 @@ export const СITIES_COORDS = [
 export enum ApiRoute {
   Offers = '/offers',
   Favorite ='/favorite',
+  Comments = '/comments',
   Login = '/login',
   Logout = '/logout',
 }

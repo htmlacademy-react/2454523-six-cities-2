@@ -1,21 +1,17 @@
-import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../hooks';
 import ReviewForm from './review-form';
 import ReviewItem from './review-item';
-import { fetchReviews } from '../../store/action';
-import { DetailedOffer } from '../../types/offer';
+import { AuthorizationStatus, MAX_COMMENT_LENGTH} from '../../const';
 
-type ReviewsListProps = {
-  offerId: DetailedOffer['id'];
-};
 
-function ReviewsList({offerId}: ReviewsListProps): JSX.Element {
-  const dispatch = useAppDispatch();
-  useEffect(()=> {
-    dispatch(fetchReviews(offerId));
-  }, [offerId, dispatch]);
+function ReviewsList(): JSX.Element {
 
   const reviews = useAppSelector((state)=> state.reviews);
+  const autorizationStatus = useAppSelector((state)=> state.authorizationStatus);
+  const reviewsForRendering = [...reviews]
+    .sort((a,b)=> new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, MAX_COMMENT_LENGTH);
+
   return (
     <section className="offer__reviews reviews">
       <h2 className="reviews__title">
@@ -23,12 +19,12 @@ function ReviewsList({offerId}: ReviewsListProps): JSX.Element {
         <span className="reviews__amount">{reviews.length}</span>
       </h2>
       <ul className="reviews__list">
-        {reviews.map((review) => (
+        {reviewsForRendering.map((review) => (
           <ReviewItem key={review.id} review={review} />
         ))}
       </ul>
 
-      <ReviewForm />
+      {autorizationStatus === AuthorizationStatus.Auth && <ReviewForm /> }
     </section>
   );
 }
