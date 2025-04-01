@@ -73,8 +73,7 @@ export const clearErrorAction = createAsyncThunk(
   }
 );
 
-
-export const loginAction = createAsyncThunk<void, AuthData, {
+export const loginAction = createAsyncThunk<UserData, AuthData, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -87,8 +86,10 @@ export const loginAction = createAsyncThunk<void, AuthData, {
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
     dispatch(redirectToRoute(AppRoute.Main));
     dispatch(setUserEmail(data.email));
+    return data;
   },
 );
+
 
 export const logoutAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;

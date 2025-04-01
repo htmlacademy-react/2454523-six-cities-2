@@ -24,3 +24,5 @@ export type InitialState ={
   isSubmitting: boolean;
   isSubmittingFailed: boolean;
 };
+
+export type UserProcess = Pick<InitialState, 'authorizationStatus' | 'userEmail'>;
