@@ -26,7 +26,7 @@ import { dropEmail, getEmail, saveEmail } from '../services/email.js';
 import { Reviews, Review, PostReview } from '../types/review.js';
 
 
-export const fetchOffersAction = createAsyncThunk<void, undefined, {
+export const fetchOffersAction = createAsyncThunk<Offers, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -37,8 +37,10 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
       dispatch(setOffersDataLoadingStatus(true));
       const {data} = await api.get<Offers>(ApiRoute.Offers);
       dispatch(fetchOffers(data));
-    } catch {
+      return data;
+    } catch (error) {
       dispatch(setFetchingError(true));
+      throw error;
     } finally {
       dispatch(setOffersDataLoadingStatus(false));
     }
