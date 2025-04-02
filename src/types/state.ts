@@ -9,17 +9,24 @@ export type AppDispatch = typeof store.dispatch;
 
 export type InitialState ={
   city: City['name'];
+  //сделано
   offers: Offers;
+  isOffersDataLoading: boolean;
+
+  //сделано
   neighboringOffers: Offers;
   reviews: Reviews;
-  isStatusLoading: boolean;
   detailedOffer:DetailedOffer | null;
+
+  isStatusLoading: boolean;
   favorites: Offers;
   sortType: string;
-  isOffersDataLoading: boolean;
+
+  //сделано
   authorizationStatus: AuthorizationStatus;
-  error: string|null;
   userEmail: string|null;
+
+  error: string|null;
   isFetchingError: boolean;
   isSubmitting: boolean;
   isSubmittingFailed: boolean;
@@ -27,3 +34,10 @@ export type InitialState ={
 
 export type UserProcessState = Pick<InitialState, 'authorizationStatus' | 'userEmail'>;
 export type OffersState = Pick<InitialState, 'offers' | 'isOffersDataLoading'>;
+export type DetailedOfferState = Pick<InitialState, 'neighboringOffers' | 'reviews' | 'detailedOffer'>;
+
+export type DetailedOfferPayload = {
+  detailedOffer: DetailedOffer;
+  neighboringOffers: Offers;
+  reviews: Reviews;
+}

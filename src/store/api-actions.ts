@@ -1,6 +1,6 @@
 import { AxiosInstance } from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {AppDispatch, State} from '../types/state.js';
+import {AppDispatch, State, DetailedOfferPayload} from '../types/state.js';
 import { DetailedOffer, Offers } from '../types/offer.js';
 import { fetchOffers,
   setOffersDataLoadingStatus,
@@ -107,7 +107,8 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   }
 );
 
-export const fetchDetailedOfferAction = createAsyncThunk<void, string, {
+
+export const fetchDetailedOfferAction = createAsyncThunk<DetailedOfferPayload, string, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -118,18 +119,23 @@ export const fetchDetailedOfferAction = createAsyncThunk<void, string, {
       dispatch(setLoadingStatus(true));
       const {data: detailedOfferData} = await api.get<DetailedOffer>(`${ApiRoute.Offers}/${id}`);
       const {data: neighboringOffers} = await api.get<Offers>(`${ApiRoute.Offers}/${id}/nearby`);
-      const {data: rewievs} = await api.get<Reviews>(`${ApiRoute.Comments}/${id}`);
+      const {data: reviews} = await api.get<Reviews>(`${ApiRoute.Comments}/${id}`);
       dispatch(fetchDetailedOffer(detailedOfferData));
       dispatch(fetchNeighboringOffers(neighboringOffers));
-      dispatch(fetchReviews(rewievs));
-    } catch{
+      dispatch(fetchReviews(reviews));
+      return {
+        detailedOffer: detailedOfferData,
+        neighboringOffers,
+        reviews
+      };
+    } catch (error){
       dispatch(setFetchingError(true));
+      throw error;
     } finally {
       dispatch(setLoadingStatus(false));
     }
   }
 );
-
 
 export const postReviewAction = createAsyncThunk<
   void,
