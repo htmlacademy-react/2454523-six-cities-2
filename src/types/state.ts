@@ -41,3 +41,5 @@ export type DetailedOfferPayload = {
   neighboringOffers: Offers;
   reviews: Reviews;
 }
+
+export type FiltersSliceState = Pick<InitialState, 'city'| 'sortType'>;

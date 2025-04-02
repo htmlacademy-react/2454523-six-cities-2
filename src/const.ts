@@ -98,4 +98,5 @@ export enum NameSpace {
   Error = 'Error',
   DetailedOffer = 'DETAILED_OFFER',
   Reviews ='REVIEWS',
+  Filters = 'FILTERS',
 }
