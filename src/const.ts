@@ -95,8 +95,10 @@ export const TIMEOUT_SHOW_ERROR = 2000;
 export enum NameSpace {
   User = 'USER',
   Offers = 'OFFERS',
-  Error = 'Error',
+  Error = 'ERROR',
   DetailedOffer = 'DETAILED_OFFER',
   Reviews ='REVIEWS',
   Filters = 'FILTERS',
+  Status = 'STATUS',
+  Favorites = 'FAVORITES'
 }

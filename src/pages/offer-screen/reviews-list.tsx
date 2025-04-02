@@ -2,12 +2,14 @@ import { useAppSelector } from '../../hooks';
 import ReviewForm from './review-form';
 import ReviewItem from './review-item';
 import { AuthorizationStatus, MAX_COMMENT_LENGTH} from '../../const';
+import { getReviews } from '../../store/reviews/reviews-selectors';
+import { getAuthorizationStatus } from '../../store/user-process/user-process-selectors';
 
 
 function ReviewsList(): JSX.Element {
 
-  const reviews = useAppSelector((state)=> state.reviews);
-  const autorizationStatus = useAppSelector((state)=> state.authorizationStatus);
+  const reviews = useAppSelector(getReviews);
+  const autorizationStatus = useAppSelector(getAuthorizationStatus);
   const reviewsForRendering = [...reviews]
     .sort((a,b)=> new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(0, MAX_COMMENT_LENGTH);

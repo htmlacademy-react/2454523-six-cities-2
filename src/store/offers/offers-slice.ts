@@ -7,6 +7,7 @@ import { fetchOffersAction } from '../api-actions';
 const initialState: OffersState = {
   offers:[],
   isOffersDataLoading: false,
+  isOffersFetchingError: false
 };
 
 export const offersSlice = createSlice ({
@@ -19,13 +20,12 @@ export const offersSlice = createSlice ({
         state.isOffersDataLoading = true;
       })
       .addCase(fetchOffersAction.fulfilled, (state, action)=> {
-        state.isOffersDataLoading = false;
         state.offers = action.payload;
+        state.isOffersDataLoading = false;
       })
       .addCase(fetchOffersAction.rejected, (state)=> {
         state.isOffersDataLoading = false;
+        state.isOffersFetchingError = true;
       });
   }
 });
-
-//убрать setOffersDataLoadingStatus и fetchOffers;

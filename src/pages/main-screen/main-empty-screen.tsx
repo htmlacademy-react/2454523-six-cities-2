@@ -2,13 +2,14 @@ import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
 import CitiesTabs from './cities-tabs';
 import { CITIES } from '../../const';
-import { changeCity } from '../../store/action';
+import { changeCity } from '../../store/filters/filters-slice';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getCity } from '../../store/filters/filters-selectors';
 
 
 function MainEmptyScreen() : JSX.Element {
   const dispatch = useAppDispatch();
-  const currentCity = useAppSelector((state) => state.city);
+  const currentCity = useAppSelector(getCity);
 
   const handleSelectCity = (city: string) => {
     dispatch(changeCity(city));

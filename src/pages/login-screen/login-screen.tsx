@@ -4,9 +4,10 @@ import Header from '../../components/header/header';
 import { useRef, FormEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction, clearErrorAction } from '../../store/api-actions';
-import { setError } from '../../store/action';
+import { setError } from '../../store/error/error-slice';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { isValidPassword } from '../../utils/validatePassword';
+import { getAuthorizationStatus } from '../../store/user-process/user-process-selectors';
 
 
 function LoginScreen () :JSX.Element {
@@ -16,7 +17,7 @@ function LoginScreen () :JSX.Element {
 
   const dispatch = useAppDispatch();
 
-  const authorizationStatus = useAppSelector((state)=> state.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   if (authorizationStatus === AuthorizationStatus.Auth){
     return <Navigate to={AppRoute.Main} />;

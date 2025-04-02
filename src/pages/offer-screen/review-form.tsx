@@ -4,14 +4,15 @@ import { STARS_RATING, MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH } from '../../cons
 import { postReviewAction } from '../../store/api-actions';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { setIsSubmittingFailed } from '../../store/action';
+import { getIsSubmitting, getIsSubmittingFailed } from '../../store/reviews/reviews-selectors';
+import { resetIsSubmittingFailed } from '../../store/reviews/reviews-slice';
 
 function ReviewForm () {
 
   const {offerId} = useParams();
   const dispatch = useAppDispatch();
-  const isSubmitting = useAppSelector((state)=> state.isSubmitting);
-  const isSubmittingFailed = useAppSelector((state)=> state.isSubmittingFailed);
+  const isSubmitting = useAppSelector(getIsSubmitting);
+  const isSubmittingFailed = useAppSelector(getIsSubmittingFailed);
 
   const [starsRating, setStarsRating] = useState(0);
 
@@ -39,7 +40,7 @@ function ReviewForm () {
     }
 
     if (isSubmittingFailed) {
-      dispatch(setIsSubmittingFailed(false));
+      dispatch(resetIsSubmittingFailed());
     }
 
     dispatch(postReviewAction({

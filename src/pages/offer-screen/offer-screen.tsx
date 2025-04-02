@@ -9,21 +9,24 @@ import { getCityCoords } from '../../utils/utils';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { CITIES, СITIES_COORDS } from '../../const';
 import { useEffect } from 'react';
-import { dropOffer } from '../../store/action';
-import { fetchDetailedOfferAction } from '../../store/api-actions';
+import { dropOffer } from '../../store/detailed-offer/detailed-offer-slice';
+import { fetchDetailedOfferAction, fetchReviewsAction } from '../../store/api-actions';
+import { getDetailedOffer, getIsDetailedOfferLoading, getnNighboringOffers } from '../../store/detailed-offer/detailed-offer-selectors';
+
 
 function OfferScreen () : JSX.Element {
   const {offerId} = useParams();
 
   const dispatch = useAppDispatch();
-  const detailedOffer = useAppSelector((state)=> state.detailedOffer);
-  const neighboringOffers = useAppSelector((state)=> state.neighboringOffers);
-  const isDetailedOfferLoading = useAppSelector((state) => state.isStatusLoading);
+  const detailedOffer = useAppSelector(getDetailedOffer);
+  const neighboringOffers = useAppSelector(getnNighboringOffers);
+  const isDetailedOfferLoading = useAppSelector(getIsDetailedOfferLoading);
 
 
   useEffect(()=>{
     if(offerId){
       dispatch(fetchDetailedOfferAction(offerId));
+      dispatch(fetchReviewsAction(offerId));
     }
 
     return ()=>{

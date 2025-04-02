@@ -7,18 +7,20 @@ import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import CitiesTabs from './cities-tabs';
 import { CITIES, СITIES_COORDS } from '../../const';
-import { changeCity, changeSortOptions } from '../../store/action';
 import { getOffersByCity, getCityCoords } from '../../utils/utils';
 import SortingOptions from '../../components/sorting/sorting-options';
 import { sortOffers } from '../../utils/sortOffers';
 import MainEmptyScreen from './main-empty-screen';
+import { getCity, getSortType } from '../../store/filters/filters-selectors';
+import { getOffers } from '../../store/offers/offers-selectors';
+import { changeCity, changeSortOptions } from '../../store/filters/filters-slice';
 
 
 function MainScreen (): JSX.Element {
   const dispatch = useAppDispatch();
-  const currentCity = useAppSelector((state) => state.city);
-  const offers = useAppSelector((state) => state.offers);
-  const currentSortType = useAppSelector((state) => state.sortType);
+  const currentCity = useAppSelector(getCity);
+  const offers = useAppSelector(getOffers);
+  const currentSortType = useAppSelector(getSortType);
 
 
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(
