@@ -15,7 +15,7 @@ export const getIsOffersFetchingError = createSelector(
   (state: OffersState) => state.isOffersFetchingError
 );
 
-export const getIsOffersDataLoadin = createSelector(
+export const getIsOffersDataLoading = createSelector(
   [getOffersSlice],
   (state: OffersState) => state.isOffersDataLoading
 );

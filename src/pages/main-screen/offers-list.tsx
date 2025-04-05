@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable no-console */
 import { useState } from 'react';
 import { Offers } from '../../types/offer';
