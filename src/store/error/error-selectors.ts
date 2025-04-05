@@ -1,5 +1,11 @@
+import { createSelector } from '@reduxjs/toolkit';
 import {NameSpace} from '../../const';
 import {State} from '../../types/state';
+import { ErrorState } from '../../types/state';
 
-export const getError = (state: State): string | null => state[NameSpace.Error].error;
+const getErrorSlice = (state:State): ErrorState => state[NameSpace.Error];
 
+export const getError = createSelector(
+  [getErrorSlice],
+  (state: ErrorState)=> state.error
+);

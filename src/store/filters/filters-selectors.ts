@@ -1,5 +1,15 @@
+import { createSelector } from '@reduxjs/toolkit';
 import {NameSpace} from '../../const';
-import {State} from '../../types/state';
+import {State, FiltersSliceState } from '../../types/state';
 
-export const getCity = (state: State): string => state[NameSpace.Filters].city;
-export const getSortType = (state: State): string => state[NameSpace.Filters].sortType;
+const getFiltersSlice = (state: State): FiltersSliceState => state[NameSpace.Filters];
+
+export const getCity = createSelector(
+  [getFiltersSlice],
+  (state: FiltersSliceState) => state.city
+);
+export const getSortType = createSelector(
+  [getFiltersSlice],
+  (state: FiltersSliceState) => state.sortType
+
+);

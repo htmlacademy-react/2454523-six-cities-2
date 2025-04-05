@@ -9,18 +9,18 @@ import { getCityCoords } from '../../utils/utils';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { CITIES, СITIES_COORDS } from '../../const';
 import { useEffect } from 'react';
-import { dropOffer } from '../../store/detailed-offer/detailed-offer-slice';
 import { fetchDetailedOfferAction, fetchReviewsAction } from '../../store/api-actions';
-import { getDetailedOffer, getIsDetailedOfferLoading, getnNighboringOffers } from '../../store/detailed-offer/detailed-offer-selectors';
-
+import { getDetailedOffer, getIsDetailedOfferLoading, getNighboringOffers, getIsDetailedOfferFetchingError } from '../../store/detailed-offer/detailed-offer-selectors';
+import FetchingError from '../../components/error-message/fetching-error';
 
 function OfferScreen () : JSX.Element {
   const {offerId} = useParams();
 
   const dispatch = useAppDispatch();
   const detailedOffer = useAppSelector(getDetailedOffer);
-  const neighboringOffers = useAppSelector(getnNighboringOffers);
+  const neighboringOffers = useAppSelector(getNighboringOffers);
   const isDetailedOfferLoading = useAppSelector(getIsDetailedOfferLoading);
+  const isDetailedOfferFetchingError = useAppSelector(getIsDetailedOfferFetchingError);
 
 
   useEffect(()=>{
@@ -29,13 +29,14 @@ function OfferScreen () : JSX.Element {
       dispatch(fetchReviewsAction(offerId));
     }
 
-    return ()=>{
-      dispatch(dropOffer());
-    };
   }, [offerId,dispatch]);
 
   if (isDetailedOfferLoading) {
     return <div>Loading...</div>;
+  }
+
+  if (isDetailedOfferFetchingError) {
+    return <FetchingError/>;
   }
 
   if(!detailedOffer) {

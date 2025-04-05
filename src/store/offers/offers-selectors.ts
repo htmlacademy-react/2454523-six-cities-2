@@ -1,7 +1,21 @@
+import { createSelector } from '@reduxjs/toolkit';
 import {NameSpace} from '../../const';
-import { Offers } from '../../types/offer';
 import {State} from '../../types/state';
+import { OffersState } from '../../types/state';
 
-export const getOffers = (state: State): Offers => state[NameSpace.Offers].offers;
-export const getIsOffersFetchingError = (state: State): boolean => state[NameSpace.Offers].isOffersFetchingError;
-export const getIsOffersDataLoading = (state: State): boolean => state[NameSpace.Offers].isOffersDataLoading;
+const getOffersSlice = (state: State): OffersState => state[NameSpace.Offers];
+
+export const getOffers = createSelector(
+  [getOffersSlice],
+  (state: OffersState) => state.offers
+);
+
+export const getIsOffersFetchingError = createSelector(
+  [getOffersSlice],
+  (state: OffersState) => state.isOffersFetchingError
+);
+
+export const getIsOffersDataLoadin = createSelector(
+  [getOffersSlice],
+  (state: OffersState) => state.isOffersDataLoading
+);

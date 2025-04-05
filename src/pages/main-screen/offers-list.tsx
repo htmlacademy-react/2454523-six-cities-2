@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { Offers } from '../../types/offer';
 import RentalOfferCard from './rental-offer-card';
+import { memo } from 'react';
 
 type OffersListProps = {
   offers: Offers;
@@ -40,4 +41,4 @@ function OffersList (props : OffersListProps) : JSX.Element{
   );
 }
 
-export default OffersList;
+export default memo(OffersList);

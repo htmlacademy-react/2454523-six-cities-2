@@ -25,11 +25,14 @@ export const detailedOfferSlice = createSlice({
     builder
       .addCase(fetchDetailedOfferAction.pending, (state)=> {
         state.isDetailedOfferLoading = true;
+        state.isDetailedOfferFetchingError = false;
+        state.detailedOffer = null;
       })
       .addCase(fetchDetailedOfferAction.fulfilled, (state, action)=> {
         state.detailedOffer = action.payload.detailedOffer;
         state.neighboringOffers = action.payload.neighboringOffers.slice(0, MAX_COUNT_NEAR_OFFERS);
         state.isDetailedOfferLoading = false;
+        state.isDetailedOfferFetchingError = false;
       })
       .addCase(fetchDetailedOfferAction.rejected, (state)=> {
         state.isDetailedOfferFetchingError = true;

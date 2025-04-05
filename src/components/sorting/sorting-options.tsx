@@ -1,7 +1,9 @@
+/* eslint-disable react-refresh/only-export-components */
 import { SortType } from '../../const';
 import { useState } from 'react';
 import { useAppSelector } from '../../hooks';
 import { getSortType } from '../../store/filters/filters-selectors';
+import { memo } from 'react';
 
 type SortingOptionsProps = {
   onClickSortType: (city: string) => void;
@@ -57,4 +59,4 @@ function SortingOptions ({onClickSortType}: SortingOptionsProps) : JSX.Element{
   );
 }
 
-export default SortingOptions;
+export default memo(SortingOptions);

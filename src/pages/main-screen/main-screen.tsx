@@ -3,7 +3,7 @@ import Header from '../../components/header/header';
 import { Offer } from '../../types/offer';
 import OffersList from './offers-list';
 import Map from '../../components/map/map';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import CitiesTabs from './cities-tabs';
 import { CITIES, СITIES_COORDS } from '../../const';
@@ -14,6 +14,7 @@ import MainEmptyScreen from './main-empty-screen';
 import { getCity, getSortType } from '../../store/filters/filters-selectors';
 import { getOffers } from '../../store/offers/offers-selectors';
 import { changeCity, changeSortOptions } from '../../store/filters/filters-slice';
+import { useMemo } from 'react';
 
 
 function MainScreen (): JSX.Element {
@@ -26,25 +27,27 @@ function MainScreen (): JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(
     undefined
   );
-  const handleOffersListHover = (offerId: string) => {
+  const handleOffersListHover = useCallback((offerId: string) => {
     const currentOffer = offers.find((offer) => offer.id === offerId);
     setSelectedOffer(currentOffer);
-  };
+  }, [offers]);
 
-  const handleSelectCity = (city: string) => {
+
+  const handleSelectCity = useCallback((city: string) => {
     dispatch(changeCity(city));
-  };
+  }, [dispatch]);
 
-  const handleClickSortType = (sortType: string)=> {
+  const handleClickSortType = useCallback((sortType: string)=> {
     dispatch(changeSortOptions(sortType));
-  };
+  }, [dispatch]);
 
   const offersByCity = getOffersByCity(offers, currentCity);
+
+  const sortingOffers = useMemo(() => sortOffers(offersByCity, currentSortType), [offersByCity, currentSortType]);
 
   if(offersByCity.length === 0){
     return <MainEmptyScreen/>;
   }
-  const sortingOffers = sortOffers(offersByCity, currentSortType);
 
   const cityCoords = getCityCoords(СITIES_COORDS, currentCity);
 
@@ -59,7 +62,7 @@ function MainScreen (): JSX.Element {
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
 
-        <CitiesTabs cities = {CITIES} onCitySelect={handleSelectCity}/>
+        <CitiesTabs cities = {CITIES} onCitySelect={handleSelectCity} currentCity = {currentCity}/>
 
         <div className="cities">
           <div className="cities__places-container container">
