@@ -15,11 +15,12 @@ import { useAppDispatch } from '../../hooks';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
 import FetchingError from '../error-message/fetching-error';
-
+import { getIsOffersDataLoading } from '../../store/offers/offers-selectors';
+import { getIsOffersFetchingError } from '../../store/offers/offers-selectors';
 
 function App (): JSX.Element {
   const dispatch = useAppDispatch();
-  const isOffersDataLoading = useAppSelector((state)=> state.isOffersDataLoading);
+  const isOffersDataLoading = useAppSelector(getIsOffersDataLoading);
 
   useEffect(()=> {
     dispatch(checkAuthAction());
@@ -27,7 +28,7 @@ function App (): JSX.Element {
 
   }, [dispatch]);
 
-  const isOffersFetchingError = useAppSelector((state)=> state.isFetchingError);
+  const isOffersFetchingError = useAppSelector(getIsOffersFetchingError);
 
   if (isOffersFetchingError) {
     return (

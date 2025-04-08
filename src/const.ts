@@ -4,9 +4,9 @@ export const Setting = {
 
 export enum AppRoute {
   Main = '/',
-  Login= 'login',
-  Favorites = 'favorites',
-  Offer = 'offer',
+  Login= '/login',
+  Favorites = '/favorites',
+  Offer = '/offer',
   NotFound = '*'
 
 }
@@ -91,3 +91,14 @@ export enum ApiRoute {
 }
 
 export const TIMEOUT_SHOW_ERROR = 2000;
+
+export enum NameSpace {
+  User = 'USER',
+  Offers = 'OFFERS',
+  Error = 'ERROR',
+  DetailedOffer = 'DETAILED_OFFER',
+  Reviews ='REVIEWS',
+  Filters = 'FILTERS',
+  Status = 'STATUS',
+  Favorites = 'FAVORITES'
+}

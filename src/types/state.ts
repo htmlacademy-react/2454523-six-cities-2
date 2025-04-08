@@ -9,18 +9,47 @@ export type AppDispatch = typeof store.dispatch;
 
 export type InitialState ={
   city: City['name'];
-  offers: Offers;
-  neighboringOffers: Offers;
-  reviews: Reviews;
-  isStatusLoading: boolean;
-  detailedOffer:DetailedOffer | null;
-  favorites: Offers;
   sortType: string;
+
+  offers: Offers;
   isOffersDataLoading: boolean;
+  isOffersFetchingError: boolean;
+
+  neighboringOffers: Offers;
+  detailedOffer:DetailedOffer | null;
+  isDetailedOfferLoading: boolean;
+  isDetailedOfferFetchingError: boolean;
+
+  favorites: Offers;
+  isFavoritesLoading: boolean;
+  isFavoritesFetchingError: boolean;
+
   authorizationStatus: AuthorizationStatus;
-  error: string|null;
   userEmail: string|null;
-  isFetchingError: boolean;
+
+  error: string|null;
+
   isSubmitting: boolean;
   isSubmittingFailed: boolean;
+  isReviewsLoading:boolean;
+  reviews: Reviews;
+  isReviewsFetchingError: boolean;
+
 };
+
+export type UserProcessState = Pick<InitialState, 'authorizationStatus' | 'userEmail'>;
+export type OffersState = Pick<InitialState, 'offers' | 'isOffersDataLoading'| 'isOffersFetchingError'>;
+export type DetailedOfferState = Pick<InitialState, 'neighboringOffers' | 'detailedOffer' | 'isDetailedOfferLoading' | 'isDetailedOfferFetchingError'>;
+
+export type DetailedOfferPayload = {
+  detailedOffer: DetailedOffer;
+  neighboringOffers: Offers;
+}
+
+export type FiltersSliceState = Pick<InitialState, 'city'| 'sortType'>;
+
+export type ErrorState = Pick<InitialState, 'error'>
+
+export type FavoritesState = Pick<InitialState, 'favorites' | 'isFavoritesLoading' | 'isFavoritesFetchingError'>
+
+export type ReviewsState = Pick<InitialState, 'isSubmitting'| 'isSubmittingFailed' | 'isReviewsLoading' | 'reviews' | 'isReviewsFetchingError'>

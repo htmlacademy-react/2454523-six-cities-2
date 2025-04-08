@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import { fetchFavoritesOffersAction } from '../../store/api-actions';
 import FavoriteEmptyScreen from './favorite-empty-screen';
+import { getFavorites } from '../../store/favorites/favorites-selectors';
 
 
 function FavoriteScreen () : JSX.Element {
@@ -15,7 +16,7 @@ function FavoriteScreen () : JSX.Element {
   }, [dispatch]
   );
 
-  const favorites = useAppSelector((state) => state.favorites);
+  const favorites = useAppSelector(getFavorites);
 
   if(favorites.length === 0){
     return (

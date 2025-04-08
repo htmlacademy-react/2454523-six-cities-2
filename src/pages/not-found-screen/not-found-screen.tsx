@@ -9,7 +9,7 @@ function NotFoundScreen (): JSX.Element {
       <Helmet>
         <title>Six cities. Not found.</title>
       </Helmet>
-      <Header withNavigation = {false}/>
+      <Header/>
 
       <main className="page__main page__main--not-found">
         <div className="page__not-found-container container">
