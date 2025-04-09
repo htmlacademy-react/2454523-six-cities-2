@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { fetchFavoritesOffersAction, removeFromFavorites } from '../../store/api-actions';
 import FavoriteEmptyScreen from './favorite-empty-screen';
 import { getFavorites } from '../../store/favorites/favorites-selectors';
+import { Offers } from '../../types/offer';
 
 
 function FavoriteScreen () : JSX.Element {
@@ -29,6 +30,17 @@ function FavoriteScreen () : JSX.Element {
     dispatch(removeFromFavorites({offerId}));
   };
 
+  const groupedFavoriteOffers = favorites.reduce((groups, favoriteOffer) => {
+    const city = favoriteOffer.city.name;
+    if (!groups[city]) {
+      groups[city] = [];
+    }
+    groups[city].push(favoriteOffer);
+    return groups;
+  }, {} as Record<string, Offers>);
+
+  const favoriteOffersForRender = Object.entries(groupedFavoriteOffers);
+
   return (
     <div className="page">
       <Helmet>
@@ -42,64 +54,67 @@ function FavoriteScreen () : JSX.Element {
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
 
-              {favorites.map((offer)=> (
-                <li key = {offer.id} className="favorites__locations-items">
+              {favoriteOffersForRender.map(([city, favoriteOffers])=> (
+                <li key = {city} className="favorites__locations-items">
                   <div className="favorites__locations locations locations--current">
                     <div className="locations__item">
                       <Link className="locations__item-link" to="/">
-                        <span>{offer.city.name}</span>
+                        <span>{city}</span>
                       </Link>
                     </div>
                   </div>
                   <div className="favorites__places">
-                    <article className="favorites__card place-card">
-                      {offer.isPremium && (
-                        <div className="place-card__mark">
-                          <span>Premium</span>
-                        </div>
-                      )}
-
-                      <div className="favorites__image-wrapper place-card__image-wrapper">
-                        <Link to={`/offer/${offer.id}`}>
-                          <img className="place-card__image" src={offer.previewImage} width={150} height={110} alt={`${offer.city.name}-image`} />
-                        </Link>
-                      </div>
-                      <div className="favorites__card-info place-card__info">
-                        <div className="place-card__price-wrapper">
-                          <div className="place-card__price">
-                            <b className="place-card__price-value">&euro;{offer.price}</b>
-                            <span className="place-card__price-text">&#47;&nbsp;night</span>
+                    {favoriteOffers.map((favoriteOffer)=> (
+                      <article key = {favoriteOffer.id} className="favorites__card place-card">
+                        {favoriteOffer.isPremium && (
+                          <div className="place-card__mark">
+                            <span>Premium</span>
                           </div>
+                        )}
 
-                          <button className="place-card__bookmark-button
-                           place-card__bookmark-button--active button"
-                          type="button"
-                          onClick = {()=> handleFavoriteRemoveClick(offer.id)}
-                          >
-                            <svg className="place-card__bookmark-icon" width={18} height={19}>
-                              <use xlinkHref="#icon-bookmark"></use>
-                            </svg>
-                            <span className="visually-hidden">In bookmarks</span>
-                          </button>
-
+                        <div className="favorites__image-wrapper place-card__image-wrapper">
+                          <Link to={`/offer/${favoriteOffer.id}`}>
+                            <img className="place-card__image" src={favoriteOffer.previewImage} width={150} height={110} alt={`${favoriteOffer.city.name}-image`} />
+                          </Link>
                         </div>
-                        <div className="place-card__rating rating">
-                          <div className="place-card__stars rating__stars">
-                            <span
-                              style= {{
-                                width: `${offer.rating * 20}%`
-                              }}
+                        <div className="favorites__card-info place-card__info">
+                          <div className="place-card__price-wrapper">
+                            <div className="place-card__price">
+                              <b className="place-card__price-value">&euro;{favoriteOffer.price}</b>
+                              <span className="place-card__price-text">&#47;&nbsp;night</span>
+                            </div>
+
+                            <button className="place-card__bookmark-button
+                          place-card__bookmark-button--active button"
+                            type="button"
+                            onClick = {()=> handleFavoriteRemoveClick(favoriteOffer.id)}
                             >
-                            </span>
-                            <span className="visually-hidden">Rating</span>
+                              <svg className="place-card__bookmark-icon" width={18} height={19}>
+                                <use xlinkHref="#icon-bookmark"></use>
+                              </svg>
+                              <span className="visually-hidden">In bookmarks</span>
+                            </button>
+
                           </div>
+                          <div className="place-card__rating rating">
+                            <div className="place-card__stars rating__stars">
+                              <span
+                                style= {{
+                                  width: `${favoriteOffer.rating * 20}%`
+                                }}
+                              >
+                              </span>
+                              <span className="visually-hidden">Rating</span>
+                            </div>
+                          </div>
+                          <h2 className="place-card__name">
+                            <Link to="/">{favoriteOffer.title}</Link>
+                          </h2>
+                          <p className="place-card__type">{favoriteOffer.type}</p>
                         </div>
-                        <h2 className="place-card__name">
-                          <Link to="/">{offer.title}</Link>
-                        </h2>
-                        <p className="place-card__type">{offer.type}</p>
-                      </div>
-                    </article>
+                      </article>
+                    ))}
+
                   </div>
                 </li>
               ))}
