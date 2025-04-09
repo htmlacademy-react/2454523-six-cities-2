@@ -1,7 +1,7 @@
 import { AxiosInstance } from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State, DetailedOfferPayload} from '../types/state.js';
-import { DetailedOffer, Offers } from '../types/offer.js';
+import { DetailedOffer, Offers, Offer } from '../types/offer.js';
 
 import { setError } from './error/error-slice.js';
 
@@ -145,4 +145,45 @@ export const fetchFavoritesOffersAction = createAsyncThunk<Offers, undefined, {
     return data;
   }
 
+);
+
+export const addToFavorites = createAsyncThunk<
+  Offer,
+  { offerId: string},
+  { dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  'DATA/addToFavorites',
+  async ({ offerId }, {extra: api }) => {
+
+    const { data } = await api.post<Offer>(
+      `${ApiRoute.Favorite}/${offerId}/${1}`,
+
+    );
+    return data;
+
+  }
+);
+
+
+export const removeFromFavorites = createAsyncThunk<
+  Offer,
+  { offerId: string},
+  { dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  'DATA/removeFromFavorites',
+  async ({ offerId }, {extra: api }) => {
+
+    const { data } = await api.post<Offer>(
+      `${ApiRoute.Favorite}/${offerId}/${0}`,
+
+    );
+    return data;
+
+  }
 );
