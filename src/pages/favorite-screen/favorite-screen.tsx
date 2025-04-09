@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { fetchFavoritesOffersAction, removeFromFavorites } from '../../store/api-actions';
 import FavoriteEmptyScreen from './favorite-empty-screen';
 import { getFavorites } from '../../store/favorites/favorites-selectors';
-import { Offers } from '../../types/offer';
+import { groupFavoriteOffersByCity } from '../../utils/groupFavoriteOffers';
 
 
 function FavoriteScreen () : JSX.Element {
@@ -30,14 +30,7 @@ function FavoriteScreen () : JSX.Element {
     dispatch(removeFromFavorites({offerId}));
   };
 
-  const groupedFavoriteOffers = favorites.reduce((groups, favoriteOffer) => {
-    const city = favoriteOffer.city.name;
-    if (!groups[city]) {
-      groups[city] = [];
-    }
-    groups[city].push(favoriteOffer);
-    return groups;
-  }, {} as Record<string, Offers>);
+  const groupedFavoriteOffers = groupFavoriteOffersByCity(favorites);
 
   const favoriteOffersForRender = Object.entries(groupedFavoriteOffers);
 
