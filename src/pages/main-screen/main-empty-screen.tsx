@@ -24,7 +24,7 @@ function MainEmptyScreen() : JSX.Element {
 
       <main className="page__main page__main--index page__main--index-empty">
         <h1 className="visually-hidden">Cities</h1>
-        <CitiesTabs cities = {CITIES} onCitySelect={handleSelectCity}/>
+        <CitiesTabs cities = {CITIES} onCitySelect={handleSelectCity} currentCity={currentCity}/>
 
         <div className="cities">
           <div className="cities__places-container cities__places-container--empty container">

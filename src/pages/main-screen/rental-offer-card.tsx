@@ -6,12 +6,13 @@ type OfferCardProps ={
   offer: Offer;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
+  onClick: ()=> void;
 }
 
 function RentalOfferCard (props: OfferCardProps) {
 
-  const {block, offer, onMouseEnter, onMouseLeave} = props;
-  const {title, type, price, isPremium, previewImage, rating} = offer;
+  const {block, offer, onMouseEnter, onMouseLeave, onClick} = props;
+  const {title, type, price, isPremium, previewImage, rating, isFavorite} = offer;
 
   return (
     <article className={`${block}__card place-card`}
@@ -36,12 +37,19 @@ function RentalOfferCard (props: OfferCardProps) {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button button" type="button">
+
+          <button className={`place-card__bookmark-button
+          ${isFavorite ? 'place-card__bookmark-button--active' : ''}
+          button`}
+          type="button"
+          onClick={onClick}
+          >
             <svg className="place-card__bookmark-icon" width={18} height={19}>
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
             <span className="visually-hidden">To bookmarks</span>
           </button>
+
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

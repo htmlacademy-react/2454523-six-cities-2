@@ -1,18 +1,18 @@
 import { AxiosInstance } from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {AppDispatch, State, DetailedOfferPayload} from '../types/state.js';
-import { DetailedOffer, Offers } from '../types/offer.js';
+import {AppDispatch, State, DetailedOfferPayload} from '../types/state.ts';
+import { DetailedOffer, Offers, Offer } from '../types/offer.ts';
 
-import { setError } from './error/error-slice.js';
+import { setError } from './error/error-slice.ts';
 
-import { redirectToRoute } from './action.js';
+import { redirectToRoute } from './action.ts';
 import { ApiRoute, AppRoute, TIMEOUT_SHOW_ERROR } from '../const';
-import { AuthData } from '../types/auth-data.js';
-import { UserData } from '../types/user-data.js';
-import { saveToken } from '../services/token.js';
-import { dropToken } from '../services/token.js';
-import { dropEmail, saveEmail } from '../services/email.js';
-import { Reviews, Review, PostReview } from '../types/review.js';
+import { AuthData } from '../types/auth-data.ts';
+import { UserData } from '../types/user-data.ts';
+import { saveToken } from '../services/token.ts';
+import { dropToken } from '../services/token.ts';
+import { dropEmail, saveEmail } from '../services/email.ts';
+import { Reviews, Review, PostReview } from '../types/review.ts';
 
 
 export const fetchOffersAction = createAsyncThunk<Offers, undefined, {
@@ -145,4 +145,45 @@ export const fetchFavoritesOffersAction = createAsyncThunk<Offers, undefined, {
     return data;
   }
 
+);
+
+export const addToFavorites = createAsyncThunk<
+  Offer,
+  string,
+  { dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  'DATA/addToFavorites',
+  async (offerId , {extra: api }) => {
+
+    const { data } = await api.post<Offer>(
+      `${ApiRoute.Favorite}/${offerId}/${1}`,
+
+    );
+    return data;
+
+  }
+);
+
+
+export const removeFromFavorites = createAsyncThunk<
+  Offer,
+  string,
+  { dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  'DATA/removeFromFavorites',
+  async (offerId, {extra: api }) => {
+
+    const { data } = await api.post<Offer>(
+      `${ApiRoute.Favorite}/${offerId}/${0}`,
+
+    );
+    return data;
+
+  }
 );

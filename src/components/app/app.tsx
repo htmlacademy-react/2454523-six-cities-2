@@ -10,7 +10,7 @@ import { AppRoute } from '../../const';
 import {useAppSelector} from '../../hooks';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import { useEffect } from 'react';
-import { fetchOffersAction, checkAuthAction } from '../../store/api-actions';
+import { fetchOffersAction, checkAuthAction, fetchFavoritesOffersAction } from '../../store/api-actions';
 import { useAppDispatch } from '../../hooks';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
@@ -25,6 +25,7 @@ function App (): JSX.Element {
   useEffect(()=> {
     dispatch(checkAuthAction());
     dispatch(fetchOffersAction());
+    dispatch(fetchFavoritesOffersAction());
 
   }, [dispatch]);
 
