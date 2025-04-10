@@ -31,11 +31,12 @@ function OffersList (props : OffersListProps) : JSX.Element{
     onOffersListHover('');
   };
 
-  const handleFavoriteClick = (offer: Offer, offerId:string) => {
+
+  const handleFavoriteClick = (offer: Offer) => {
     if(!offer.isFavorite){
-      dispatch(addToFavorites({offerId}));
+      dispatch(addToFavorites(offer.id));
     } else {
-      dispatch(removeFromFavorites({offerId}));
+      dispatch(removeFromFavorites(offer.id));
     }
   };
 
@@ -48,7 +49,7 @@ function OffersList (props : OffersListProps) : JSX.Element{
           key = {offer.id}
           onMouseEnter={() => handleMouseEnter(offer.id)}
           onMouseLeave = {handleMouseLeave}
-          onClick = {()=> handleFavoriteClick(offer, offer.id)}
+          onClick = {()=> handleFavoriteClick(offer)}
         />
       ))}
     </div>

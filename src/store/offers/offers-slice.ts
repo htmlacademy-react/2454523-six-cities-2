@@ -28,15 +28,15 @@ export const offersSlice = createSlice ({
         state.isOffersFetchingError = true;
       })
       .addCase(addToFavorites.fulfilled, (state, action)=> {
-        const index = state.offers.findIndex((offer)=> offer.id === action.payload.id);
-        if(index !== -1){
-          state.offers[index] = action.payload;
+        const favoriteOffer = state.offers.find((offer)=> offer.id === action.payload.id);
+        if(favoriteOffer){
+          favoriteOffer.isFavorite = true;
         }
       })
       .addCase(removeFromFavorites.fulfilled, (state, action)=> {
-        const index = state.offers.findIndex((offer)=> offer.id === action.payload.id);
-        if(index !== -1){
-          state.offers[index] = action.payload;
+        const favoriteOffer = state.offers.find((offer)=> offer.id === action.payload.id);
+        if(favoriteOffer){
+          favoriteOffer.isFavorite = false;
         }
       });
   }

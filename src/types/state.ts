@@ -1,6 +1,6 @@
-import { store } from '../store/index.js';
-import { City, Offers, DetailedOffer } from './offer.js';
-import { Reviews } from './review.js';
+import { store } from '../store/index.ts';
+import { City, Offers, DetailedOffer } from './offer.ts';
+import { Reviews } from './review.ts';
 import { AuthorizationStatus } from '../const';
 
 export type State = ReturnType<typeof store.getState>;

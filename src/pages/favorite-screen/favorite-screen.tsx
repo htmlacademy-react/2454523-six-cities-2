@@ -27,7 +27,7 @@ function FavoriteScreen () : JSX.Element {
 
 
   const handleFavoriteRemoveClick = (offerId: string)=> {
-    dispatch(removeFromFavorites({offerId}));
+    dispatch(removeFromFavorites(offerId));
   };
 
   const groupedFavoriteOffers = groupFavoriteOffersByCity(favorites);
