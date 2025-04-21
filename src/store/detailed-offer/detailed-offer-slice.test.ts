@@ -102,5 +102,20 @@ describe ('DetailedOffer Slice', ()=> {
     expect(result).toEqual(expectedState);
   });
 
+  it(`should set "isDetailedOfferLoading" to "false",
+    "isDetailedOfferFetchingError" to "true"`,
+
+  ()=> {
+    const expectedState = {
+      neighboringOffers:[],
+      detailedOffer: null,
+      isDetailedOfferLoading: false,
+      isDetailedOfferFetchingError: true
+    };
+
+    const result = detailedOfferSlice.reducer(undefined, fetchDetailedOfferAction.rejected);
+
+    expect(result).toEqual(expectedState);
+  });
 
 });
