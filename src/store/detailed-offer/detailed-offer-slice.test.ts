@@ -103,7 +103,8 @@ describe ('DetailedOffer Slice', ()=> {
   });
 
   it(`should set "isDetailedOfferLoading" to "false",
-    "isDetailedOfferFetchingError" to "true"`,
+    "isDetailedOfferFetchingError" to "true"
+    with "fetchDetailedOfferAction.rejected"`,
 
   ()=> {
     const expectedState = {
