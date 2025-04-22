@@ -1,5 +1,6 @@
-import { address, datatype, lorem, name, image } from 'faker';
+import { address, datatype, lorem, name, image, date } from 'faker';
 import { DetailedOffer, Offer } from '../types/offer';
+import { Review } from '../types/review';
 
 
 export function makeFakeDetailedOffer(): DetailedOffer {
@@ -55,5 +56,19 @@ export function makeFakeOffer(): Offer {
     isPremium: datatype.boolean(),
     rating: datatype.number({ min: 1, max: 5 }),
     previewImage: image.imageUrl(),
+  };
+}
+
+export function makeFakeComment(): Review {
+  return {
+    id: datatype.uuid(),
+    date: date.past(2).toISOString(),
+    user: {
+      name: `${name.firstName()} ${name.lastName()}`,
+      avatarUrl: image.avatar(),
+      isPro: datatype.boolean(),
+    },
+    comment: lorem.paragraph(),
+    rating: datatype.number({ min: 1, max: 5 }),
   };
 }
