@@ -1,7 +1,13 @@
 import { address, datatype, lorem, name, image, date } from 'faker';
 import { DetailedOffer, Offer } from '../types/offer';
 import { Review } from '../types/review';
+import { State } from '../types/state';
+import { createAPI } from '../services/api';
+import { ThunkDispatch } from 'redux-thunk';
+import { Action } from 'redux';
 
+export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createAPI>, Action>;
+export const extractActionsTypes = (actions: Action<string>[]) => actions.map(({ type }) => type);
 
 export function makeFakeDetailedOffer(): DetailedOffer {
   const latitude = parseFloat(address.latitude());
