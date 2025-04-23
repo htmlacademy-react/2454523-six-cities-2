@@ -13,7 +13,10 @@ import { checkAuthAction,
   fetchFavoritesOffersAction,
   clearErrorAction,
   loginAction,
-  logoutAction
+  logoutAction,
+  postReviewAction,
+  addToFavorites,
+  removeFromFavorites
 } from './api-actions';
 import { ApiRoute } from '../const';
 import { AuthData } from '../types/auth-data';
@@ -249,7 +252,7 @@ describe('Async actions', () => {
     });
 
     it(`should dispatch "fetchFavoritesOffersAction.pending",
-      "fetchFavoritesOffersActionnFulfilled.rejected",
+      "fetchFavoritesOffersAction.rejected",
       when server response 400`, async ()=> {
 
       mockAxiosAdapter
@@ -400,5 +403,180 @@ describe('Async actions', () => {
 
   });
 
-});
+  describe('postReviewAction', ()=> {
+    it(`should dispatch "postReviewAction.pending",
+       "postReviewAction.fulfilled" when server response 200'`, async () => {
 
+      const mockDetailedOffer = makeFakeDetailedOffer();
+      const id = mockDetailedOffer.id;
+      const fakeComment = makeFakeComment();
+      const fakeNewUserComment = {
+        offerId: id,
+        reviewData: {
+          comment: 'тест',
+          rating: 5,
+        }
+      };
+
+      mockAxiosAdapter
+        .onPost((`${ApiRoute.Comments}/${id}`))
+        .reply(200, fakeComment);
+
+      await store.dispatch(postReviewAction(fakeNewUserComment));
+
+      const emittedActions = store.getActions();
+      const extractedActionsTypes = extractActionsTypes(emittedActions);
+      const postReviewActionFulfilled = emittedActions.at(1) as ReturnType<typeof postReviewAction.fulfilled>;
+
+      expect(extractedActionsTypes).toEqual([
+        postReviewAction.pending.type,
+        postReviewAction.fulfilled.type,
+      ]);
+
+      expect(postReviewActionFulfilled.payload)
+        .toEqual(fakeComment);
+
+    });
+
+    it(`should dispatch "postReviewAction.pending",
+      "postReviewAction.rejected",
+       when server response 400`, async () => {
+
+      const mockDetailedOffer = makeFakeDetailedOffer();
+      const id = mockDetailedOffer.id;
+
+      const fakeNewUserComment = {
+        offerId: id,
+        reviewData: {
+          comment: 'тест',
+          rating: 5,
+        }
+      };
+
+      mockAxiosAdapter
+        .onPost((`${ApiRoute.Comments}/${id}`))
+        .reply(400);
+
+      await store.dispatch(postReviewAction(fakeNewUserComment));
+
+      const emittedActions = store.getActions();
+      const extractedActionsTypes = extractActionsTypes(emittedActions);
+
+      expect(extractedActionsTypes).toEqual([
+        postReviewAction.pending.type,
+        postReviewAction.rejected.type,
+      ]);
+
+    });
+  });
+
+  describe('addToFavorites', ()=> {
+    it(`should dispatch "addToFavorites.pending",
+      "addToFavorites.fulfilled",
+       when server response 200`, async ()=> {
+
+      const mockFavoriteOffer = makeFakeOffer();
+      const id = mockFavoriteOffer.id;
+
+      mockAxiosAdapter
+        .onPost(
+          `${ApiRoute.Favorite}/${id}/${1}`)
+        .reply(200, mockFavoriteOffer);
+
+
+      await store.dispatch(addToFavorites(id));
+
+      const emittedActions = store.getActions();
+      const extractedActionsTypes = extractActionsTypes(emittedActions);
+      const addToFavoritesFulfilled = emittedActions.at(1) as ReturnType<typeof addToFavorites.fulfilled>;
+
+      expect(extractedActionsTypes).toEqual([
+        addToFavorites.pending.type,
+        addToFavorites.fulfilled.type,
+      ]);
+
+      expect(addToFavoritesFulfilled.payload)
+        .toEqual(mockFavoriteOffer);
+    });
+
+    it(`should dispatch "addToFavorites.pending",
+      "addToFavorites.rejected",
+      when server response 400`, async ()=> {
+
+      const mockFavoriteOffer = makeFakeOffer();
+      const id = mockFavoriteOffer.id;
+
+      mockAxiosAdapter
+        .onPost(
+          `${ApiRoute.Favorite}/${id}/${1}`)
+        .reply(400);
+
+
+      await store.dispatch(addToFavorites(id));
+
+      const emittedActions = store.getActions();
+      const extractedActionsTypes = extractActionsTypes(emittedActions);
+
+      expect(extractedActionsTypes).toEqual([
+        addToFavorites.pending.type,
+        addToFavorites.rejected.type,
+      ]);
+
+    });
+  });
+
+  describe('removeFromFavorites', ()=> {
+    it(`should dispatch "removeFromFavorites.pending",
+      "removeFromFavorites.fulfilled",
+       when server response 200`, async ()=> {
+
+      const mockFavoriteOffer = makeFakeOffer();
+      const id = mockFavoriteOffer.id;
+
+      mockAxiosAdapter
+        .onPost(
+          `${ApiRoute.Favorite}/${id}/${0}`)
+        .reply(200, mockFavoriteOffer);
+
+
+      await store.dispatch(removeFromFavorites(id));
+
+      const emittedActions = store.getActions();
+      const extractedActionsTypes = extractActionsTypes(emittedActions);
+      const removeFromFavoritesFulfilled = emittedActions.at(1) as ReturnType<typeof removeFromFavorites.fulfilled>;
+
+      expect(extractedActionsTypes).toEqual([
+        removeFromFavorites.pending.type,
+        removeFromFavorites.fulfilled.type,
+      ]);
+
+      expect(removeFromFavoritesFulfilled.payload)
+        .toEqual(mockFavoriteOffer);
+    });
+
+    it(`should dispatch "removeFromFavorites.pending",
+      "removeFromFavorites.rejected",
+      when server response 400`, async ()=> {
+
+      const mockFavoriteOffer = makeFakeOffer();
+      const id = mockFavoriteOffer.id;
+
+      mockAxiosAdapter
+        .onPost(
+          `${ApiRoute.Favorite}/${id}/${0}`)
+        .reply(400);
+
+
+      await store.dispatch(removeFromFavorites(id));
+
+      const emittedActions = store.getActions();
+      const extractedActionsTypes = extractActionsTypes(emittedActions);
+
+      expect(extractedActionsTypes).toEqual([
+        removeFromFavorites.pending.type,
+        removeFromFavorites.rejected.type,
+      ]);
+
+    });
+  });
+});
