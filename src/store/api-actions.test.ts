@@ -11,9 +11,15 @@ import { checkAuthAction,
   fetchDetailedOfferAction,
   fetchReviewsAction,
   fetchFavoritesOffersAction,
-  clearErrorAction
+  clearErrorAction,
+  loginAction
 } from './api-actions';
 import { ApiRoute } from '../const';
+import { AuthData } from '../types/auth-data';
+import { UserData } from '../types/user-data';
+import { redirectToRoute } from './action';
+import * as tokenStorage from '../services/token';
+import * as emailStorage from '../services/email';
 
 vi.mock('../services/api', () => ({
   createAPI: () => axios.create(),
@@ -275,6 +281,85 @@ describe('Async actions', () => {
         clearErrorAction.fulfilled.type,
       ]);
 
+    });
+  });
+
+  describe('loginAction', () => {
+    it('should dispatch "loginAction.pending", "redirectToRoute", "loginAction.fulfilled" when server response 200', async() => {
+
+      const mockAuthData: AuthData = {
+        email: 'test@mail.com',
+        password: 'supersecret',
+      };
+
+      const mockUserData: UserData = {
+        name: 'Иван Иванов',
+        avatarUrl: 'https://example.com/avatar.png',
+        isPro: true,
+        email: 'test@mail.com',
+        token: 'jwt-token-123',
+      };
+
+      mockAxiosAdapter.onPost(ApiRoute.Login).reply(200,mockUserData);
+
+      await store.dispatch(loginAction(mockAuthData));
+      const actions = extractActionsTypes(store.getActions());
+
+      expect(actions).toEqual([
+        loginAction.pending.type,
+        redirectToRoute.type,
+        loginAction.fulfilled.type,
+      ]);
+    });
+
+    it('should call "saveToken" once with the received token', async () => {
+
+      const mockAuthData: AuthData = {
+        email: 'test@mail.com',
+        password: 'supersecret',
+      };
+
+      const mockUserData: UserData = {
+        name: 'Иван Иванов',
+        avatarUrl: 'https://example.com/avatar.png',
+        isPro: true,
+        email: 'test@mail.com',
+        token: 'jwt-token-123',
+      };
+
+      mockAxiosAdapter.onPost(ApiRoute.Login).reply(200,mockUserData);
+
+      const mockSaveToken = vi.spyOn(tokenStorage, 'saveToken');
+
+      await store.dispatch(loginAction(mockAuthData));
+
+      expect(mockSaveToken).toBeCalledTimes(1);
+      expect(mockSaveToken).toBeCalledWith(mockUserData.token);
+    });
+
+    it('should call "saveEmail" once with the received email', async () => {
+
+      const mockAuthData: AuthData = {
+        email: 'test@mail.com',
+        password: 'supersecret',
+      };
+
+      const mockUserData: UserData = {
+        name: 'Иван Иванов',
+        avatarUrl: 'https://example.com/avatar.png',
+        isPro: true,
+        email: 'test@mail.com',
+        token: 'jwt-token-123',
+      };
+
+      mockAxiosAdapter.onPost(ApiRoute.Login).reply(200,mockUserData);
+
+      const mockSaveEmail = vi.spyOn(emailStorage, 'saveEmail');
+
+      await store.dispatch(loginAction(mockAuthData));
+
+      expect(mockSaveEmail).toBeCalledTimes(1);
+      expect(mockSaveEmail).toBeCalledWith(mockUserData.email);
     });
   });
 
