@@ -12,7 +12,8 @@ import { checkAuthAction,
   fetchReviewsAction,
   fetchFavoritesOffersAction,
   clearErrorAction,
-  loginAction
+  loginAction,
+  logoutAction
 } from './api-actions';
 import { ApiRoute } from '../const';
 import { AuthData } from '../types/auth-data';
@@ -361,6 +362,42 @@ describe('Async actions', () => {
       expect(mockSaveEmail).toBeCalledTimes(1);
       expect(mockSaveEmail).toBeCalledWith(mockUserData.email);
     });
+  });
+
+  describe('logoutAction', () => {
+    it('should dispatch "logoutAction.pending", "logoutAction.fulfilled" when server response 200', async() => {
+
+      mockAxiosAdapter.onDelete(ApiRoute.Logout).reply(204);
+
+      await store.dispatch(logoutAction());
+      const actions = extractActionsTypes(store.getActions());
+
+      expect(actions).toEqual([
+        logoutAction.pending.type,
+        logoutAction.fulfilled.type,
+      ]);
+    });
+
+    it('should one call "dropToken" with "logoutAction"', async() => {
+
+      mockAxiosAdapter.onDelete(ApiRoute.Logout).reply(204);
+      const mockDropToken = vi.spyOn(tokenStorage, 'dropToken');
+
+      await store.dispatch(logoutAction());
+
+      expect(mockDropToken).toBeCalledTimes(1);
+    });
+
+    it('should one call "dropEmail" with "logoutAction"', async() => {
+
+      mockAxiosAdapter.onDelete(ApiRoute.Logout).reply(204);
+      const mockDropEmail = vi.spyOn(emailStorage, 'dropEmail');
+
+      await store.dispatch(logoutAction());
+
+      expect(mockDropEmail).toBeCalledTimes(1);
+    });
+
   });
 
 });
