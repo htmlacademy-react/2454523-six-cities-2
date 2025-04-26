@@ -129,7 +129,7 @@ describe('Application Routing', () => {
 
     const offer = makeFakeOffer();
     const detailedOffer = makeFakeDetailedOffer();
-    const comment = makeFakeComment();
+    const review = makeFakeComment();
 
     const { withStoreComponent } = withStore(
       withHistoryComponent,
@@ -158,7 +158,7 @@ describe('Application Routing', () => {
           isSubmitting:false,
           isSubmittingFailed: false,
           isReviewsLoading: false,
-          reviews: [comment],
+          reviews: [review],
           isReviewsFetchingError: false
         }
       }
@@ -171,7 +171,48 @@ describe('Application Routing', () => {
     expect(screen.getByText(new RegExp(detailedOffer.title, 'i'))).toBeInTheDocument();
     expect(screen.getByText(new RegExp(`${detailedOffer.price}`))).toBeInTheDocument();
 
+    detailedOffer.goods.forEach((good) => {
+      expect(
+        screen.getByText(new RegExp(good, 'i'))
+      ).toBeInTheDocument();
+    });
+    expect(screen.getByText(/Meet the host/i)).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(review.comment, 'i'))).toBeInTheDocument();
+
   });
 
+  it('should render "NotFoundScreen" when user navigate to non-existent route', () => {
+    const withHistoryComponent = withHistory(<App />, mockHistory);
+    const unknownRoute = '/unknown-route';
 
+    const offer = makeFakeOffer();
+
+    const { withStoreComponent } = withStore(
+      withHistoryComponent,
+      {
+        OFFERS: {
+          isOffersDataLoading: false,
+          offers: [offer],
+          isOffersFetchingError: false,
+        },
+        USER: {
+          authorizationStatus: AuthorizationStatus.Auth,
+          userEmail: 'test'
+        },
+        FAVORITES: {
+          isFavoritesFetchingError: false,
+          isFavoritesLoading: true,
+          favorites: []
+        }
+      }
+    );
+
+    mockHistory.push(unknownRoute);
+
+    render(withStoreComponent);
+
+    expect(screen.getByText('404 Not Found')).toBeInTheDocument();
+    expect(screen.getByText('Вернуться на главную')).toBeInTheDocument();
+
+  });
 });
