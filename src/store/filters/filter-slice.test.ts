@@ -2,7 +2,7 @@ import { filtersSlice, changeCity, changeSortOptions } from './filters-slice';
 import { CITIES, SortType } from '../../const';
 
 
-describe ('filters Slice', ()=> {
+describe ('filtersSlice', ()=> {
   it ('should return initial state with empty action', ()=> {
     const emptyAction = {type: ''};
     const expectedState = {

@@ -5,6 +5,7 @@ import { State } from '../types/state';
 import { createAPI } from '../services/api';
 import { ThunkDispatch } from 'redux-thunk';
 import { Action } from 'redux';
+import { AuthorizationStatus, SortType } from '../const';
 
 export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createAPI>, Action>;
 export const extractActionsTypes = (actions: Action<string>[]) => actions.map(({ type }) => type);
@@ -78,3 +79,42 @@ export function makeFakeComment(): Review {
     rating: datatype.number({ min: 1, max: 5 }),
   };
 }
+
+export const makeFakeStore = (initialState?: Partial<State>): State => ({
+  OFFERS: {
+    isOffersDataLoading: false,
+    offers: [],
+    isOffersFetchingError: false,
+  },
+  USER: {
+    authorizationStatus: AuthorizationStatus.Auth,
+    userEmail: 'test'
+  },
+  FAVORITES: {
+    isFavoritesFetchingError: false,
+    isFavoritesLoading: false,
+    favorites: []
+  },
+  DETAILED_OFFER: {
+    neighboringOffers:[makeFakeOffer()],
+    detailedOffer: null,
+    isDetailedOfferLoading: false,
+    isDetailedOfferFetchingError: false
+  },
+  REVIEWS: {
+    isSubmitting:false,
+    isSubmittingFailed: false,
+    isReviewsLoading: false,
+    reviews: [],
+    isReviewsFetchingError: false
+  },
+  ERROR: {
+    error: null,
+  },
+  FILTERS: {
+    city: 'Paris',
+    sortType: SortType.Popular,
+  },
+  ...initialState ?? {},
+});
+

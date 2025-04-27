@@ -2,7 +2,7 @@ import { favoritesSlice } from './favorites-slice';
 import { makeFakeOffer } from '../../utilsMocks/mocks';
 import { fetchFavoritesOffersAction, addToFavorites, removeFromFavorites } from '../api-actions';
 
-describe ('Favorites Slice', ()=> {
+describe ('FavoritesSlice', ()=> {
   it ('should return initial state with empty action', ()=> {
     const emptyAction = {type: ''};
     const expectedState = {

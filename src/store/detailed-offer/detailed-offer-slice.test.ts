@@ -2,7 +2,7 @@ import { detailedOfferSlice, dropOffer } from './detailed-offer-slice';
 import { makeFakeDetailedOffer, makeFakeOffer } from '../../utilsMocks/mocks';
 import { fetchDetailedOfferAction } from '../api-actions';
 
-describe ('DetailedOffer Slice', ()=> {
+describe ('DetailedOfferSlice', ()=> {
   it ('should return initial state with empty action', ()=> {
     const emptyAction = {type: ''};
     const expectedState = {
@@ -70,37 +70,33 @@ describe ('DetailedOffer Slice', ()=> {
     expect(result).toEqual(expectedState);
   });
 
-  it(`should set "detailedOffer" to Object with DetailedOffer,
-   "neighboringOffers" to array with Offer,
-   "isDetailedOfferLoading" to "false",
-   "isDetailedOfferFetchingError" to "false"
-   with "fetchDetailedOfferAction.fulfilled"`,
+  it('loads detailed offer and neighbors on fetchDetailedOfferAction.fulfilled',
 
-  ()=> {
+    ()=> {
 
-    const detailedOffer = makeFakeDetailedOffer();
-    const offer = makeFakeOffer();
+      const detailedOffer = makeFakeDetailedOffer();
+      const offer = makeFakeOffer();
 
-    const expectedState = {
-      neighboringOffers:[offer],
-      detailedOffer: detailedOffer,
-      isDetailedOfferLoading: false,
-      isDetailedOfferFetchingError: false
-    };
+      const expectedState = {
+        neighboringOffers:[offer],
+        detailedOffer: detailedOffer,
+        isDetailedOfferLoading: false,
+        isDetailedOfferFetchingError: false
+      };
 
-    const action = fetchDetailedOfferAction.fulfilled(
-      {
-        detailedOffer,
-        neighboringOffers: [offer]
-      },
-      '',
-      detailedOffer.id,
-    );
+      const action = fetchDetailedOfferAction.fulfilled(
+        {
+          detailedOffer,
+          neighboringOffers: [offer]
+        },
+        '',
+        detailedOffer.id,
+      );
 
-    const result = detailedOfferSlice.reducer(undefined, action);
+      const result = detailedOfferSlice.reducer(undefined, action);
 
-    expect(result).toEqual(expectedState);
-  });
+      expect(result).toEqual(expectedState);
+    });
 
   it(`should set "isDetailedOfferLoading" to "false",
     "isDetailedOfferFetchingError" to "true"

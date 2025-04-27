@@ -1,7 +1,7 @@
 import { errorSlice, setError } from './error-slice';
 
 
-describe('Error Slice', ()=> {
+describe('ErrorSlice', ()=> {
   it('should return initial state with empty action', ()=> {
     const emptyAction = {type: ''};
     const expectedState = {error: null};

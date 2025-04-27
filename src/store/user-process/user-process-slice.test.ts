@@ -6,7 +6,7 @@ import { UserData } from '../../types/user-data';
 import { AuthData } from '../../types/auth-data';
 
 
-describe ('UserProcess Slice', ()=> {
+describe ('UserProcessSlice', ()=> {
   it ('should return initial state with empty action', ()=> {
     const emptyAction = {type: ''};
     const expectedState = {

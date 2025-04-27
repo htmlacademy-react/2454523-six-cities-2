@@ -10,8 +10,8 @@ vi.mock('../main-screen/rental-offer-card', () => ({
   ),
 }));
 
-describe ('Component: NearbyOfferCard', ()=> {
-  it ('should render correct', () => {
+describe ('NearbyOfferCard', ()=> {
+  it ('should render correctly', () => {
     const fakeNeighboringOffer = makeFakeOffer();
     const testId = 'rental-offer-card';
 

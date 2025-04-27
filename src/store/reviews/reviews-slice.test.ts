@@ -2,7 +2,7 @@ import { reviewsSlice, resetIsSubmittingFailed } from './reviews-slice';
 import { makeFakeComment } from '../../utilsMocks/mocks';
 import { fetchReviewsAction, postReviewAction } from '../api-actions';
 
-describe ('Reviews Slice', ()=> {
+describe ('ReviewsSlice', ()=> {
   it ('should return initial state with empty action', ()=> {
     const emptyAction = {type: ''};
     const expectedState = {

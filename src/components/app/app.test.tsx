@@ -3,7 +3,7 @@ import { MemoryHistory, createMemoryHistory } from 'history';
 import { AppRoute, AuthorizationStatus, SortType } from '../../const';
 import App from './app';
 import { withStore, withHistory } from '../../utilsMocks/mock-component';
-import { makeFakeComment, makeFakeDetailedOffer, makeFakeOffer } from '../../utilsMocks/mocks';
+import { makeFakeComment, makeFakeDetailedOffer, makeFakeOffer, makeFakeStore } from '../../utilsMocks/mocks';
 
 
 describe('Application Routing', () => {
@@ -20,7 +20,7 @@ describe('Application Routing', () => {
 
     const { withStoreComponent } = withStore(
       withHistoryComponent,
-      {
+      makeFakeStore({
         OFFERS: {
           isOffersDataLoading: false,
           offers: [offer],
@@ -30,26 +30,17 @@ describe('Application Routing', () => {
           city: offer.city.name,
           sortType: SortType.Popular,
         },
-        USER: {
-          authorizationStatus: AuthorizationStatus.Auth,
-          userEmail: 'test'
-        },
-        FAVORITES: {
-          isFavoritesFetchingError: false,
-          isFavoritesLoading: true,
-          favorites: []
-        }
-      }
-    );
+      }));
 
 
     render(withStoreComponent);
 
-    expect(screen.getByText(new RegExp(offer.title, 'i'))).toBeInTheDocument();
+    expect(screen.getByText(offer.title)).toBeInTheDocument();
     expect(screen.getByText(/Cities/i)).toBeInTheDocument();
-    expect(screen.getByText(new RegExp(`${offer.price}`))).toBeInTheDocument();
+    expect(screen.getByText(`€${offer.price}`)).toBeInTheDocument();
     expect(screen.getByText(/Paris/i)).toBeInTheDocument();
-    expect(screen.getByText(new RegExp(`${offer.type}`))).toBeInTheDocument();
+    expect(screen.getByText(offer.type)).toBeInTheDocument();
+
 
   });
 
@@ -61,30 +52,26 @@ describe('Application Routing', () => {
 
     const { withStoreComponent } = withStore(
       withHistoryComponent,
-      {
+      makeFakeStore({
         OFFERS: {
           isOffersDataLoading: false,
           offers: [favoriteOffer],
           isOffersFetchingError: false,
-        },
-        USER: {
-          authorizationStatus: AuthorizationStatus.Auth,
-          userEmail: 'test'
         },
         FAVORITES: {
           isFavoritesFetchingError: false,
           isFavoritesLoading: false,
           favorites: [favoriteOffer]
         }
-      }
+      })
     );
     mockHistory.push(AppRoute.Favorites);
 
     render(withStoreComponent);
 
-    expect(screen.getByText(new RegExp(favoriteOffer.title, 'i'))).toBeInTheDocument();
-    expect(screen.getByText(new RegExp(`${favoriteOffer.price}`))).toBeInTheDocument();
-    expect(screen.getByText(new RegExp(`${favoriteOffer.type}`))).toBeInTheDocument();
+    expect(screen.getByText(favoriteOffer.title)).toBeInTheDocument();
+    expect(screen.getByText(`€${favoriteOffer.price}`)).toBeInTheDocument();
+    expect(screen.getByText(favoriteOffer.type)).toBeInTheDocument();
     expect(screen.getByText(/Saved listing/i)).toBeInTheDocument();
   });
 
@@ -96,7 +83,7 @@ describe('Application Routing', () => {
 
     const { withStoreComponent } = withStore(
       withHistoryComponent,
-      {
+      makeFakeStore({
         OFFERS: {
           isOffersDataLoading: false,
           offers: [offer],
@@ -106,7 +93,7 @@ describe('Application Routing', () => {
           authorizationStatus: AuthorizationStatus.NoAuth,
           userEmail: ''
         },
-      }
+      })
     );
 
     mockHistory.push(AppRoute.Login);
@@ -133,20 +120,11 @@ describe('Application Routing', () => {
 
     const { withStoreComponent } = withStore(
       withHistoryComponent,
-      {
+      makeFakeStore({
         OFFERS: {
           isOffersDataLoading: false,
           offers: [offer],
           isOffersFetchingError: false,
-        },
-        USER: {
-          authorizationStatus: AuthorizationStatus.Auth,
-          userEmail: 'test'
-        },
-        FAVORITES: {
-          isFavoritesFetchingError: false,
-          isFavoritesLoading: true,
-          favorites: []
         },
         DETAILED_OFFER: {
           neighboringOffers:[makeFakeOffer()],
@@ -161,23 +139,23 @@ describe('Application Routing', () => {
           reviews: [review],
           isReviewsFetchingError: false
         }
-      }
+      })
     );
 
     mockHistory.push(`${AppRoute.Offer}/${offer.id}`);
 
     render(withStoreComponent);
 
-    expect(screen.getByText(new RegExp(detailedOffer.title, 'i'))).toBeInTheDocument();
-    expect(screen.getByText(new RegExp(`${detailedOffer.price}`))).toBeInTheDocument();
+    expect(screen.getByText(detailedOffer.title)).toBeInTheDocument();
+    expect(screen.getByText(`€${detailedOffer.price}`)).toBeInTheDocument();
 
     detailedOffer.goods.forEach((good) => {
       expect(
-        screen.getByText(new RegExp(good, 'i'))
+        screen.getByText(good)
       ).toBeInTheDocument();
     });
     expect(screen.getByText(/Meet the host/i)).toBeInTheDocument();
-    expect(screen.getByText(new RegExp(review.comment, 'i'))).toBeInTheDocument();
+    expect(screen.getByText(review.comment)).toBeInTheDocument();
 
   });
 
@@ -185,26 +163,9 @@ describe('Application Routing', () => {
     const withHistoryComponent = withHistory(<App />, mockHistory);
     const unknownRoute = '/unknown-route';
 
-    const offer = makeFakeOffer();
-
     const { withStoreComponent } = withStore(
       withHistoryComponent,
-      {
-        OFFERS: {
-          isOffersDataLoading: false,
-          offers: [offer],
-          isOffersFetchingError: false,
-        },
-        USER: {
-          authorizationStatus: AuthorizationStatus.Auth,
-          userEmail: 'test'
-        },
-        FAVORITES: {
-          isFavoritesFetchingError: false,
-          isFavoritesLoading: true,
-          favorites: []
-        }
-      }
+      makeFakeStore()
     );
 
     mockHistory.push(unknownRoute);

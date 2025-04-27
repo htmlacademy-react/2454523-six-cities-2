@@ -10,8 +10,8 @@ vi.mock('./nearby-offer-card', () => ({
   ),
 }));
 
-describe ('Component: NearbyOffersList', ()=> {
-  it ('should render correct', () => {
+describe ('NearbyOffersList', ()=> {
+  it ('should render correctly', () => {
     const expectedHeaderText = /Other places in the neighbourhood/i;
     const expectedCount = 2;
     const testId = 'nearby-offer-card';

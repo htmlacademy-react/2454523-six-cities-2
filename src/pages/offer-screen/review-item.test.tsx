@@ -3,8 +3,8 @@ import ReviewItem from './review-item';
 import { makeFakeComment } from '../../utilsMocks/mocks';
 
 
-describe ('Component: ReviewItem', ()=> {
-  it ('should render correct', () => {
+describe ('ReviewItem', ()=> {
+  it ('should render correctly', () => {
     const fakeComment = makeFakeComment();
 
     render(<ReviewItem review = {fakeComment}/>);

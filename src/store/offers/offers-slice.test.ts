@@ -2,7 +2,7 @@ import { offersSlice } from './offers-slice';
 import { makeFakeOffer } from '../../utilsMocks/mocks';
 import { fetchOffersAction, addToFavorites,removeFromFavorites } from '../api-actions';
 
-describe ('DetailedOffer Slice', ()=> {
+describe ('DetailedOfferSlice', ()=> {
   it ('should return initial state with empty action', ()=> {
     const emptyAction = {type: ''};
     const offer = makeFakeOffer();
