@@ -4,7 +4,7 @@ import { DetailedOfferState } from '../../types/state';
 import { createSelector } from '@reduxjs/toolkit';
 
 
-const getDetailedOfferSlice = (state: State): DetailedOfferState => state[NameSpace.DetailedOffer];
+const getDetailedOfferSlice = (state: Pick<State, NameSpace.DetailedOffer>): DetailedOfferState => state[NameSpace.DetailedOffer];
 
 export const getDetailedOffer = createSelector(
   [getDetailedOfferSlice],
