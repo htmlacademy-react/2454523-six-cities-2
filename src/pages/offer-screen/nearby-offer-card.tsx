@@ -1,7 +1,7 @@
 import { Offer } from '../../types/offer';
 import RentalOfferCard from '../main-screen/rental-offer-card';
 
-type NearbyOfferCardProps = {
+export type NearbyOfferCardProps = {
   neighboringOffer: Offer;
 }
 

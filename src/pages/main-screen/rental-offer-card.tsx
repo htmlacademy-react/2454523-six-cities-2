@@ -6,7 +6,7 @@ type OfferCardProps ={
   offer: Offer;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
-  onClick: ()=> void;
+  onClick?: ()=> void;
 }
 
 function RentalOfferCard (props: OfferCardProps) {
