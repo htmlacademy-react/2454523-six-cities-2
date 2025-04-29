@@ -3,7 +3,7 @@ import {NameSpace} from '../../const';
 import {State} from '../../types/state';
 import { OffersState } from '../../types/state';
 
-const getOffersSlice = (state: State): OffersState => state[NameSpace.Offers];
+const getOffersSlice = (state: Pick<State, NameSpace.Offers>): OffersState => state[NameSpace.Offers];
 
 export const getOffers = createSelector(
   [getOffersSlice],
