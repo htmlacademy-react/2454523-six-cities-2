@@ -74,6 +74,7 @@ function LoginScreen () :JSX.Element {
                   type="email" name="email"
                   placeholder="Email"
                   required
+                  data-testid="loginElement"
                 />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
@@ -85,6 +86,7 @@ function LoginScreen () :JSX.Element {
                   name="password"
                   placeholder="Password"
                   required
+                  data-testid = 'passwordElement'
                 />
               </div>
               <button
