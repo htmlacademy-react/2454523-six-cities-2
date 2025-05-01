@@ -6,7 +6,7 @@ import PrivateRoute from './private-route';
 import { render, screen } from '@testing-library/react';
 import { makeFakeStore } from '../../utilsMocks/mocks';
 
-describe('PrivareRoute', ()=> {
+describe('PrivateRoute', ()=> {
 
   let mockHistory: MemoryHistory;
 
