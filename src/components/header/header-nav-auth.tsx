@@ -31,8 +31,8 @@ function HeaderNavAuth ({userEmail}: HeaderNavAuthProps):JSX.Element {
             onClick = {(evt)=> {
               evt.preventDefault();
               dispatch(logoutAction());
-
             }}
+            data-testid = 'SignOutElement'
 
             to="/"
           >
