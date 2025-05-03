@@ -4,6 +4,8 @@ import { withStore, withHistory } from '../../utilsMocks/mock-component';
 import { makeFakeOffer, makeFakeStore } from '../../utilsMocks/mocks';
 import MainScreen from './main-screen';
 import { SortType } from '../../const';
+import userEvent from '@testing-library/user-event';
+import { changeCity, changeSortOptions } from '../../store/filters/filters-slice';
 
 vi.mock('./main-empty-screen', () => ({
   default: () => <div data-testid="main-empty-mock" />
@@ -59,6 +61,66 @@ describe('MainScreen', () => {
 
     expect(screen.getByTestId('main-empty-mock')).toBeInTheDocument();
 
+  });
+  it('dispatches "changeCity" when clicking on another city', async () => {
+
+    const otherCity = 'Amsterdam';
+
+    const offer = makeFakeOffer();
+
+    const withHistoryComponent = withHistory(<MainScreen/>);
+
+    const { withStoreComponent, mockStore } = withStore(
+      withHistoryComponent,
+      makeFakeStore({
+        OFFERS: {
+          isOffersDataLoading: false,
+          offers: [offer],
+          isOffersFetchingError: false,
+        },
+        FILTERS: {
+          city: offer.city.name,
+          sortType: SortType.Popular,
+        },
+      }));
+
+    render(withStoreComponent);
+
+    const amsterdamLink = screen.getByRole('link', { name: otherCity });
+    await userEvent.click(amsterdamLink);
+    const actions = mockStore.getActions();
+
+    expect(actions).toEqual([ changeCity(otherCity) ]);
+
+  });
+
+  it('dispatches "changeSortOptions" when clicking on another sort option', async () => {
+
+    const withHistoryComponent = withHistory(<MainScreen/>);
+
+    const offer = makeFakeOffer();
+
+    const { withStoreComponent, mockStore } = withStore(
+      withHistoryComponent,
+      makeFakeStore({
+        OFFERS: {
+          isOffersDataLoading: false,
+          offers: [offer],
+          isOffersFetchingError: false,
+        },
+        FILTERS: {
+          city: offer.city.name,
+          sortType: SortType.Popular,
+        },
+      }));
+
+    render(withStoreComponent);
+
+    await userEvent.click(screen.getByText(SortType.PriceLowToHigh));
+
+    const actions = mockStore.getActions();
+
+    expect(actions).toEqual([changeSortOptions(SortType.PriceLowToHigh)]);
   });
 
 });
