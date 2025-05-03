@@ -18,6 +18,7 @@ function RentalOfferCard (props: OfferCardProps) {
     <article className={`${block}__card place-card`}
       onMouseEnter = {onMouseEnter}
       onMouseLeave = {onMouseLeave}
+      data-testid = {`rental-card-${offer.id}`}
     >
 
       {isPremium && (
@@ -43,6 +44,7 @@ function RentalOfferCard (props: OfferCardProps) {
           button`}
           type="button"
           onClick={onClick}
+          data-testid = "favoriteButton"
           >
             <svg className="place-card__bookmark-icon" width={18} height={19}>
               <use xlinkHref="#icon-bookmark"></use>
