@@ -71,7 +71,7 @@ function OfferScreen () : JSX.Element {
           <div className="offer__container container">
             <div className="offer__wrapper">
               {isPremium && (
-                <div className="offer__mark">
+                <div className="offer__mark" data-testid="offer-premium-badge">
                   <span>Premium</span>
                 </div>
               )}
