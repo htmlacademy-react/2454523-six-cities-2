@@ -5,9 +5,10 @@ import { useRef, FormEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction, clearErrorAction } from '../../store/api-actions';
 import { setError } from '../../store/error/error-slice';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute, AuthorizationStatus, CITIES } from '../../const';
 import { isValidPassword } from '../../utils/validatePassword';
 import { getAuthorizationStatus } from '../../store/user-process/user-process-selectors';
+import { changeCity } from '../../store/filters/filters-slice';
 
 
 function LoginScreen () :JSX.Element {
@@ -22,6 +23,17 @@ function LoginScreen () :JSX.Element {
   if (authorizationStatus === AuthorizationStatus.Auth){
     return <Navigate to={AppRoute.Main} />;
   }
+
+  const handleSelectCity = (city: string) => {
+    dispatch(changeCity(city));
+  };
+
+  function getRandomCity(cities: string[]) {
+    const randomIndex = Math.floor(Math.random() * cities.length);
+    return cities[randomIndex];
+  }
+
+  const randomCity = getRandomCity(CITIES);
 
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>)=> {
@@ -98,8 +110,12 @@ function LoginScreen () :JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <Link className="locations__item-link" to="/">
-                <span>Amsterdam</span>
+              <Link
+                className="locations__item-link"
+                to="/"
+                onClick={()=> handleSelectCity(randomCity)}
+              >
+                <span>{randomCity}</span>
               </Link>
             </div>
           </section>
