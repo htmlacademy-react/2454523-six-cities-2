@@ -3,7 +3,7 @@ import { NameSpace} from '../../const';
 import { State } from '../../types/state';
 import { UserProcessState } from '../../types/state';
 
-const getUserProcessSlice = (state: State): UserProcessState => state[NameSpace.User];
+const getUserProcessSlice = (state: Pick<State, NameSpace.User>): UserProcessState => state[NameSpace.User];
 
 export const getAuthorizationStatus = createSelector(
   [getUserProcessSlice],

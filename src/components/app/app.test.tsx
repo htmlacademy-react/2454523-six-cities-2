@@ -38,10 +38,8 @@ describe('Application Routing', () => {
     expect(screen.getByText(offer.title)).toBeInTheDocument();
     expect(screen.getByText(/Cities/i)).toBeInTheDocument();
     expect(screen.getByText(`€${offer.price}`)).toBeInTheDocument();
-    expect(screen.getByText(/Paris/i)).toBeInTheDocument();
     expect(screen.getByText(offer.type)).toBeInTheDocument();
-
-
+    expect(screen.getByRole('link', { name: /paris/i })).toBeInTheDocument();
   });
 
 

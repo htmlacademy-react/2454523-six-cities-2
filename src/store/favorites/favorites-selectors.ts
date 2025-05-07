@@ -3,7 +3,7 @@ import {State} from '../../types/state';
 import { FavoritesState } from '../../types/state';
 import { createSelector } from '@reduxjs/toolkit';
 
-const getFavoritesSlice = (state: State): FavoritesState => state[NameSpace.Favorites];
+const getFavoritesSlice = (state: Pick<State, NameSpace.Favorites>): FavoritesState => state[NameSpace.Favorites];
 
 export const getFavorites = createSelector(
   [getFavoritesSlice],

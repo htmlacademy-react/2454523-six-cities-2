@@ -2,7 +2,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import {NameSpace} from '../../const';
 import {State, FiltersSliceState } from '../../types/state';
 
-const getFiltersSlice = (state: State): FiltersSliceState => state[NameSpace.Filters];
+const getFiltersSlice = (state: Pick<State, NameSpace.Filters>): FiltersSliceState => state[NameSpace.Filters];
 
 export const getCity = createSelector(
   [getFiltersSlice],

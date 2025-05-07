@@ -4,7 +4,7 @@ import {State} from '../../types/state';
 import { ReviewsState } from '../../types/state';
 
 
-const getReviewsSlice = (state: State): ReviewsState => state[NameSpace.Reviews];
+const getReviewsSlice = (state: Pick<State, NameSpace.Reviews>): ReviewsState => state[NameSpace.Reviews];
 
 export const getReviews = createSelector(
   [getReviewsSlice],
@@ -26,4 +26,7 @@ export const getIsSubmittingFailed = createSelector(
   (state: ReviewsState) => state.isSubmittingFailed
 );
 
-
+export const getIsReviewsFetchingError = createSelector(
+  [getReviewsSlice],
+  (state: ReviewsState) => state.isReviewsFetchingError
+);

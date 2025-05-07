@@ -5,10 +5,13 @@ import { State } from '../types/state';
 import { createAPI } from '../services/api';
 import { ThunkDispatch } from 'redux-thunk';
 import { Action } from 'redux';
-import { AuthorizationStatus, SortType } from '../const';
+import { AuthorizationStatus, CITIES, SortType } from '../const';
 
 export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createAPI>, Action>;
 export const extractActionsTypes = (actions: Action<string>[]) => actions.map(({ type }) => type);
+
+
+const cityName = CITIES[Math.floor(Math.random() * CITIES.length)];
 
 export function makeFakeDetailedOffer(): DetailedOffer {
   const latitude = parseFloat(address.latitude());
@@ -21,7 +24,7 @@ export function makeFakeDetailedOffer(): DetailedOffer {
     type: 'apartment',
     price: datatype.number({ min: 50, max: 500 }),
     city: {
-      name: address.city(),
+      name: cityName,
       location: { latitude, longitude, zoom: zoomLevel }
     },
     location: { latitude, longitude, zoom: zoomLevel },
@@ -55,7 +58,7 @@ export function makeFakeOffer(): Offer {
     type: 'apartment',
     price: datatype.number({ min: 50, max: 500 }),
     city: {
-      name: address.city(),
+      name: cityName,
       location: { latitude, longitude, zoom: zoomLevel }
     },
     location: { latitude, longitude, zoom: zoomLevel },
