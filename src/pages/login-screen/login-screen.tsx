@@ -9,7 +9,7 @@ import { AppRoute, AuthorizationStatus, CITIES } from '../../const';
 import { isValidPassword } from '../../utils/validatePassword';
 import { getAuthorizationStatus } from '../../store/user-process/user-process-selectors';
 import { changeCity } from '../../store/filters/filters-slice';
-
+import { getRandomCity } from '../../utils/utils';
 
 function LoginScreen () :JSX.Element {
 
@@ -24,17 +24,11 @@ function LoginScreen () :JSX.Element {
     return <Navigate to={AppRoute.Main} />;
   }
 
+  const randomCity = getRandomCity(CITIES);
+
   const handleSelectCity = (city: string) => {
     dispatch(changeCity(city));
   };
-
-  function getRandomCity(cities: string[]) {
-    const randomIndex = Math.floor(Math.random() * cities.length);
-    return cities[randomIndex];
-  }
-
-  const randomCity = getRandomCity(CITIES);
-
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>)=> {
     evt.preventDefault();

@@ -1,7 +1,10 @@
 import { render, screen} from '@testing-library/react';
 import { withStore, withHistory } from '../../utilsMocks/mock-component';
-import { makeFakeComment, makeFakeDetailedOffer, makeFakeOffer, makeFakeStore } from '../../utilsMocks/mocks';
+import { extractActionsTypes, makeFakeComment, makeFakeDetailedOffer, makeFakeOffer, makeFakeStore } from '../../utilsMocks/mocks';
 import OfferScreen from './offer-screen';
+import { ApiRoute, AuthorizationStatus } from '../../const';
+import userEvent from '@testing-library/user-event';
+import { addToFavorites } from '../../store/api-actions';
 
 describe('OfferScreen', () => {
 
@@ -115,6 +118,49 @@ describe('OfferScreen', () => {
 
     const imgs = screen.getAllByAltText('Photo studio');
     expect(imgs).toHaveLength(detailedOffer.images.length);
+  });
+
+  it('should dispatch addToFavorites when user clicks on favorite button and the offer is not favorite', async() => {
+    const notFavoriteDetailedOffer = {
+      ...detailedOffer,
+      isFavorite: false
+    };
+
+    const { withStoreComponent, mockAxiosAdapter, mockStore } = withStore(
+      withHistory(<OfferScreen />),
+      makeFakeStore({
+        DETAILED_OFFER: {
+          detailedOffer: notFavoriteDetailedOffer,
+          neighboringOffers: [makeFakeOffer()],
+          isDetailedOfferLoading: false,
+          isDetailedOfferFetchingError: false
+        },
+        USER: {
+          authorizationStatus: AuthorizationStatus.Auth,
+          userEmail: 'test'
+        }
+      })
+    );
+
+    const mockFavoriteOffer = makeFakeOffer();
+
+    mockAxiosAdapter
+      .onPost(
+        `${ApiRoute.Favorite}/${notFavoriteDetailedOffer.id}/${1}`)
+      .reply(200, mockFavoriteOffer);
+
+    render(withStoreComponent);
+
+    await userEvent.click(screen.getByTestId('favoriteButtonElement'));
+
+    const actions = extractActionsTypes(mockStore.getActions());
+
+    expect(actions).toEqual([
+      addToFavorites.pending.type,
+      addToFavorites.fulfilled.type,
+    ]);
+
+
   });
 
 });

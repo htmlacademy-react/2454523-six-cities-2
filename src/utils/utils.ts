@@ -28,4 +28,9 @@ const getCityCoords = (cities: CityCoords[], cityName: string): CityCoords => {
   return foundCity;
 };
 
-export {prepareReviewData, getOffersByCity, getCityCoords};
+function getRandomCity(cities: string[]) {
+  const randomIndex = Math.floor(Math.random() * cities.length);
+  return cities[randomIndex];
+}
+
+export {prepareReviewData, getOffersByCity, getCityCoords,getRandomCity};

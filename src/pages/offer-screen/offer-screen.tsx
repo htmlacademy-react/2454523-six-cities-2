@@ -102,6 +102,7 @@ function OfferScreen () : JSX.Element {
                   button`}
                   type="button"
                   onClick={handleFavoriteClick}
+                  data-testid= 'favoriteButtonElement'
                 >
                   <svg className="offer__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
