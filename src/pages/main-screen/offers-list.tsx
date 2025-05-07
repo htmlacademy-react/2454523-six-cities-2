@@ -5,8 +5,11 @@ import { Offers } from '../../types/offer';
 import RentalOfferCard from './rental-offer-card';
 import { memo } from 'react';
 import { addToFavorites, removeFromFavorites } from '../../store/api-actions';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Offer } from '../../types/offer';
+import { useNavigate } from 'react-router-dom';
+import { getAuthorizationStatus } from '../../store/user-process/user-process-selectors';
+import { AppRoute, AuthorizationStatus } from '../../const';
 
 type OffersListProps = {
   offers: Offers;
@@ -15,6 +18,9 @@ type OffersListProps = {
 
 function OffersList (props : OffersListProps) : JSX.Element{
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   const {offers, onOffersListHover } = props;
 
@@ -33,6 +39,12 @@ function OffersList (props : OffersListProps) : JSX.Element{
 
 
   const handleFavoriteClick = (offer: Offer) => {
+
+    if(authorizationStatus === AuthorizationStatus.NoAuth) {
+      navigate(AppRoute.Login, { replace: true });
+      return;
+    }
+
     if(!offer.isFavorite){
       dispatch(addToFavorites(offer.id));
     } else {
