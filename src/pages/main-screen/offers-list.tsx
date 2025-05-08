@@ -1,6 +1,4 @@
 /* eslint-disable react-refresh/only-export-components */
-/* eslint-disable no-console */
-import { useState } from 'react';
 import { Offers } from '../../types/offer';
 import RentalOfferCard from './rental-offer-card';
 import { memo } from 'react';
@@ -24,19 +22,13 @@ function OffersList (props : OffersListProps) : JSX.Element{
 
   const {offers, onOffersListHover } = props;
 
-  const [activeOfferId, setActiveOfferId] = useState('');
-
   const handleMouseEnter = (offerId: string) => {
-    setActiveOfferId(offerId);
     onOffersListHover(offerId);
-    console.log(activeOfferId);
   };
 
   const handleMouseLeave = () => {
-    setActiveOfferId('');
     onOffersListHover('');
   };
-
 
   const handleFavoriteClick = (offer: Offer) => {
 
