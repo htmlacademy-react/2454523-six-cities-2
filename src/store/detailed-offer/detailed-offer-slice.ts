@@ -38,13 +38,15 @@ export const detailedOfferSlice = createSlice({
         state.isDetailedOfferFetchingError = true;
         state.isDetailedOfferLoading = false;
       })
-      .addCase(addToFavorites.fulfilled, (state)=> {
-        if(state.detailedOffer){
+      .addCase(addToFavorites.fulfilled, (state, action)=> {
+        const updatedOffer = action.payload;
+        if(state.detailedOffer?.id === updatedOffer.id){
           state.detailedOffer.isFavorite = true;
         }
       })
-      .addCase(removeFromFavorites.fulfilled, (state)=> {
-        if(state.detailedOffer){
+      .addCase(removeFromFavorites.fulfilled, (state, action)=> {
+        const updatedOffer = action.payload;
+        if(state.detailedOffer?.id === updatedOffer.id){
           state.detailedOffer.isFavorite = false;
         }
       });
