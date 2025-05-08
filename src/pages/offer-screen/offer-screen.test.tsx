@@ -2,9 +2,19 @@ import { render, screen} from '@testing-library/react';
 import { withStore, withHistory } from '../../utilsMocks/mock-component';
 import { extractActionsTypes, makeFakeComment, makeFakeDetailedOffer, makeFakeOffer, makeFakeStore } from '../../utilsMocks/mocks';
 import OfferScreen from './offer-screen';
-import { ApiRoute, AuthorizationStatus } from '../../const';
+import { ApiRoute, AppRoute, AuthorizationStatus } from '../../const';
 import userEvent from '@testing-library/user-event';
-import { addToFavorites } from '../../store/api-actions';
+import { addToFavorites, removeFromFavorites } from '../../store/api-actions';
+
+
+const mockNavigate = vi.fn();
+vi.mock('react-router-dom', async () => {
+  const actual = await vi.importActual<typeof import('react-router-dom')>('react-router-dom');
+  return {
+    ...actual,
+    useNavigate: () => mockNavigate,
+  };
+});
 
 describe('OfferScreen', () => {
 
@@ -159,8 +169,76 @@ describe('OfferScreen', () => {
       addToFavorites.pending.type,
       addToFavorites.fulfilled.type,
     ]);
+  });
 
 
+  it('should dispatch removeFromFavorites when user clicks on favorite button and the offer is favorite', async() => {
+    const favoriteDetailedOffer = {
+      ...detailedOffer,
+      isFavorite: true
+    };
+
+    const { withStoreComponent, mockAxiosAdapter, mockStore } = withStore(
+      withHistory(<OfferScreen />),
+      makeFakeStore({
+        DETAILED_OFFER: {
+          detailedOffer: favoriteDetailedOffer,
+          neighboringOffers: [makeFakeOffer()],
+          isDetailedOfferLoading: false,
+          isDetailedOfferFetchingError: false
+        },
+        USER: {
+          authorizationStatus: AuthorizationStatus.Auth,
+          userEmail: 'test'
+        }
+      })
+    );
+
+    const mockFavoriteOffer = makeFakeOffer();
+
+    mockAxiosAdapter
+      .onPost(
+        `${ApiRoute.Favorite}/${favoriteDetailedOffer.id}/${0}`)
+      .reply(200, mockFavoriteOffer);
+
+    render(withStoreComponent);
+
+    await userEvent.click(screen.getByTestId('favoriteButtonElement'));
+
+    const actions = extractActionsTypes(mockStore.getActions());
+
+    expect(actions).toEqual([
+      removeFromFavorites.pending.type,
+      removeFromFavorites.fulfilled.type,
+    ]);
+  });
+
+  it('should navigate to login when user clicks favorite button and Authorization Status is NoAuth', async () => {
+
+    const { withStoreComponent, mockStore } = withStore(
+      withHistory(<OfferScreen />),
+      makeFakeStore({
+        DETAILED_OFFER: {
+          detailedOffer,
+          neighboringOffers: [ makeFakeOffer() ],
+          isDetailedOfferLoading: false,
+          isDetailedOfferFetchingError: false,
+        },
+        USER: {
+          authorizationStatus: AuthorizationStatus.NoAuth,
+          userEmail: '',
+        },
+      })
+    );
+
+    render(withStoreComponent);
+
+    await userEvent.click(screen.getByTestId('favoriteButtonElement'));
+
+    expect(mockNavigate).toHaveBeenCalledWith(AppRoute.Login, { replace: true });
+
+    const actions = extractActionsTypes(mockStore.getActions());
+    expect(actions).toEqual([]);
   });
 
 });
