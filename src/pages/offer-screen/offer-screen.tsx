@@ -1,4 +1,4 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
@@ -7,11 +7,12 @@ import Map from '../../components/map/map';
 import NearbyOffersList from './nearby-offers-list';
 import { getCityCoords } from '../../utils/utils';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { CITIES, СITIES_COORDS } from '../../const';
+import { AppRoute, AuthorizationStatus, CITIES, СITIES_COORDS } from '../../const';
 import { useEffect } from 'react';
-import { fetchDetailedOfferAction, fetchReviewsAction } from '../../store/api-actions';
+import { addToFavorites, fetchDetailedOfferAction, fetchReviewsAction, removeFromFavorites } from '../../store/api-actions';
 import { getDetailedOffer, getIsDetailedOfferLoading, getNighboringOffers, getIsDetailedOfferFetchingError } from '../../store/detailed-offer/detailed-offer-selectors';
 import FetchingError from '../../components/error-message/fetching-error';
+import { getAuthorizationStatus } from '../../store/user-process/user-process-selectors';
 
 function OfferScreen () : JSX.Element {
   const {offerId} = useParams();
@@ -21,7 +22,9 @@ function OfferScreen () : JSX.Element {
   const neighboringOffers = useAppSelector(getNighboringOffers);
   const isDetailedOfferLoading = useAppSelector(getIsDetailedOfferLoading);
   const isDetailedOfferFetchingError = useAppSelector(getIsDetailedOfferFetchingError);
+  const navigate = useNavigate();
 
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   useEffect(()=>{
     if(offerId){
@@ -43,9 +46,23 @@ function OfferScreen () : JSX.Element {
     return <Navigate to = '*'/>;
   }
 
-  const {id, title, type, price, isPremium, rating, description, bedrooms, goods, host, images, maxAdults} = detailedOffer;
+  const {id, title, type, price, isPremium, rating, description, bedrooms, goods, host, images, maxAdults, isFavorite} = detailedOffer;
 
   const cityCoords = getCityCoords(СITIES_COORDS, detailedOffer?.city.name ?? CITIES[0]);
+
+  const handleFavoriteClick = () => {
+
+    if(authorizationStatus === AuthorizationStatus.NoAuth) {
+      navigate(AppRoute.Login, { replace: true });
+      return;
+    }
+
+    if(!detailedOffer.isFavorite){
+      dispatch(addToFavorites(detailedOffer.id));
+    } else {
+      dispatch(removeFromFavorites(detailedOffer.id));
+    }
+  };
 
   return (
     <div className="page">
@@ -79,7 +96,14 @@ function OfferScreen () : JSX.Element {
                 <h1 className="offer__name">
                   {title}
                 </h1>
-                <button className="offer__bookmark-button button" type="button">
+                <button
+                  className={`offer__bookmark-button
+                  ${isFavorite ? 'offer__bookmark-button--active' : ''}
+                  button`}
+                  type="button"
+                  onClick={handleFavoriteClick}
+                  data-testid= 'favoriteButtonElement'
+                >
                   <svg className="offer__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>

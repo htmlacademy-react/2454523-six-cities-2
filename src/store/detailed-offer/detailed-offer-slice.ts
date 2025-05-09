@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { DetailedOfferState } from '../../types/state';
-import { fetchDetailedOfferAction } from '../api-actions';
+import { addToFavorites, fetchDetailedOfferAction, removeFromFavorites } from '../api-actions';
 import { MAX_COUNT_NEAR_OFFERS } from '../../const';
 
 
@@ -37,8 +37,19 @@ export const detailedOfferSlice = createSlice({
       .addCase(fetchDetailedOfferAction.rejected, (state)=> {
         state.isDetailedOfferFetchingError = true;
         state.isDetailedOfferLoading = false;
+      })
+      .addCase(addToFavorites.fulfilled, (state, action)=> {
+        const updatedOffer = action.payload;
+        if(state.detailedOffer?.id === updatedOffer.id){
+          state.detailedOffer.isFavorite = true;
+        }
+      })
+      .addCase(removeFromFavorites.fulfilled, (state, action)=> {
+        const updatedOffer = action.payload;
+        if(state.detailedOffer?.id === updatedOffer.id){
+          state.detailedOffer.isFavorite = false;
+        }
       });
-
   }
 });
 

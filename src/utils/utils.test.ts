@@ -1,6 +1,8 @@
 import { makeFakeComment, makeFakeOffer } from '../utilsMocks/mocks';
-import { prepareReviewData, getOffersByCity, getCityCoords } from './utils';
+import { prepareReviewData, getOffersByCity, getCityCoords, getRandomCity } from './utils';
 import {СITIES_COORDS} from '../const';
+import {vi, afterEach } from 'vitest';
+
 
 describe('Function: prepareReviewData', () => {
 
@@ -79,4 +81,32 @@ describe('Function: getCityCoords', () => {
     expect(result).toEqual(СITIES_COORDS[0]);
   });
 
+});
+
+describe('Function: getRandomCity', () => {
+  const cities = ['Paris', 'Cologne', 'Brussels'];
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('should return the first city when Math.random() returns 0', () => {
+    vi.spyOn(Math, 'random').mockReturnValue(0);
+    expect(getRandomCity(cities)).toBe('Paris');
+  });
+
+  it('should return the last city when Math.random() returns a value close to 1', () => {
+    vi.spyOn(Math, 'random').mockReturnValue(0.9999);
+    expect(getRandomCity(cities)).toBe('Brussels');
+  });
+
+  it('should return the middle city when Math.random() returns 0.5', () => {
+    vi.spyOn(Math, 'random').mockReturnValue(0.5);
+    expect(getRandomCity(cities)).toBe('Cologne');
+  });
+
+  it('should return undefined for an empty array', () => {
+    vi.spyOn(Math, 'random').mockReturnValue(0);
+    expect(getRandomCity([])).toBeUndefined();
+  });
 });

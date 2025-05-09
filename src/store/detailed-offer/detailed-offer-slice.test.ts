@@ -1,6 +1,6 @@
 import { detailedOfferSlice, dropOffer } from './detailed-offer-slice';
 import { makeFakeDetailedOffer, makeFakeOffer } from '../../utilsMocks/mocks';
-import { fetchDetailedOfferAction } from '../api-actions';
+import { addToFavorites, fetchDetailedOfferAction, removeFromFavorites } from '../api-actions';
 
 describe ('DetailedOfferSlice', ()=> {
   it ('should return initial state with empty action', ()=> {
@@ -113,6 +113,40 @@ describe ('DetailedOfferSlice', ()=> {
     const result = detailedOfferSlice.reducer(undefined, fetchDetailedOfferAction.rejected);
 
     expect(result).toEqual(expectedState);
+  });
+
+  it ('should set detailedOffer.isFavorite to true with "addToFavorites.fulfilled"', ()=> {
+    const notFavoriteDetailedOffer = { ...makeFakeDetailedOffer(), isFavorite: false, id: '1' };
+    const updatedOffer = {...makeFakeOffer(), id: '1', };
+
+    const initialState = {
+      neighboringOffers:[],
+      detailedOffer: notFavoriteDetailedOffer,
+      isDetailedOfferLoading: false,
+      isDetailedOfferFetchingError: false
+    };
+
+
+    const result = detailedOfferSlice.reducer(initialState, addToFavorites.fulfilled(updatedOffer, '', notFavoriteDetailedOffer.id));
+
+    expect(result.detailedOffer?.isFavorite).toBe(true);
+  });
+
+  it ('should set detailedOffer.isFavorite to false with "removeFromFavorites.fulfilled"', ()=> {
+    const favoriteDetailedOffer = { ...makeFakeDetailedOffer(), isFavorite: true, id: '1' };
+    const updatedOffer = {...makeFakeOffer(), id: '1', };
+
+    const initialState = {
+      neighboringOffers:[],
+      detailedOffer: favoriteDetailedOffer,
+      isDetailedOfferLoading: false,
+      isDetailedOfferFetchingError: false
+    };
+
+
+    const result = detailedOfferSlice.reducer(initialState, removeFromFavorites.fulfilled(updatedOffer, '', favoriteDetailedOffer.id));
+
+    expect(result.detailedOffer?.isFavorite).toBe(false);
   });
 
 });
