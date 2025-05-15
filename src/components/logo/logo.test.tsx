@@ -1,5 +1,5 @@
 import Logo from './logo';
-import { withHistory } from '../../utilsMocks/mock-component';
+import { withHistory } from '../../utils-mocks/mock-component';
 import { screen, render } from '@testing-library/react';
 
 describe('Logo', ()=> {

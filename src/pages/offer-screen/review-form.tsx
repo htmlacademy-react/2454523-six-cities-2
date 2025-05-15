@@ -23,7 +23,7 @@ function ReviewForm () {
 
   const [reviewsText, setReviewsText] = useState('');
 
-  const handleReviewText = ({target}: ChangeEvent<HTMLTextAreaElement>) => {
+  const handleReviewTextChange = ({target}: ChangeEvent<HTMLTextAreaElement>) => {
     const value = target.value;
     setReviewsText(value);
   };
@@ -32,7 +32,7 @@ function ReviewForm () {
   reviewsText.length <= MAX_COMMENT_LENGTH &&
   starsRating !== 0;
 
-  const handleSubmit = (evt: React.FormEvent<HTMLFormElement>)=> {
+  const handleFormSubmit = (evt: React.FormEvent<HTMLFormElement>)=> {
     evt.preventDefault();
 
     if (!offerId) {
@@ -58,7 +58,7 @@ function ReviewForm () {
     <form
       className="reviews__form form"
       action="#" method="post"
-      onSubmit={handleSubmit}
+      onSubmit = {handleFormSubmit}
     >
       <fieldset disabled={isSubmitting} style={{border: 'none', padding: 0}}>
         <label className="reviews__label form__label" htmlFor="review">Your review</label>
@@ -97,7 +97,7 @@ function ReviewForm () {
           id="review"
           name="review"
           placeholder="Tell how was your stay, what you like and what can be improved"
-          onChange={handleReviewText}
+          onChange={handleReviewTextChange}
           value={reviewsText}
           data-testid = 'reviewsTextElement'
         >

@@ -1,5 +1,5 @@
 import { reviewsSlice, resetIsSubmittingFailed } from './reviews-slice';
-import { makeFakeComment } from '../../utilsMocks/mocks';
+import { makeFakeComment } from '../../utils-mocks/mocks';
 import { fetchReviewsAction, postReviewAction } from '../api-actions';
 
 describe ('ReviewsSlice', ()=> {

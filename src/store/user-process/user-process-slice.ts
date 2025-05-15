@@ -36,5 +36,3 @@ export const userProcessSlice = createSlice({
 
   }
 });
-
-// надо будет убрать все, что связано с requireAuthorization и setEmail из кода

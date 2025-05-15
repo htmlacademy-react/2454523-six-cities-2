@@ -27,17 +27,17 @@ function MainScreen (): JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(
     undefined
   );
-  const handleOffersListHover = useCallback((offerId: string) => {
+  const handleOfferHover = useCallback((offerId: string) => {
     const currentOffer = offers.find((offer) => offer.id === offerId);
     setSelectedOffer(currentOffer);
   }, [offers]);
 
 
-  const handleSelectCity = useCallback((city: string) => {
+  const handleCityClick = useCallback((city: string) => {
     dispatch(changeCity(city));
   }, [dispatch]);
 
-  const handleClickSortType = useCallback((sortType: string)=> {
+  const handleSortTypeClick = useCallback((sortType: string)=> {
     dispatch(changeSortOptions(sortType));
   }, [dispatch]);
 
@@ -62,7 +62,7 @@ function MainScreen (): JSX.Element {
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
 
-        <CitiesTabs cities = {CITIES} onCitySelect={handleSelectCity} currentCity = {currentCity}/>
+        <CitiesTabs cities = {CITIES} onCityClick={handleCityClick} currentCity = {currentCity}/>
 
         <div className="cities">
           <div className="cities__places-container container">
@@ -70,11 +70,11 @@ function MainScreen (): JSX.Element {
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offersByCity.length} places to stay in {currentCity}</b>
 
-              <SortingOptions onClickSortType = {handleClickSortType}/>
+              <SortingOptions onSortTypeClick = {handleSortTypeClick}/>
 
 
               <OffersList offers = {sortingOffers}
-                onOffersListHover = {handleOffersListHover}
+                onOfferHover = {handleOfferHover}
 
               />
 

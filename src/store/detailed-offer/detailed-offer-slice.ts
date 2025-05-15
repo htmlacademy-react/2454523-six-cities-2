@@ -43,11 +43,19 @@ export const detailedOfferSlice = createSlice({
         if(state.detailedOffer?.id === updatedOffer.id){
           state.detailedOffer.isFavorite = true;
         }
+        const neighboringFavoriteOffer = state.neighboringOffers.find((neighboringOffer) => neighboringOffer.id === updatedOffer.id);
+        if(neighboringFavoriteOffer){
+          neighboringFavoriteOffer.isFavorite = true;
+        }
       })
       .addCase(removeFromFavorites.fulfilled, (state, action)=> {
         const updatedOffer = action.payload;
         if(state.detailedOffer?.id === updatedOffer.id){
           state.detailedOffer.isFavorite = false;
+        }
+        const neighboringFavoriteOffer = state.neighboringOffers.find((neighboringOffer) => neighboringOffer.id === updatedOffer.id);
+        if(neighboringFavoriteOffer){
+          neighboringFavoriteOffer.isFavorite = false;
         }
       });
   }

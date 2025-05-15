@@ -1,5 +1,5 @@
 import { favoritesSlice } from './favorites-slice';
-import { makeFakeOffer } from '../../utilsMocks/mocks';
+import { makeFakeOffer } from '../../utils-mocks/mocks';
 import { fetchFavoritesOffersAction, addToFavorites, removeFromFavorites } from '../api-actions';
 
 describe ('FavoritesSlice', ()=> {

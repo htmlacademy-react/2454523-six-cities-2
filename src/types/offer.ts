@@ -5,9 +5,9 @@ export type Location = {
   };
 
 export type City = {
-    name: string;
-    location: Location;
-    };
+  name: string;
+  location: Location;
+  };
 
 export type BaseOffer = {
   id: string;
@@ -26,10 +26,10 @@ export type Offer = BaseOffer & {
   };
 
 export type Host= {
-    name: string;
-    avatarUrl: string;
-    isPro: boolean;
-    };
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
+  };
 
 export type DetailedOffer = BaseOffer & {
   description: string;

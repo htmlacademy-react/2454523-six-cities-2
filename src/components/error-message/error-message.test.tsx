@@ -1,7 +1,7 @@
 import { render, screen} from '@testing-library/react';
-import { withStore } from '../../utilsMocks/mock-component';
+import { withStore } from '../../utils-mocks/mock-component';
 import ErrorMessage from './error-massage';
-import { makeFakeStore } from '../../utilsMocks/mocks';
+import { makeFakeStore } from '../../utils-mocks/mocks';
 
 describe('ErrorMessage', ()=> {
 

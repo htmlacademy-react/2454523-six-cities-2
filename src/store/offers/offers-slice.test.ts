@@ -1,5 +1,5 @@
 import { offersSlice } from './offers-slice';
-import { makeFakeOffer } from '../../utilsMocks/mocks';
+import { makeFakeOffer } from '../../utils-mocks/mocks';
 import { fetchOffersAction, addToFavorites,removeFromFavorites } from '../api-actions';
 
 describe ('DetailedOfferSlice', ()=> {

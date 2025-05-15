@@ -26,11 +26,11 @@ function LoginScreen () :JSX.Element {
 
   const randomCity = getRandomCity(CITIES);
 
-  const handleSelectCity = (city: string) => {
+  const handleCityClick = (city: string) => {
     dispatch(changeCity(city));
   };
 
-  const handleSubmit = (evt: FormEvent<HTMLFormElement>)=> {
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>)=> {
     evt.preventDefault();
 
     if(emailRef.current !== null && passwordRef.current !== null){
@@ -70,7 +70,7 @@ function LoginScreen () :JSX.Element {
               className="login__form form"
               action="#"
               method="post"
-              onSubmit = {handleSubmit}
+              onSubmit = {handleFormSubmit}
             >
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
@@ -107,7 +107,7 @@ function LoginScreen () :JSX.Element {
               <Link
                 className="locations__item-link"
                 to="/"
-                onClick={()=> handleSelectCity(randomCity)}
+                onClick={()=> handleCityClick(randomCity)}
               >
                 <span>{randomCity}</span>
               </Link>

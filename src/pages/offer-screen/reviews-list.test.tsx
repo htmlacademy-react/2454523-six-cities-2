@@ -1,9 +1,9 @@
 import { vi } from 'vitest';
 import { render, screen} from '@testing-library/react';
-import { withStore, withHistory } from '../../utilsMocks/mock-component';
-import { makeFakeComment, makeFakeStore } from '../../utilsMocks/mocks';
+import { withStore, withHistory } from '../../utils-mocks/mock-component';
+import { makeFakeComment, makeFakeStore } from '../../utils-mocks/mocks';
 import ReviewsList from './reviews-list';
-import { AuthorizationStatus, MAX_COMMENT_LENGTH } from '../../const';
+import { AuthorizationStatus, MAX_REVIEW_COUNT } from '../../const';
 import { Review } from '../../types/review';
 
 
@@ -86,7 +86,7 @@ describe('ReviewsList', () => {
   it('should render no more than MAX_COMMENT_LENGTH comments', ()=> {
     const withHistoryComponent = withHistory(<ReviewsList />);
     const comments = Array.from(
-      { length: MAX_COMMENT_LENGTH + 3 },
+      { length: MAX_REVIEW_COUNT + 3 },
       () => makeFakeComment()
     );
 
@@ -105,7 +105,7 @@ describe('ReviewsList', () => {
 
     render(withStoreComponent);
 
-    expect(screen.getAllByTestId('review-item')).toHaveLength(MAX_COMMENT_LENGTH);
+    expect(screen.getAllByTestId('review-item')).toHaveLength(MAX_REVIEW_COUNT);
 
   });
 

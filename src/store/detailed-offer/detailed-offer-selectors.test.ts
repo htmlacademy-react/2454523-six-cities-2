@@ -1,5 +1,5 @@
 import { NameSpace } from '../../const';
-import { makeFakeDetailedOffer, makeFakeOffer } from '../../utilsMocks/mocks';
+import { makeFakeDetailedOffer, makeFakeOffer } from '../../utils-mocks/mocks';
 import { getDetailedOffer, getIsDetailedOfferFetchingError, getIsDetailedOfferLoading, getNighboringOffers } from './detailed-offer-selectors';
 
 describe('Detailed Offer Selectors', ()=> {

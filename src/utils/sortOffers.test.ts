@@ -1,5 +1,5 @@
 import { SortType } from '../const';
-import { makeFakeOffer } from '../utilsMocks/mocks';
+import { makeFakeOffer } from '../utils-mocks/mocks';
 import { sortOffers } from './sortOffers';
 
 

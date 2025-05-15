@@ -1,6 +1,6 @@
 import FavoriteEmptyScreen from './favorite-empty-screen';
 import { screen, render } from '@testing-library/react';
-import { withHistory } from '../../utilsMocks/mock-component';
+import { withHistory } from '../../utils-mocks/mock-component';
 import { vi } from 'vitest';
 
 vi.mock('../../components/header/header', () => ({

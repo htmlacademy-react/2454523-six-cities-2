@@ -7,15 +7,13 @@ import useMap from '../../hooks/use-map';
 
 
 const blueIcon = new Icon({
-  iconUrl: 'https://cdn.jsdelivr.net/gh/pointhi/leaflet-color-markers@master/img/marker-icon-blue.png',
-  shadowUrl: 'https://cdn.jsdelivr.net/gh/pointhi/leaflet-color-markers@master/img/marker-shadow.png',
+  iconUrl: '/img/pin.svg',
   iconSize: [25, 41],
   iconAnchor: [12, 41]
 });
 
 const orangeIcon = new Icon({
-  iconUrl: 'img/pin-active.svg',
-  shadowUrl: 'https://cdn.jsdelivr.net/gh/pointhi/leaflet-color-markers@master/img/marker-shadow.png',
+  iconUrl: '/img/pin-active.svg',
   iconSize: [25, 41],
   iconAnchor: [12, 41]
 });

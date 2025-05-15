@@ -1,5 +1,5 @@
 import { render, screen} from '@testing-library/react';
-import { withHistory } from '../../utilsMocks/mock-component';
+import { withHistory } from '../../utils-mocks/mock-component';
 import userEvent from '@testing-library/user-event';
 import CitiesTabs from './cities-tabs';
 import { CITIES } from '../../const';
@@ -7,12 +7,12 @@ import { CITIES } from '../../const';
 
 describe('CitiesTabs', ()=> {
 
-  const onCitySelect = vi.fn();
+  const onCitySelectClick = vi.fn();
 
   it('should render correctly', () => {
     const activeCity = 'Paris';
 
-    const withHistoryComponent = withHistory(<CitiesTabs cities = {CITIES} currentCity ={activeCity} onCitySelect={onCitySelect} />);
+    const withHistoryComponent = withHistory(<CitiesTabs cities = {CITIES} currentCity ={activeCity} onCityClick={onCitySelectClick} />);
 
     render(withHistoryComponent);
 
@@ -29,17 +29,17 @@ describe('CitiesTabs', ()=> {
     const activeFirstCity = 'Paris';
     const activeSecondCity = 'Amsterdam';
 
-    const withHistoryComponent = withHistory(<CitiesTabs cities = {CITIES} currentCity ={activeFirstCity} onCitySelect={onCitySelect} />);
+    const withHistoryComponent = withHistory(<CitiesTabs cities = {CITIES} currentCity ={activeFirstCity} onCityClick={onCitySelectClick} />);
 
     render(withHistoryComponent);
 
     await userEvent.click(screen.getByText(activeFirstCity));
-    expect(onCitySelect).toHaveBeenCalledTimes(1);
-    expect(onCitySelect).toHaveBeenCalledWith(activeFirstCity);
+    expect(onCitySelectClick).toHaveBeenCalledTimes(1);
+    expect(onCitySelectClick).toHaveBeenCalledWith(activeFirstCity);
 
     await userEvent.click(screen.getByText(activeSecondCity));
-    expect(onCitySelect).toHaveBeenCalledTimes(2);
-    expect(onCitySelect).toHaveBeenCalledWith(activeSecondCity);
+    expect(onCitySelectClick).toHaveBeenCalledTimes(2);
+    expect(onCitySelectClick).toHaveBeenCalledWith(activeSecondCity);
 
   });
 });

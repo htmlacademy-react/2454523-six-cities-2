@@ -1,20 +1,20 @@
 import { render, screen} from '@testing-library/react';
-import { withStore } from '../../utilsMocks/mock-component';
+import { withStore } from '../../utils-mocks/mock-component';
 import SortingOptions from './sorting-options';
-import { makeFakeStore } from '../../utilsMocks/mocks';
+import { makeFakeStore } from '../../utils-mocks/mocks';
 import { SortType } from '../../const';
 import userEvent from '@testing-library/user-event';
 
 describe('SortingOptions', ()=> {
 
-  const onClickSortType = vi.fn();
+  const handleSortTypeClick = vi.fn();
 
   it('should render correctly', () => {
     const expectedText = 'Sort by';
     const sortOptions = Object.values(SortType);
 
     const { withStoreComponent } = withStore(
-      <SortingOptions onClickSortType = {onClickSortType}/>,
+      <SortingOptions onSortTypeClick = {handleSortTypeClick}/>,
       makeFakeStore()
     );
 
@@ -31,7 +31,7 @@ describe('SortingOptions', ()=> {
   it('should calls "onClickSortType" when clicking on the sort type', async () => {
 
     const { withStoreComponent } = withStore(
-      <SortingOptions onClickSortType = {onClickSortType}/>,
+      <SortingOptions onSortTypeClick = {handleSortTypeClick}/>,
       makeFakeStore({
         FILTERS:{
           city: 'Paris',
@@ -43,8 +43,8 @@ describe('SortingOptions', ()=> {
     render(withStoreComponent);
 
     await userEvent.click(screen.getByText(SortType.PriceHighToLow, { selector: 'li' }));
-    expect(onClickSortType).toHaveBeenCalledTimes(1);
-    expect(onClickSortType).toHaveBeenCalledWith(SortType.PriceHighToLow,);
+    expect(handleSortTypeClick).toHaveBeenCalledTimes(1);
+    expect(handleSortTypeClick).toHaveBeenCalledWith(SortType.PriceHighToLow,);
 
   });
 
@@ -52,7 +52,7 @@ describe('SortingOptions', ()=> {
   it('should display the current sort type and keep the options list closed by default', () => {
 
     const { withStoreComponent } = withStore(
-      <SortingOptions onClickSortType = {onClickSortType}/>,
+      <SortingOptions onSortTypeClick = {handleSortTypeClick}/>,
       makeFakeStore({
         FILTERS:{
           city: 'Paris',
@@ -73,7 +73,7 @@ describe('SortingOptions', ()=> {
   it('should open the options list when clicking on the sort type caption', async () => {
 
     const { withStoreComponent } = withStore(
-      <SortingOptions onClickSortType = {onClickSortType}/>,
+      <SortingOptions onSortTypeClick = {handleSortTypeClick}/>,
       makeFakeStore({
         FILTERS:{
           city: 'Paris',

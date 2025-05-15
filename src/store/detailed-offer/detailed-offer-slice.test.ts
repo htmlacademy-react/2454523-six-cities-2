@@ -1,5 +1,5 @@
 import { detailedOfferSlice, dropOffer } from './detailed-offer-slice';
-import { makeFakeDetailedOffer, makeFakeOffer } from '../../utilsMocks/mocks';
+import { makeFakeDetailedOffer, makeFakeOffer } from '../../utils-mocks/mocks';
 import { addToFavorites, fetchDetailedOfferAction, removeFromFavorites } from '../api-actions';
 
 describe ('DetailedOfferSlice', ()=> {
@@ -147,6 +147,45 @@ describe ('DetailedOfferSlice', ()=> {
     const result = detailedOfferSlice.reducer(initialState, removeFromFavorites.fulfilled(updatedOffer, '', favoriteDetailedOffer.id));
 
     expect(result.detailedOffer?.isFavorite).toBe(false);
+  });
+
+
+  it ('should set neighboringOffer.isFavorite to true with "addToFavorites.fulfilled"', ()=> {
+    const detailedOffer = makeFakeDetailedOffer();
+    const notFavoriteNeighboringOffers = {...makeFakeOffer(), isFavorite: false, id: '1'};
+
+    const updatedOffer = {...makeFakeOffer(), id: '1', };
+
+    const initialState = {
+      neighboringOffers:[notFavoriteNeighboringOffers],
+      detailedOffer: detailedOffer,
+      isDetailedOfferLoading: false,
+      isDetailedOfferFetchingError: false
+    };
+
+    const result = detailedOfferSlice.reducer(initialState, addToFavorites.fulfilled(updatedOffer, '', notFavoriteNeighboringOffers.id));
+
+    expect(result.neighboringOffers[0].isFavorite).toBe(true);
+  });
+
+
+  it ('should set neighboringOffer.isFavorite to false with "removeFromFavorites.fulfilled"', ()=> {
+    const detailedOffer = makeFakeDetailedOffer();
+    const favoriteNeighboringOffers = {...makeFakeOffer(), isFavorite: true, id: '1'};
+
+    const updatedOffer = {...makeFakeOffer(), id: '1', };
+
+    const initialState = {
+      neighboringOffers:[favoriteNeighboringOffers],
+      detailedOffer: detailedOffer,
+      isDetailedOfferLoading: false,
+      isDetailedOfferFetchingError: false
+    };
+
+    const result = detailedOfferSlice.reducer(initialState, removeFromFavorites.fulfilled(updatedOffer, '', favoriteNeighboringOffers.id));
+
+    expect(result.neighboringOffers[0].isFavorite).toBe(false);
+
   });
 
 });
