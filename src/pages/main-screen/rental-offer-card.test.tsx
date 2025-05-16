@@ -1,15 +1,15 @@
 import { vi } from 'vitest';
 import { render, screen} from '@testing-library/react';
-import { withStore, withHistory } from '../../utilsMocks/mock-component';
-import { makeFakeOffer, makeFakeStore } from '../../utilsMocks/mocks';
+import { withStore, withHistory } from '../../utils-mocks/mock-component';
+import { makeFakeOffer, makeFakeStore } from '../../utils-mocks/mocks';
 import RentalOfferCard from './rental-offer-card';
 import userEvent from '@testing-library/user-event';
 
 
 describe('RentalOfferCard', () => {
-  const onMouseEnter = vi.fn();
-  const onMouseLeave = vi.fn();
-  const onClick = vi.fn();
+  const handleOfferMouseEnter = vi.fn();
+  const handleOfferMouseLeave = vi.fn();
+  const handleOfferFavoriteClick = vi.fn();
 
 
   it('should render correctly', () => {
@@ -125,7 +125,7 @@ describe('RentalOfferCard', () => {
   it('should call onClick handler when bookmark button is clicked', async () => {
 
     const offer = makeFakeOffer();
-    const withHistoryComponent = withHistory(<RentalOfferCard block = 'cities' offer = {offer} onClick={onClick}/>);
+    const withHistoryComponent = withHistory(<RentalOfferCard block = 'cities' offer = {offer} onOfferFavoriteClick={handleOfferFavoriteClick}/>);
 
 
     const { withStoreComponent } = withStore(
@@ -143,14 +143,14 @@ describe('RentalOfferCard', () => {
 
     await userEvent.click(screen.getByTestId('favoriteButton'));
 
-    expect(onClick).toHaveBeenCalledTimes(1);
+    expect(handleOfferFavoriteClick).toHaveBeenCalledTimes(1);
 
   });
 
   it('should call onMouseEnter when mouse enters card', async () => {
 
     const offer = makeFakeOffer();
-    const withHistoryComponent = withHistory(<RentalOfferCard block = 'cities' offer = {offer} onMouseEnter={onMouseEnter}/>);
+    const withHistoryComponent = withHistory(<RentalOfferCard block = 'cities' offer = {offer} onOfferMouseEnter={handleOfferMouseEnter}/>);
 
 
     const { withStoreComponent } = withStore(
@@ -167,14 +167,14 @@ describe('RentalOfferCard', () => {
 
     await userEvent.hover(screen.getByTestId(`rental-card-${offer.id}`));
 
-    expect(onMouseEnter).toHaveBeenCalledTimes(1);
+    expect(handleOfferMouseEnter).toHaveBeenCalledTimes(1);
 
   });
 
   it('should call onMouseLeave when mouse leaves card', async () => {
 
     const offer = makeFakeOffer();
-    const withHistoryComponent = withHistory(<RentalOfferCard block = 'cities' offer = {offer} onMouseLeave={onMouseLeave}/>);
+    const withHistoryComponent = withHistory(<RentalOfferCard block = 'cities' offer = {offer} onOfferMouseLeave={handleOfferMouseLeave}/>);
 
 
     const { withStoreComponent } = withStore(
@@ -190,7 +190,7 @@ describe('RentalOfferCard', () => {
     render(withStoreComponent);
 
     await userEvent.unhover(screen.getByTestId(`rental-card-${offer.id}`));
-    expect(onMouseLeave).toHaveBeenCalledTimes(1);
+    expect(handleOfferMouseLeave).toHaveBeenCalledTimes(1);
 
   });
 

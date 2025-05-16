@@ -26,7 +26,7 @@ function FavoriteScreen () : JSX.Element {
   }
 
 
-  const handleFavoriteRemoveClick = (offerId: string)=> {
+  const handleOfferUnfavoriteClick = (offerId: string)=> {
     dispatch(removeFromFavorites(offerId));
   };
 
@@ -80,7 +80,7 @@ function FavoriteScreen () : JSX.Element {
                             <button className="place-card__bookmark-button
                           place-card__bookmark-button--active button"
                             type="button"
-                            onClick = {()=> handleFavoriteRemoveClick(favoriteOffer.id)}
+                            onClick = {()=> handleOfferUnfavoriteClick(favoriteOffer.id)}
                             >
                               <svg className="place-card__bookmark-icon" width={18} height={19}>
                                 <use xlinkHref="#icon-bookmark"></use>

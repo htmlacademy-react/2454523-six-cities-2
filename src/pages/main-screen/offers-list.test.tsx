@@ -1,7 +1,7 @@
 import { vi } from 'vitest';
 import { render, screen} from '@testing-library/react';
-import { withStore, withHistory } from '../../utilsMocks/mock-component';
-import { extractActionsTypes, makeFakeOffer, makeFakeStore } from '../../utilsMocks/mocks';
+import { withStore, withHistory } from '../../utils-mocks/mock-component';
+import { extractActionsTypes, makeFakeOffer, makeFakeStore } from '../../utils-mocks/mocks';
 import OffersList from './offers-list';
 import userEvent from '@testing-library/user-event';
 import { addToFavorites, removeFromFavorites } from '../../store/api-actions';
@@ -13,7 +13,7 @@ describe('OffersList', () => {
   const offer = makeFakeOffer();
 
   it('should render correctly', () => {
-    const withHistoryComponent = withHistory(<OffersList offers = {[offer]} onOffersListHover = {onOffersListHover}/>);
+    const withHistoryComponent = withHistory(<OffersList offers = {[offer]} onOfferHover = {onOffersListHover}/>);
 
 
     const { withStoreComponent } = withStore(
@@ -46,7 +46,7 @@ describe('OffersList', () => {
       isFavorite: true
     };
 
-    const withHistoryComponent = withHistory(<OffersList offers = {[notFavoriteOffer]} onOffersListHover = {onOffersListHover}/>);
+    const withHistoryComponent = withHistory(<OffersList offers = {[notFavoriteOffer]} onOfferHover = {onOffersListHover}/>);
 
 
     const { withStoreComponent, mockStore, mockAxiosAdapter } = withStore(
@@ -87,7 +87,7 @@ describe('OffersList', () => {
       isFavorite: false
     };
 
-    const withHistoryComponent = withHistory(<OffersList offers = {[favoriteOffer]} onOffersListHover = {onOffersListHover}/>);
+    const withHistoryComponent = withHistory(<OffersList offers = {[favoriteOffer]} onOfferHover = {onOffersListHover}/>);
 
 
     const { withStoreComponent, mockStore, mockAxiosAdapter } = withStore(
@@ -124,7 +124,7 @@ describe('OffersList', () => {
 
 
   it('should calls onOffersListHover with offer.id on mouseEnter and empty on mouseLeave', async () => {
-    const withHistoryComponent = withHistory(<OffersList offers = {[offer]} onOffersListHover = {onOffersListHover}/>);
+    const withHistoryComponent = withHistory(<OffersList offers = {[offer]} onOfferHover = {onOffersListHover}/>);
 
 
     const { withStoreComponent } = withStore(

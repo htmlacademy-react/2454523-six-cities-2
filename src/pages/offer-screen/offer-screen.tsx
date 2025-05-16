@@ -50,7 +50,7 @@ function OfferScreen () : JSX.Element {
 
   const cityCoords = getCityCoords(СITIES_COORDS, detailedOffer?.city.name ?? CITIES[0]);
 
-  const handleFavoriteClick = () => {
+  const handleDetailedOfferFavoriteClick = () => {
 
     if(authorizationStatus === AuthorizationStatus.NoAuth) {
       navigate(AppRoute.Login, { replace: true });
@@ -101,7 +101,7 @@ function OfferScreen () : JSX.Element {
                   ${isFavorite ? 'offer__bookmark-button--active' : ''}
                   button`}
                   type="button"
-                  onClick={handleFavoriteClick}
+                  onClick={handleDetailedOfferFavoriteClick}
                   data-testid= 'favoriteButtonElement'
                 >
                   <svg className="offer__bookmark-icon" width="31" height="33">

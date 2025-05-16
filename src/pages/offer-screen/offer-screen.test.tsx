@@ -1,6 +1,6 @@
 import { render, screen} from '@testing-library/react';
-import { withStore, withHistory } from '../../utilsMocks/mock-component';
-import { extractActionsTypes, makeFakeComment, makeFakeDetailedOffer, makeFakeOffer, makeFakeStore } from '../../utilsMocks/mocks';
+import { withStore, withHistory } from '../../utils-mocks/mock-component';
+import { extractActionsTypes, makeFakeComment, makeFakeDetailedOffer, makeFakeOffer, makeFakeStore } from '../../utils-mocks/mocks';
 import OfferScreen from './offer-screen';
 import { ApiRoute, AppRoute, AuthorizationStatus } from '../../const';
 import userEvent from '@testing-library/user-event';

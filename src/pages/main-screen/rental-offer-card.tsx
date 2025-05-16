@@ -4,20 +4,20 @@ import { Offer } from '../../types/offer';
 type OfferCardProps ={
   block: string;
   offer: Offer;
-  onMouseEnter?: () => void;
-  onMouseLeave?: () => void;
-  onClick?: ()=> void;
+  onOfferMouseEnter?: () => void;
+  onOfferMouseLeave?: () => void;
+  onOfferFavoriteClick?: ()=> void;
 }
 
 function RentalOfferCard (props: OfferCardProps) {
 
-  const {block, offer, onMouseEnter, onMouseLeave, onClick} = props;
+  const {block, offer, onOfferMouseEnter, onOfferMouseLeave, onOfferFavoriteClick} = props;
   const {title, type, price, isPremium, previewImage, rating, isFavorite} = offer;
 
   return (
     <article className={`${block}__card place-card`}
-      onMouseEnter = {onMouseEnter}
-      onMouseLeave = {onMouseLeave}
+      onMouseEnter = {onOfferMouseEnter}
+      onMouseLeave = {onOfferMouseLeave}
       data-testid = {`rental-card-${offer.id}`}
     >
 
@@ -43,7 +43,7 @@ function RentalOfferCard (props: OfferCardProps) {
           ${isFavorite ? 'place-card__bookmark-button--active' : ''}
           button`}
           type="button"
-          onClick={onClick}
+          onClick={onOfferFavoriteClick}
           data-testid = "favoriteButton"
           >
             <svg className="place-card__bookmark-icon" width={18} height={19}>

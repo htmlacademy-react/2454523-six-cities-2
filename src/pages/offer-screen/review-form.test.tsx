@@ -1,7 +1,7 @@
 import { vi } from 'vitest';
 import { render, screen} from '@testing-library/react';
-import { withStore, withHistory } from '../../utilsMocks/mock-component';
-import { extractActionsTypes, makeFakeComment, makeFakeStore } from '../../utilsMocks/mocks';
+import { withStore, withHistory } from '../../utils-mocks/mock-component';
+import { extractActionsTypes, makeFakeComment, makeFakeStore } from '../../utils-mocks/mocks';
 import ReviewForm from './review-form';
 import userEvent from '@testing-library/user-event';
 import { ApiRoute } from '../../const';

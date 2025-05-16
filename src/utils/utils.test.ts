@@ -1,4 +1,4 @@
-import { makeFakeComment, makeFakeOffer } from '../utilsMocks/mocks';
+import { makeFakeComment, makeFakeOffer } from '../utils-mocks/mocks';
 import { prepareReviewData, getOffersByCity, getCityCoords, getRandomCity } from './utils';
 import {СITIES_COORDS} from '../const';
 import {vi, afterEach } from 'vitest';

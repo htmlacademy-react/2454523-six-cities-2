@@ -1,5 +1,5 @@
 import { NameSpace } from '../../const';
-import { makeFakeComment } from '../../utilsMocks/mocks';
+import { makeFakeComment } from '../../utils-mocks/mocks';
 import { getReviews, getIsReviewsLoading, getIsSubmitting, getIsSubmittingFailed, getIsReviewsFetchingError } from './reviews-selectors';
 
 describe('Reviews Selectors', ()=> {

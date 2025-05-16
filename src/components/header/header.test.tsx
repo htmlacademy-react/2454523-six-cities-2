@@ -1,7 +1,7 @@
 import { render, screen} from '@testing-library/react';
-import { withStore } from '../../utilsMocks/mock-component';
+import { withStore } from '../../utils-mocks/mock-component';
 import Header from './header';
-import { makeFakeStore } from '../../utilsMocks/mocks';
+import { makeFakeStore } from '../../utils-mocks/mocks';
 import { vi } from 'vitest';
 import { AuthorizationStatus } from '../../const';
 

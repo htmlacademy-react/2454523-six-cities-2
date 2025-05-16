@@ -6,19 +6,19 @@ import { getSortType } from '../../store/filters/filters-selectors';
 import { memo } from 'react';
 
 type SortingOptionsProps = {
-  onClickSortType: (city: string) => void;
+  onSortTypeClick: (city: string) => void;
 }
 
 
 const sortOptions = Object.values(SortType);
 
-function SortingOptions ({onClickSortType}: SortingOptionsProps) : JSX.Element{
+function SortingOptions ({onSortTypeClick}: SortingOptionsProps) : JSX.Element{
 
   const currentSortType = useAppSelector(getSortType);
 
   const [isOpenSortOptions, setIsOpenSortOptions] = useState(false);
 
-  const handleSortClick = ()=> {
+  const handleSortOptionsToggleClick = ()=> {
     setIsOpenSortOptions(!isOpenSortOptions);
   };
 
@@ -27,7 +27,7 @@ function SortingOptions ({onClickSortType}: SortingOptionsProps) : JSX.Element{
     <form className="places__sorting" action="#" method="get" >
       <span className="places__sorting-caption">Sort by</span>
       <span className="places__sorting-type" tabIndex={0}
-        onClick = {handleSortClick}
+        onClick = {handleSortOptionsToggleClick}
       >
         {currentSortType}
         <svg className="places__sorting-arrow" width={7} height={4}>
@@ -45,8 +45,8 @@ function SortingOptions ({onClickSortType}: SortingOptionsProps) : JSX.Element{
             <li key = {type}
               className="places__option" tabIndex={0}
               onClick={()=> {
-                onClickSortType(type);
-                handleSortClick();
+                onSortTypeClick(type);
+                handleSortOptionsToggleClick();
               }}
             >
               {type}

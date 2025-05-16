@@ -5,11 +5,11 @@ import { memo } from 'react';
 
 type CitiesTabsProps = {
 cities: string[];
-onCitySelect: (city: string) => void;
+onCityClick: (city: string) => void;
 currentCity: string;
 }
 
-function CitiesTabs ({cities, currentCity, onCitySelect}: CitiesTabsProps) : JSX.Element {
+function CitiesTabs ({cities, currentCity, onCityClick}: CitiesTabsProps) : JSX.Element {
 
   return (
     <div className="tabs">
@@ -21,7 +21,7 @@ function CitiesTabs ({cities, currentCity, onCitySelect}: CitiesTabsProps) : JSX
             return (
               <li key ={keyValue}
                 className="locations__item"
-                onClick = {() => onCitySelect(city)}
+                onClick = {() => onCityClick(city)}
               >
                 <Link className={`locations__item-link tabs__item ${
                   isActiveCity ? 'tabs__item--active' : ''}

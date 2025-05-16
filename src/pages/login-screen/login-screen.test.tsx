@@ -1,7 +1,7 @@
 import { render, screen} from '@testing-library/react';
 import {ApiRoute, AuthorizationStatus } from '../../const';
-import { withStore, withHistory } from '../../utilsMocks/mock-component';
-import { extractActionsTypes, makeFakeStore } from '../../utilsMocks/mocks';
+import { withStore, withHistory } from '../../utils-mocks/mock-component';
+import { extractActionsTypes, makeFakeStore } from '../../utils-mocks/mocks';
 import LoginScreen from './login-screen';
 import userEvent from '@testing-library/user-event';
 import { AuthData } from '../../types/auth-data';

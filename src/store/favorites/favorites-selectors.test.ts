@@ -1,5 +1,5 @@
 import { NameSpace } from '../../const';
-import { makeFakeOffer } from '../../utilsMocks/mocks';
+import { makeFakeOffer } from '../../utils-mocks/mocks';
 import { getFavorites, getIsFavoritesLoading, getIsFavoritesFetchingError } from './favorites-selectors';
 
 

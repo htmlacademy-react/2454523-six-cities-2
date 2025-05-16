@@ -1,10 +1,10 @@
 import { MemoryHistory, createMemoryHistory } from 'history';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { withHistory, withStore} from '../../utilsMocks/mock-component';
+import { withHistory, withStore} from '../../utils-mocks/mock-component';
 import { Route, Routes } from 'react-router-dom';
 import PrivateRoute from './private-route';
 import { render, screen } from '@testing-library/react';
-import { makeFakeStore } from '../../utilsMocks/mocks';
+import { makeFakeStore } from '../../utils-mocks/mocks';
 
 describe('PrivateRoute', ()=> {
 

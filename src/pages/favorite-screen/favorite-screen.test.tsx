@@ -1,6 +1,6 @@
 import { render, screen} from '@testing-library/react';
-import { withStore, withHistory } from '../../utilsMocks/mock-component';
-import { extractActionsTypes, makeFakeOffer, makeFakeStore } from '../../utilsMocks/mocks';
+import { withStore, withHistory } from '../../utils-mocks/mock-component';
+import { extractActionsTypes, makeFakeOffer, makeFakeStore } from '../../utils-mocks/mocks';
 import userEvent from '@testing-library/user-event';
 import FavoriteScreen from './favorite-screen';
 import { fetchFavoritesOffersAction, removeFromFavorites } from '../../store/api-actions';

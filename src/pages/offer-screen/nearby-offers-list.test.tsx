@@ -1,6 +1,6 @@
 import {render, screen } from '@testing-library/react';
 import NearbyOffersList from './nearby-offers-list';
-import { makeFakeOffer } from '../../utilsMocks/mocks';
+import { makeFakeOffer } from '../../utils-mocks/mocks';
 import { vi } from 'vitest';
 import { NearbyOfferCardProps } from './nearby-offer-card';
 

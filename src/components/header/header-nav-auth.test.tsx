@@ -1,6 +1,6 @@
 import { render, screen} from '@testing-library/react';
-import { withStore, withHistory } from '../../utilsMocks/mock-component';
-import { extractActionsTypes, makeFakeOffer, makeFakeStore } from '../../utilsMocks/mocks';
+import { withStore, withHistory } from '../../utils-mocks/mock-component';
+import { extractActionsTypes, makeFakeOffer, makeFakeStore } from '../../utils-mocks/mocks';
 import userEvent from '@testing-library/user-event';
 import HeaderNavAuth from './header-nav-auth';
 import { ApiRoute } from '../../const';

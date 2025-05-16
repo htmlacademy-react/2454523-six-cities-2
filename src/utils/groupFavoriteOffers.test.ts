@@ -1,4 +1,4 @@
-import { makeFakeOffer } from '../utilsMocks/mocks';
+import { makeFakeOffer } from '../utils-mocks/mocks';
 import { groupFavoriteOffersByCity } from './groupFavoriteOffers';
 
 describe('Function: "groupFavoriteOffersByCity"', ()=> {

@@ -4,7 +4,7 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import MockAdapter from 'axios-mock-adapter';
 import thunk from 'redux-thunk';
 import { Action } from 'redux';
-import { AppThunkDispatch, extractActionsTypes, makeFakeComment, makeFakeDetailedOffer, makeFakeOffer } from '../utilsMocks/mocks';
+import { AppThunkDispatch, extractActionsTypes, makeFakeComment, makeFakeDetailedOffer, makeFakeOffer } from '../utils-mocks/mocks';
 import { State } from '../types/state';
 import { checkAuthAction,
   fetchOffersAction,

@@ -1,8 +1,8 @@
 import { vi } from 'vitest';
 import { render, screen} from '@testing-library/react';
 import MainEmptyScreen from './main-empty-screen';
-import { makeFakeStore } from '../../utilsMocks/mocks';
-import { withStore, withHistory } from '../../utilsMocks/mock-component';
+import { makeFakeStore } from '../../utils-mocks/mocks';
+import { withStore, withHistory } from '../../utils-mocks/mock-component';
 import { SortType } from '../../const';
 
 vi.mock('../../components/header/header', () => ({

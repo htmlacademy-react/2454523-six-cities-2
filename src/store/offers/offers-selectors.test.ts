@@ -1,5 +1,5 @@
 import { NameSpace } from '../../const';
-import { makeFakeOffer } from '../../utilsMocks/mocks';
+import { makeFakeOffer } from '../../utils-mocks/mocks';
 import { getOffers, getIsOffersFetchingError, getIsOffersDataLoading } from './offers-selectors';
 
 

@@ -11,7 +11,7 @@ import { AppRoute, AuthorizationStatus } from '../../const';
 
 type OffersListProps = {
   offers: Offers;
-  onOffersListHover: (offerId:string) => void;
+  onOfferHover: (offerId:string) => void;
 }
 
 function OffersList (props : OffersListProps) : JSX.Element{
@@ -20,17 +20,17 @@ function OffersList (props : OffersListProps) : JSX.Element{
 
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
-  const {offers, onOffersListHover } = props;
+  const {offers, onOfferHover } = props;
 
-  const handleMouseEnter = (offerId: string) => {
-    onOffersListHover(offerId);
+  const handleOfferMouseEnter = (offerId: string) => {
+    onOfferHover(offerId);
   };
 
-  const handleMouseLeave = () => {
-    onOffersListHover('');
+  const handleOfferMouseLeave = () => {
+    onOfferHover('');
   };
 
-  const handleFavoriteClick = (offer: Offer) => {
+  const handleOfferFavoriteClick = (offer: Offer) => {
 
     if(authorizationStatus === AuthorizationStatus.NoAuth) {
       navigate(AppRoute.Login, { replace: true });
@@ -51,9 +51,9 @@ function OffersList (props : OffersListProps) : JSX.Element{
           block='cities'
           offer = {offer}
           key = {offer.id}
-          onMouseEnter={() => handleMouseEnter(offer.id)}
-          onMouseLeave = {handleMouseLeave}
-          onClick = {()=> handleFavoriteClick(offer)}
+          onOfferMouseEnter={() => handleOfferMouseEnter(offer.id)}
+          onOfferMouseLeave = {handleOfferMouseLeave}
+          onOfferFavoriteClick = {()=> handleOfferFavoriteClick(offer)}
         />
       ))}
     </div>
