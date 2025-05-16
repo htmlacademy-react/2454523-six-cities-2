@@ -70,7 +70,7 @@ function LoginScreen () :JSX.Element {
               className="login__form form"
               action="#"
               method="post"
-              onSubmit = {handleFormSubmit}
+              onSubmit={handleFormSubmit}
             >
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>

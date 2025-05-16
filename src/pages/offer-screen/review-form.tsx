@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FormEvent } from 'react';
 import { useState, ChangeEvent } from 'react';
 import { STARS_RATING, MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH } from '../../const';
 import { postReviewAction } from '../../store/api-actions';
@@ -32,7 +32,7 @@ function ReviewForm () {
   reviewsText.length <= MAX_COMMENT_LENGTH &&
   starsRating !== 0;
 
-  const handleFormSubmit = (evt: React.FormEvent<HTMLFormElement>)=> {
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>)=> {
     evt.preventDefault();
 
     if (!offerId) {
@@ -58,7 +58,7 @@ function ReviewForm () {
     <form
       className="reviews__form form"
       action="#" method="post"
-      onSubmit = {handleFormSubmit}
+      onSubmit={handleFormSubmit}
     >
       <fieldset disabled={isSubmitting} style={{border: 'none', padding: 0}}>
         <label className="reviews__label form__label" htmlFor="review">Your review</label>
