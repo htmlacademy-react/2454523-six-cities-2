@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { fetchFavoritesOffersAction, removeFromFavorites } from '../../store/api-actions';
 import FavoriteEmptyScreen from './favorite-empty-screen';
 import { getFavorites } from '../../store/favorites/favorites-selectors';
-import { groupFavoriteOffersByCity } from '../../utils/groupFavoriteOffers';
+import { groupFavoriteOffersByCity } from '../../utils/group-favorite-offers';
 
 
 function FavoriteScreen () : JSX.Element {

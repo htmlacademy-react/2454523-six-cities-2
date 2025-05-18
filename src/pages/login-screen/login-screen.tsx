@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction, clearErrorAction } from '../../store/api-actions';
 import { setError } from '../../store/error/error-slice';
 import { AppRoute, AuthorizationStatus, CITIES } from '../../const';
-import { isValidPassword } from '../../utils/validatePassword';
+import { isValidPassword } from '../../utils/validate-password';
 import { getAuthorizationStatus } from '../../store/user-process/user-process-selectors';
 import { changeCity } from '../../store/filters/filters-slice';
 import { getRandomCity } from '../../utils/utils';

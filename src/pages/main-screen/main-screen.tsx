@@ -9,7 +9,7 @@ import CitiesTabs from './cities-tabs';
 import { CITIES, СITIES_COORDS } from '../../const';
 import { getOffersByCity, getCityCoords } from '../../utils/utils';
 import SortingOptions from '../../components/sorting/sorting-options';
-import { sortOffers } from '../../utils/sortOffers';
+import { sortOffers } from '../../utils/sort-offers';
 import MainEmptyScreen from './main-empty-screen';
 import { getCity, getSortType } from '../../store/filters/filters-selectors';
 import { getOffers } from '../../store/offers/offers-selectors';

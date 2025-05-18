@@ -1,4 +1,4 @@
-import { isValidPassword } from './validatePassword';
+import { isValidPassword } from './validate-password';
 
 
 describe('Function: isValidPassword', () => {
