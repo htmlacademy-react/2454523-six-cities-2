@@ -111,14 +111,13 @@ describe('ReviewsList', () => {
 
   it('should render reviews in descending order by date', ()=> {
     const withHistoryComponent = withHistory(<ReviewsList />);
-    const comment = makeFakeComment();
     const oldComment = {
-      ...comment,
+      ...makeFakeComment(),
       date: '2020-01-01T00:00:00.000Z'
     };
 
     const newComment = {
-      ...comment,
+      ...makeFakeComment(),
       date: '2021-01-01T00:00:00.000Z'
     };
 
