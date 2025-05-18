@@ -1,6 +1,6 @@
 import { SortType } from '../const';
 import { makeFakeOffer } from '../utils-mocks/mocks';
-import { sortOffers } from './sortOffers';
+import { sortOffers } from './sort-offers';
 
 
 describe('Function: "sortOffers"', ()=> {
